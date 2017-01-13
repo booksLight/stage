@@ -9,12 +9,19 @@
 		
 		<annotation-driven />
 	
-		<resources mapping="/resources/**" location="/resources/" />
-		
+	
+		 <resources mapping="/resources/**" location="/WEB-INF/resources/" />
+
+		 
 		<context:component-scan base-package="org.brand.self.controller"/>  
 
   		 <tx:annotation-driven transaction-manager="transactionManager"/>
     
+   <!--   <annotation-driven>
+        <argument-resolvers>
+            <beans:bean class="org.springframework.security.web.bind.support.AuthenticationPrincipalArgumentResolver" />
+        </argument-resolvers>
+    </annotation-driven> -->
 
 	<beans:bean class="org.springframework.web.servlet.view.InternalResourceViewResolver">
 		<beans:property name="prefix" value="/WEB-INF/views/" />
