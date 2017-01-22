@@ -4,10 +4,6 @@ import org.nurture.estore.model.Product;
 
 import java.util.List;
 
-/**
- * Created by Andrew on 04.04.2016.
- */
-
 public interface ProductDao {
 
     List<Product> getProductList();

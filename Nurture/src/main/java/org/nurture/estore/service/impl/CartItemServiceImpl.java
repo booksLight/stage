@@ -7,9 +7,7 @@ import org.nurture.estore.model.Cart;
 import org.nurture.estore.model.CartItem;
 import org.nurture.estore.service.CartItemService;
 
-/**
- * Created by Andrew on 07.05.2016.
- */
+
 @Service
 public class CartItemServiceImpl implements CartItemService {
 

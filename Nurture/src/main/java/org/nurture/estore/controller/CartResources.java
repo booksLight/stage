@@ -17,9 +17,6 @@ import org.nurture.estore.service.ProductService;
 
 import java.util.List;
 
-/**
- * Created by Andrew on 07.05.2016.
- */
 
 @Controller
 @RequestMapping("/rest/cart")

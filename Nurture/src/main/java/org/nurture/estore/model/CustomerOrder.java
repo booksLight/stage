@@ -3,9 +3,6 @@ package org.nurture.estore.model;
 import javax.persistence.*;
 import java.io.Serializable;
 
-/**
- * Created by Andrew on 18.04.2016.
- */
 @Entity
 public class CustomerOrder implements Serializable{
 

@@ -9,8 +9,11 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.multipart.MultipartFile;
+import org.nurture.estore.manager.AppManager;
 import org.nurture.estore.model.Product;
 import org.nurture.estore.service.ProductService;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.validation.Valid;
@@ -20,20 +23,24 @@ import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
 
-/**
- * Created by Andrew on 26.04.2016.
- */
 @Controller
 @RequestMapping("/admin")
 public class AdminProduct {
 
+	private static final Logger logger = LoggerFactory.getLogger(AdminProduct.class);
+	AppManager manager;
     private Path path;
 
     @Autowired
     private ProductService productService;
 
     @RequestMapping("/product/addProduct")
-    public String addProduct(Model model) {
+    public String addProduct(Model model, HttpServletRequest paramRequest) {
+    	ctrLog(this.getClass(), "addProduct", "START");
+    	manager = new AppManager();
+    	String state = "addProduct";
+    	model.addAttribute("model", manager.getUserModel(paramRequest));
+    	
         Product product = new Product();
         product.setProductCategory("instrument");
         product.setProductCondition("new");
@@ -41,15 +48,24 @@ public class AdminProduct {
 
         model.addAttribute("product", product);
 
-        return "addProduct";
+        ctrLog(this.getClass(), "addProduct", "END-->"+state);
+        return state;
+       
     }
 
     @RequestMapping(value = "/product/addProduct", method = RequestMethod.POST)
     public String addProductPost(@Valid @ModelAttribute("product") Product product, BindingResult result
-            , HttpServletRequest request) {
+            , Model model, HttpServletRequest request) {
         if (result.hasErrors()) {
             return "addProduct";
         }
+        
+        ctrLog(this.getClass(), "addProductPost", "START");
+    	manager = new AppManager();
+    	String state = "redirect:/admin/productInventory/";
+    	
+    	model.addAttribute("model", manager.getUserModel(request));
+    	
         productService.addProduct(product);
 
         MultipartFile productImage = product.getProductImage();
@@ -64,25 +80,39 @@ public class AdminProduct {
                 throw new RuntimeException("Product image saving failed", e);
             }
         }
-        return "redirect:/admin/productInventory/";
+        ctrLog(this.getClass(), "addProductPost", "END-->"+state);
+        return state;
     }
 
     @RequestMapping("/product/editProduct/{id}")
-    public String editProduct(@PathVariable("id") int id, Model model) {
+    public String editProduct(@PathVariable("id") int id, Model model, HttpServletRequest paramRequest) {
+    	 ctrLog(this.getClass(), "editProduct", "START");
+     	manager = new AppManager();
+     	String state = "editProduct";
+     	
+     	model.addAttribute("model", manager.getUserModel(paramRequest));
+    	
         Product product = productService.getProductById(id);
 
         model.addAttribute("product", product);
 
-        return "editProduct";
+        ctrLog(this.getClass(), "editProduct", "END-->"+state);
+        return state;
     }
 
     @RequestMapping(value = "/product/editProduct", method = RequestMethod.POST)
     public String editProductPost(@Valid @ModelAttribute("product") Product product, BindingResult result
-            , HttpServletRequest request) {
+            ,Model model, HttpServletRequest request) {
         if (result.hasErrors()) {
             return "editProduct";
         }
 
+        ctrLog(this.getClass(), "editProductPost", "START");
+     	manager = new AppManager();
+     	String state = "redirect:/admin/productInventory/";
+     	
+     	model.addAttribute("model", manager.getUserModel(request));
+     	
         MultipartFile productImage = product.getProductImage();
         String rootDirectory = request.getSession().getServletContext().getRealPath("/");
         path = Paths.get(rootDirectory + "\\WEB-INF\\resources\\images\\" + product.getProductId() + ".png");
@@ -98,11 +128,19 @@ public class AdminProduct {
 
         productService.editProduct(product);
 
-        return "redirect:/admin/productInventory/";
+        ctrLog(this.getClass(), "editProductPost", "END-->"+state);
+        return state;
     }
 
     @RequestMapping("/product/deleteProduct/{id}")
     public String deleteProduct(@PathVariable int id, Model model, HttpServletRequest request) {
+    	
+    	ctrLog(this.getClass(), "deleteProduct", "START");
+     	manager = new AppManager();
+     	String state = "redirect:/admin/productInventory";
+     	
+     	model.addAttribute("model", manager.getUserModel(request));
+     	
         String rootDirectory = request.getSession().getServletContext().getRealPath("/");
         path = Paths.get(rootDirectory + "\\WEB-INF\\resources\\images\\" + id + ".png");
 
@@ -117,6 +155,14 @@ public class AdminProduct {
         Product product = productService.getProductById(id);
         productService.deleteProduct(product);
 
-        return "redirect:/admin/productInventory";
+        ctrLog(this.getClass(), "deleteProduct", "END-->"+state);
+        return state;
     }
+    
+    
+    
+  //Generic Logger for this class
+    private void ctrLog(Class<? extends AdminProduct> paramCclass, String paramMethod, String paramMsg) {
+  		logger.info(paramCclass.getName() + " : " + paramMethod + "() : " + paramMsg);
+  	}
 }

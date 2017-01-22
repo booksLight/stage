@@ -7,7 +7,7 @@ public class ModelVo {
 	private String product;
 	private String contact;
 	private String register;
-	private ModuleUserVo userVo;
+	private UserVO userVo;
 	
 	public ModelVo(){}
 	
@@ -42,12 +42,18 @@ public class ModelVo {
 		this.register = register;
 	}
 
-	public ModuleUserVo getUserVo() {
+	public UserVO getUserVo() {
 		return userVo;
 	}
 
-	public void setUserVo(ModuleUserVo userVo) {
+	public void setUserVo(UserVO userVo) {
 		this.userVo = userVo;
+	}
+
+	@Override
+	public String toString() {
+		return "ModelVo [title=" + title + ", home=" + home + ", product=" + product + ", contact=" + contact
+				+ ", register=" + register + ", userVo=" + userVo + "]";
 	}
 	
 	

@@ -6,8 +6,12 @@ import javax.validation.Valid;
 
 import org.nurture.estore.service.UserService;
 import org.nurture.estore.vo.ModelVo;
-import org.nurture.estore.vo.ModuleUserVo;
+import org.nurture.estore.vo.UserVO;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.nurture.estore.Constants;
+import org.nurture.estore.manager.AppManager;
 import org.nurture.estore.model.User;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -18,50 +22,77 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.SessionAttributes;
 
-/**
- * Created by Andrew on 03.04.2016.
- */
 @Controller
 public class HomeController {
  
+	private static final Logger logger = LoggerFactory.getLogger(HomeController.class);
+	
 	 @Autowired
 	 private UserService userService;
+	 AppManager manager;
 	 
     @RequestMapping("/")
-    public String home(Model model) {
-    	model.addAttribute("model", getHomeModule());
-        return "home";
+    public String getHome(Model model, HttpServletRequest paramRequest) {
+    	ctrLog(this.getClass(), "getHome", "START");
+    	 manager = new AppManager();
+    	 String state = "home";
+    	 
+    	 model.addAttribute("model", manager.getUserModel(paramRequest));
+    	
+    	 if(!manager.isUserLoggedOn(paramRequest)){
+    		 state = "redirect:/login";
+    	 }
+    	
+    	 ctrLog(this.getClass(), "getHome", "END ->"+state);
+    		
+    	return state;
     }
 
   
+	
+
+
 	@RequestMapping("/login")
-    public String login(@RequestParam(value = "error", required=false) String error,
-                        @RequestParam(value = "logout", required = false) String logout, Model model) {
+    public String getLogin(@RequestParam(value = "error", required=false) String error,
+                        @RequestParam(value = "logout", required = false) String paramLogout, Model paramModel, HttpServletRequest paramRequest) {
+		
+		ctrLog(this.getClass(), "getLogin", "START");
+		manager = new AppManager();
+    	String state = "login";
+    	
+		paramModel.addAttribute("model", manager.getModel(paramRequest));
+    	 
         if (error != null) {
-            model.addAttribute("error", "Invalid username or password");
+        	paramModel.addAttribute("error", "Invalid username or password");
         }
-        if (logout != null) {
-            model.addAttribute("msg", "You have been logged out successfully");
+        if (paramLogout != null) {
+        	paramModel.addAttribute("msg", "You have been logged out successfully");
         }
-  
-        return "login";
+        ctrLog(this.getClass(), "getLogin", "END ->"+state);
+        return state;
     }
     
   
     @RequestMapping(value = "/security_check", method = RequestMethod.POST)
-    public String securityCheck(@Valid @ModelAttribute("user") User activeUser,
-            BindingResult result, Model model, HttpServletRequest request) {
+    public String getSecurityCheck(@Valid @ModelAttribute("user") User activeUser,
+            BindingResult result, Model model, HttpServletRequest paramRequest) {
     	
-    	System.out.println("\n ********* Login User = "+activeUser.toString()+ "\tLogin User Name = "+activeUser.getUsername()+ "\tLogin User Password = "+activeUser.getPassword());
+    	ctrLog(this.getClass(), "getSecurityCheck", "START");
+    	String state = "redirect:/customer/cart/";
+    	manager = new AppManager();
+    	UserVO userVO;
+    	
     	User curentUser = getUser(activeUser); 
+    	ModelVo modelUser = manager.getModel(paramRequest);
+    	userVO = manager.getMapUserVO(curentUser);
+    	userVO = manager.updateSession(userVO,paramRequest);
+    	modelUser.setUserVo(userVO);
+    	model.addAttribute(Constants.MODEL_USER,modelUser);
     	
-    	 request.getSession().setAttribute("cuser",curentUser);
-    	
-    	
-    	
-    	 System.out.println("\n ********* DB User = "+curentUser.toString()+ "\tDB User Name = "+curentUser.getUsername()+ "\tDB User Password = "+curentUser.getPassword());
-    	 model.addAttribute("user",curentUser);
-    	 return "redirect:/customer/cart/";
+    	ctrLog(this.getClass(), "getSecurityCheck", "User Details ->"+modelUser.toString());
+    	ctrLog(this.getClass(), "getSecurityCheck", "END ->"+state);
+    	 
+    	 return state;
     }
     
 
@@ -73,31 +104,23 @@ public class HomeController {
 		return new User();
 	}
 
-	  private ModelVo getHomeModule() {
-			ModelVo homeModel = new ModelVo();
-			homeModel.setTitle("Book Light");
-			homeModel.setProduct("Products");
-			homeModel.setContact("Contacts");
-			homeModel.setHome("Home");
-			homeModel.setRegister("Register");
-			homeModel.setUserVo(loadUser(null,"visitor"));
-			return homeModel;
-		}
-
-
-	private ModuleUserVo loadUser(User user,String type) {
-		ModuleUserVo modelUser = new ModuleUserVo();
-		modelUser.setType(type);
+	@RequestMapping("/security_logout")
+    public String getLogOut(String logout, Model model, HttpServletRequest paramRequest) {
 		
-		if(user!=null){
-			modelUser.setName(user.getUsername());
-			
-		}else{
-		modelUser.setName("Admin");
-		modelUser.setType("admin");
-		}
-		modelUser.setValid(true);
-		return modelUser;
+		ctrLog(this.getClass(), "getLogOut", "START");
+    	String state = "redirect:/";
+    	
+		manager = new AppManager();
+    	 model.addAttribute("model", manager.getModel(paramRequest));
+    	 manager.letMeLogOut(paramRequest);
+    	 ctrLog(this.getClass(), "getLogOut", "END ->"+state);
+    	 return state;    
+    }
+	
+	
+	private void ctrLog(Class<? extends HomeController> paramCclass, String paramMethod, String paramMsg) {
+		logger.info(paramCclass.getName() + " : " + paramMethod + "() : " + paramMsg);
+		
 	}
    
 }

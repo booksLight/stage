@@ -8,9 +8,6 @@ import org.nurture.estore.service.ProductService;
 
 import java.util.List;
 
-/**
- * Created by Andrew on 18.04.2016.
- */
 @Service
 public class ProductServiceImpl implements ProductService {
 

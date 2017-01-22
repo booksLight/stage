@@ -11,9 +11,6 @@ import org.nurture.estore.service.CustomerOrderService;
 
 import java.util.List;
 
-/**
- * Created by Andrew on 07.05.2016.
- */
 @Service
 public class CustomerOrderServiceImpl implements CustomerOrderService {
 

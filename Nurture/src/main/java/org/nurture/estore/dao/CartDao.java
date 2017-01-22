@@ -5,9 +5,6 @@ import org.nurture.estore.model.Cart;
 
 import java.io.IOException;
 
-/**
- * Created by Andrew on 16.04.2016.
- */
 @Repository
 public interface CartDao {
 

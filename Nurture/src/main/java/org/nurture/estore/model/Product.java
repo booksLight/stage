@@ -9,9 +9,7 @@ import javax.validation.constraints.Min;
 import java.io.Serializable;
 import java.util.List;
 
-/**
- * Created by Andrew on 04.04.2016.
- */
+
 @Entity
 public class Product implements Serializable {
 

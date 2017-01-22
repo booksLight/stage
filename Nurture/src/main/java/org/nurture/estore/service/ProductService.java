@@ -4,9 +4,6 @@ import org.nurture.estore.model.Product;
 
 import java.util.List;
 
-/**
- * Created by Andrew on 18.04.2016.
- */
 public interface ProductService {
 
     List<Product> getProductList();

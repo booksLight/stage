@@ -10,9 +10,6 @@ import org.nurture.estore.model.CustomerOrder;
 import org.nurture.estore.service.CartService;
 import org.nurture.estore.service.CustomerOrderService;
 
-/**
- * Created by Andrew on 07.05.2016.
- */
 @Controller
 public class OrderController {
 

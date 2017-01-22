@@ -8,9 +8,6 @@ import org.nurture.estore.service.CustomerService;
 
 import java.util.List;
 
-/**
- * Created by Andrew on 26.04.2016.
- */
 @Service
 public class CustomerServiceImpl implements CustomerService{
 

@@ -9,9 +9,6 @@ import org.nurture.estore.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-/**
- * Created by Rakesh on 14.01.2017.
- */
 @Service
 public class UserServicesImpl implements UserService {
 

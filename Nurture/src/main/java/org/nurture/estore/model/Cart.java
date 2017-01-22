@@ -6,9 +6,6 @@ import javax.persistence.*;
 import java.io.Serializable;
 import java.util.List;
 
-/**
- * Created by Andrew on 16.04.2016.
- */
 @Entity
 public class Cart implements Serializable{
 

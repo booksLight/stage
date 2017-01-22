@@ -58,10 +58,18 @@
                     </ul>
                     <ul class="nav navbar-nav pull-right">
                         <c:if test="${model.userVo != null}">
+                         <c:if test="${model.userVo.name != null}">
+                            
                             <li><a>Welcome: ${model.userVo.name}</a></li>
                             <li><a href="<c:url value="/security_logout"/>">Logout</a></li>
-                            <c:if test="${model.userVo.type != 'admin'}">
+                         
+                            <c:if test="${model.userVo.name != 'admin'}">
                                 <li><a href="<c:url value="/customer/cart"/>">Cart</a></li>
+                            </c:if>
+                            
+                         </c:if>
+                           <c:if test="${model.userVo.name == null}">
+                          	 <li><a href="<c:url value="/register"/>">Register</a></li>
                             </c:if>
                             <c:if test="${model.userVo.type == 'admin'}">
                                 <li><a href="<c:url value="/admin"/>">Admin</a></li>
