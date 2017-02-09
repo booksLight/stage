@@ -12,6 +12,7 @@ import org.springframework.web.multipart.MultipartFile;
 import org.nurture.estore.manager.AppManager;
 import org.nurture.estore.model.Product;
 import org.nurture.estore.service.ProductService;
+import org.nurture.estore.vo.ProductImg;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -34,7 +35,7 @@ public class AdminProduct {
     @Autowired
     private ProductService productService;
 
-    @RequestMapping("/product/addProduct")
+   @RequestMapping("/product/addProduct")
     public String addProduct(Model model, HttpServletRequest paramRequest) {
     	ctrLog(this.getClass(), "addProduct", "START");
     	manager = new AppManager();
@@ -47,16 +48,20 @@ public class AdminProduct {
         product.setProductStatus("active");
 
         model.addAttribute("product", product);
+        model.addAttribute("productImg", new ProductImg());
 
         ctrLog(this.getClass(), "addProduct", "END-->"+state);
         return state;
        
     }
 
+   
     @RequestMapping(value = "/product/addProduct", method = RequestMethod.POST)
-    public String addProductPost(@Valid @ModelAttribute("product") Product product, BindingResult result
-            , Model model, HttpServletRequest request) {
+    public String addProductPost(@Valid @ModelAttribute("product") Product product,  BindingResult result, Model model,  HttpServletRequest request) {
+    	System.out.println("\n ******** /product/addProduct (product): "+product.toString());
+    	
         if (result.hasErrors()) {
+        	 ctrLog(this.getClass(), "addProductPost", "ERROR ="+result.toString());
             return "addProduct";
         }
         
@@ -64,10 +69,12 @@ public class AdminProduct {
     	manager = new AppManager();
     	String state = "redirect:/admin/productInventory/";
     	
+    	
     	model.addAttribute("model", manager.getUserModel(request));
     	
-        productService.addProduct(product);
+       productService.addProduct(product);
 
+       
         MultipartFile productImage = product.getProductImage();
         String rootDirectory = request.getSession().getServletContext().getRealPath("/");
         path = Paths.get(rootDirectory + "\\WEB-INF\\resources\\images\\" + product.getProductId() + ".png");
@@ -80,10 +87,19 @@ public class AdminProduct {
                 throw new RuntimeException("Product image saving failed", e);
             }
         }
+        
         ctrLog(this.getClass(), "addProductPost", "END-->"+state);
         return state;
     }
 
+    @RequestMapping(value = "/product/addProductImg", method = RequestMethod.POST)
+    public String addProductPost(@Valid @ModelAttribute("productImg") ProductImg productImg,  BindingResult result, Model model,  HttpServletRequest request) {
+    	System.out.println("\n ******** /product/addProductImg (product): "+productImg.toString());
+    	String state = "redirect:/admin/productInventory/";
+    	
+    	return state;
+    }
+    
     @RequestMapping("/product/editProduct/{id}")
     public String editProduct(@PathVariable("id") int id, Model model, HttpServletRequest paramRequest) {
     	 ctrLog(this.getClass(), "editProduct", "START");

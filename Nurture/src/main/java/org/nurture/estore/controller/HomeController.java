@@ -4,6 +4,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 import javax.validation.Valid;
 
+import org.nurture.estore.service.CustomerService;
 import org.nurture.estore.service.UserService;
 import org.nurture.estore.vo.ModelVo;
 import org.nurture.estore.vo.UserVO;
@@ -12,6 +13,7 @@ import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.nurture.estore.Constants;
 import org.nurture.estore.manager.AppManager;
+import org.nurture.estore.model.Customer;
 import org.nurture.estore.model.User;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -29,6 +31,10 @@ public class HomeController {
 	
 	 @Autowired
 	 private UserService userService;
+	 
+	  @Autowired
+	  private CustomerService customerService;
+	  
 	 AppManager manager;
 	 
     @RequestMapping("/")
@@ -37,12 +43,9 @@ public class HomeController {
     	 manager = new AppManager();
     	 String state = "home";
     	 
-    	 model.addAttribute("model", manager.getUserModel(paramRequest));
-    	
-    	 if(!manager.isUserLoggedOn(paramRequest)){
-    		 state = "redirect:/login";
-    	 }
-    	
+    	 ModelVo tmpModel = manager.getUserModel(paramRequest);
+    	  model.addAttribute("model",tmpModel);
+    		System.out.println("\n ^^^^^^^^^^^ Model ="+tmpModel.toString());
     	 ctrLog(this.getClass(), "getHome", "END ->"+state);
     		
     	return state;
@@ -59,7 +62,7 @@ public class HomeController {
 		ctrLog(this.getClass(), "getLogin", "START");
 		manager = new AppManager();
     	String state = "login";
-    	
+    	paramModel.addAttribute("user",  new User());
 		paramModel.addAttribute("model", manager.getModel(paramRequest));
     	 
         if (error != null) {
@@ -77,16 +80,46 @@ public class HomeController {
     public String getSecurityCheck(@Valid @ModelAttribute("user") User activeUser,
             BindingResult result, Model model, HttpServletRequest paramRequest) {
     	
-    	ctrLog(this.getClass(), "getSecurityCheck", "START");
-    	String state = "redirect:/customer/cart/";
+    	ctrLog(this.getClass(), "getSecurityCheck", "START with Active User ="+activeUser.toString());
+    	String state = "redirect:/product/productList";
     	manager = new AppManager();
+    	 Customer customer = null;
     	UserVO userVO;
     	
     	User curentUser = getUser(activeUser); 
+    	
+    	if(curentUser==null){
+    		return "redirect:/login";
+    	}
+    	
+    	if(!activeUser.getPassword().equals(curentUser.getPassword())){
+    		
+    		return "redirect:/login";
+    	}
+    
+    	ctrLog(this.getClass(), "getSecurityCheck", "User VALIDATION ***** = "+(activeUser.getPassword().equals(curentUser.getPassword())));
+    
+    	
+    	  
+    	ctrLog(this.getClass(), "getSecurityCheck", "User Details == "+curentUser.toString());
+   
+    
     	ModelVo modelUser = manager.getModel(paramRequest);
     	userVO = manager.getMapUserVO(curentUser);
     	userVO = manager.updateSession(userVO,paramRequest);
     	modelUser.setUserVo(userVO);
+    		if(isNewCustomer(curentUser)){
+    			
+    			System.out.println("\n \n (((((((((((( NEW CUSTOMER FOUND !)))))))))))");
+    			modelUser.setCartEnable(false);
+    			 System.out.println("\n **** Adding Customer since seems new one!");
+          		 return "redirect:/customer/details";
+    	
+    		} else {
+    			 /*System.out.println("\n **** Adding Customer since seems new one!");
+          		 return "redirect:/customer/details";*/
+    		}
+    	
     	model.addAttribute(Constants.MODEL_USER,modelUser);
     	
     	ctrLog(this.getClass(), "getSecurityCheck", "User Details ->"+modelUser.toString());
@@ -97,11 +130,20 @@ public class HomeController {
     
 
 
+	private boolean isNewCustomer(User curentUser) {
+		Customer customer = customerService.getCustomerByUserID((curentUser.getUserId()));
+		System.out.println("\n\t isNewCustomer ===== "+customer);
+		return customer!=null ? true:false;
+	}
+
+
+
+
+
 	private User getUser(User cuser) {
-		if(cuser!=null){
-			return userService.getUserByName(cuser.getUsername());
-		}
-		return new User();
+		
+			//return userService.getUserByName(cuser.getUsername());
+		return userService.getUserByMobile(cuser.getUsername());
 	}
 
 	@RequestMapping("/security_logout")

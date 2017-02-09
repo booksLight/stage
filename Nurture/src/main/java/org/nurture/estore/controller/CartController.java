@@ -29,27 +29,40 @@ public class CartController {
     AppManager manager;
     
     @RequestMapping
-    public String getCart(HttpServletRequest request ) {
+    public String getCart(HttpServletRequest paramRequest ) {
+    	
     	ctrLog(this.getClass(), "getCart", "START");
     	manager = new AppManager();
     	String state = "redirect:/customer/cart/";
-    	UserVO curentUser = (UserVO) request.getSession().getAttribute("suser");
-    	Customer customer = customerService.getCustomerByUsername((curentUser.getName()));
-    	ctrLog(this.getClass(),"getCart", "Current User ="+curentUser.toString());
+    	 if(!manager.isUserLoggedOn(paramRequest)){
+    		 state = "redirect:/login";
+    	 }
+    	UserVO curentUser = (UserVO) paramRequest.getSession().getAttribute("suser");
+    	if(curentUser!=null){
+    		Customer customer = customerService.getCustomerByUserID(curentUser.getId());
+    		ctrLog(this.getClass(),"getCart", "Current User ="+curentUser.toString());
       
-        int cartId = customer.getCart().getCartId();
+    		int cartId = customer.getCart().getCartId();
         	ctrLog(this.getClass(), "getCart", "END ->"+state+cartId);
-        return state + cartId;
+        	state = state + cartId;
+    	}else{
+    		state = "redirect:/login";
+    	}
+    	return state;
     }
 
     @RequestMapping("/{cartId}")
     public String getCartRedirect(@PathVariable(value = "cartId") int cartId, Model model,HttpServletRequest paramRequest) {
     	ctrLog(this.getClass(), "getCartRedirect", "START");
     	manager = new AppManager();
+    	String state = "cart";
+    	 if(!manager.isUserLoggedOn(paramRequest)){
+    		 state = "redirect:/login";
+    	 }
         model.addAttribute("cartId", cartId);
         model.addAttribute("model", manager.getUserModel(paramRequest));
         ctrLog(this.getClass(), "getCartRedirect", "END");
-        return "cart";
+        return state;
     }
     
     

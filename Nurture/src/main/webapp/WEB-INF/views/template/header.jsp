@@ -1,8 +1,8 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%--
-  Created by IntelliJ IDEA.
-  User: Andrew
-  Date: 03.04.2016
+  Created by :
+  User: Rakesh
+  Date: 27.01.2017
   Time: 21:50
   To change this template use File | Settings | File Templates.
 --%>
@@ -17,7 +17,7 @@
     <meta name="author" content="">
     <link rel="icon" href="../../favicon.ico">
 
-    <title>My Music Store</title>
+    <title>Liberary</title>
 
     <!-- Angular JS -->
     <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.0.1/angular.min.js"></script>
@@ -31,9 +31,11 @@
     <!-- Main CSS -->
     <link href="<c:url value="/resources/css/main.css"/>" rel="stylesheet">
 
+  <!-- Common JS -->
+<!--     <script src="/resources/js/main.js"></script> -->
+
 </head>
-<!-- NAVBAR
-================================================== -->
+<!-- NAVBAR ================================================== -->
 <body>
 <div class="navbar-wrapper">
     <div class="container">
@@ -62,22 +64,19 @@
                             
                             <li><a>Welcome: ${model.userVo.name}</a></li>
                             <li><a href="<c:url value="/security_logout"/>">Logout</a></li>
-                         
-                            <c:if test="${model.userVo.name != 'admin'}">
+                          </c:if>
+                          
+                           <c:if test="${model.isCartEnable() == true}}">
                                 <li><a href="<c:url value="/customer/cart"/>">Cart</a></li>
                             </c:if>
                             
-                         </c:if>
-                           <c:if test="${model.userVo.name == null}">
-                          	 <li><a href="<c:url value="/register"/>">Register</a></li>
-                            </c:if>
                             <c:if test="${model.userVo.type == 'admin'}">
                                 <li><a href="<c:url value="/admin"/>">Admin</a></li>
                             </c:if>
                         </c:if>
                         <c:if test="${model.userVo == null}">
                             <li><a href="<c:url value="/login"/>">Login</a></li>
-                            <li><a href="<c:url value="/register"/>">Register</a></li>
+                        
                         </c:if>
                     </ul>
                 </div>

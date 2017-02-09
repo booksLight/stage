@@ -35,16 +35,16 @@ public class CustomerDaoImpl implements CustomerDao{
         session.saveOrUpdate(customer.getBillingAddress());
         session.saveOrUpdate(customer.getShippingAddress());
 
-        User newUser = new User();
+       /* User newUser = new User();
         newUser.setUsername(customer.getUsername());
         newUser.setPassword(customer.getPassword());
         newUser.setEnabled(true);
-        newUser.setCustomerId(customer.getCustomerId());
+        newUser.setCustomerId(customer.getCustomerId());*/
 
         Authorities newAuthorities = new Authorities();
-        newAuthorities.setUsername(customer.getUsername());
+        newAuthorities.setUsername(customer.getCustomerName());
         newAuthorities.setAuthority("ROLE_USER");
-        session.saveOrUpdate(newUser);
+       // session.saveOrUpdate(newUser);
         session.saveOrUpdate(newAuthorities);
 
         Cart newCart = new Cart();
@@ -76,4 +76,16 @@ public class CustomerDaoImpl implements CustomerDao{
 
         return (Customer) query.uniqueResult();
     }
+
+	public Customer getCustomerByUserID(Integer userId) {
+		System.out.println("\n\n CustomerDaoImpl --> getCustomerByUserID() "+userId);
+		 Session session = sessionFactory.getCurrentSession();
+	        Query query = session.createQuery("from Customer where userId = ?");
+	        query.setInteger(0, userId);
+
+	        if(query.uniqueResult() != null){
+	        	 return (Customer) query.uniqueResult();
+	        }
+	       return new Customer();
+	}
 }

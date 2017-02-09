@@ -19,6 +19,7 @@ public class AppManager {
 		mgrLog(this.getClass(), "getUserModel", "START");
 		ModelVo model = getModel(paramReq);
 		 UserVO userVo = (UserVO) paramReq.getSession().getAttribute(Constants.SESSION_USER);
+		 mgrLog(this.getClass(), "getUserModel", "USER ="+ (userVo!=null ? userVo.toString():null));
 		model.setUserVo(userVo);
 		mgrLog(this.getClass(), "getUserModel", "END");
 		return model;
@@ -34,6 +35,7 @@ public class AppManager {
 		homeModel.setProduct(Constants.MODEL_PRODUCTS);
 		homeModel.setContact(Constants.MODEL_CONTACTS);
 		homeModel.setHome(Constants.MODEL_HOME);
+		homeModel.setCartEnable(true);
 		mgrLog(this.getClass(), "getModel", "END");
 		return homeModel;
 	}
@@ -105,13 +107,29 @@ public class AppManager {
 	// Mapping UserVO with User
 	public UserVO getMapUserVO(User parmUser) {
 		mgrLog(this.getClass(), "getMapUserVO", "START");
-		UserVO mappedUser = new UserVO();
-		mappedUser.setName(parmUser!=null ? parmUser.getUsername():null);
-		mappedUser.setType("admin");
-		mappedUser.setValid(parmUser!=null ? parmUser.isEnabled():false);
+		UserVO mappedUser = null;
+		if(parmUser != null){
+			mappedUser = new UserVO();
+			mappedUser.setId(parmUser.getUserId());
+			mappedUser.setName(parmUser.getUsername() !=null ? parmUser.getUsername():parmUser.getUserMobile());
+			mappedUser.setEmail(parmUser.getUserEmail() !=null ? parmUser.getUserEmail():null);
+			mappedUser.setMobile(parmUser.getUserMobile() !=null ? parmUser.getUserMobile() : null);
+			mappedUser.setValid(parmUser.isEnabled());
+			mappedUser.setType("admin");
+		}
+		
 		mgrLog(this.getClass(), "getMapUserVO", "END->");
 		return mappedUser;
 	}
+	
+	
+	
+	public String getPassCode(String strPram) {
+		return  (strPram.substring(0, Math.min(strPram.length(), 3)) +strPram.substring(Math.max(strPram.length() - 3, 0))) ;
+	}
+	
+	
+	
 	
 	// Generic Logger
 	public void mgrLog(Class<? extends AppManager> paramCclass, String paramMethod, String paramMsg) {

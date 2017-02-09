@@ -41,15 +41,17 @@
                     <c:if test="${role='admin'}">
                         <c:set var="url" scope="page" value="/admin/productInventory"/>
                     </c:if>
+                     <c:set var="curl" scope="page" value="/customer/cart"/>
 
                     <p ng-controller="cartCtrl">
                         <a href="<c:url value="${url}"/>" class="btn btn-default">Back</a>
-                        <a href="#" class="btn btn-warning btn-large"
-                           ng-click="addToCart('${product.productId}')">
-                            <span class="glyphicon glyphicon-shopping-cart"></span>Order Now</a>
-                        <%--<a href="<spring:url value="/customer/cart"/>" class="btn btn-default">--%>
-                            <%--<span class="glyphicon glyphicon-hand-right"></span>View cart--%>
-                        <%--</a>--%>
+                        <a href="<c:url value=""/>" class="btn btn-warning btn-large"
+                         ng-click="addToCart('${product.productId}')"
+                      				class="glyphicon glyphicon-shopping-cart">Order Now </a>
+                      				
+                      				
+                       <a href="<spring:url value=""/>" class="btn btn-default">-
+                            <span class="glyphicon glyphicon-hand-right"></span>View cart</a>
                     </p>
                 </div>
             </div>

@@ -16,4 +16,6 @@ public interface UserDao {
 	List<User> getAllUsers();
 
 	User getUserByName(String username);
+	
+	User getUserByMobile(String mobile);
 }

@@ -46,4 +46,4 @@
 
         <a href="<spring:url value="/admin/product/addProduct"/>" class="btn btn-primary">Add product</a>
 
-<%@include file="/WEB-INF/views/template/footer.jsp" %>
+<jsp:include page="/WEB-INF/views/template/footer.jsp" />

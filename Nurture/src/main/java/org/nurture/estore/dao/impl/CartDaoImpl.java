@@ -30,13 +30,16 @@ public class CartDaoImpl implements CartDao {
     }
 
     public Cart validate(int cartId) throws IOException {
-        Cart cart = getCartById(cartId);
+    	System.out.println("\n ******\t this is requestParameters.cartId = "+cartId);
+       /* Cart cart = getCartById(cartId);
         if (cart == null || cart.getCartItems().size() == 0) {
-            throw new IOException(cartId + "");
+              throw new IOException(cartId + "");
         }
 
         update(cart);
-        return cart;
+        return cart;*/
+    	
+    	return null;
     }
 
     public void update(Cart cart) {

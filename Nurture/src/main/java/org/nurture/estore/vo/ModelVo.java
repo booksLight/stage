@@ -7,6 +7,8 @@ public class ModelVo {
 	private String product;
 	private String contact;
 	private String register;
+	public boolean isCartEnable;
+	
 	private UserVO userVo;
 	
 	public ModelVo(){}
@@ -42,6 +44,14 @@ public class ModelVo {
 		this.register = register;
 	}
 
+	public boolean isCartEnable() {
+		return isCartEnable;
+	}
+
+	public void setCartEnable(boolean isCartEnable) {
+		this.isCartEnable = isCartEnable;
+	}
+	
 	public UserVO getUserVo() {
 		return userVo;
 	}
@@ -50,11 +60,16 @@ public class ModelVo {
 		this.userVo = userVo;
 	}
 
+	
+	
+
 	@Override
 	public String toString() {
 		return "ModelVo [title=" + title + ", home=" + home + ", product=" + product + ", contact=" + contact
-				+ ", register=" + register + ", userVo=" + userVo + "]";
+				+ ", register=" + register + ", userVo=" + userVo + ", isCartEnable=" + isCartEnable + "]";
 	}
+
+	
 	
 	
 }

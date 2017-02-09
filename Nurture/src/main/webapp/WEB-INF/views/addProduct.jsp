@@ -1,86 +1,112 @@
-<%@ page contentType="text/html; charset=UTF-8" pageEncoding="UTF-8" language="java" %>
-<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
-<%@taglib prefix="form" uri="http://www.springframework.org/tags/form" %>
+<%@ page contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"
+	language="java"%>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
+<%@taglib prefix="form" uri="http://www.springframework.org/tags/form"%>
 <jsp:include page="/WEB-INF/views/template/header.jsp" />
 <%--  <%@include file="/WEB-INF/views/template/header.jsp" %>  --%>
 
 <div class="container-wrapper">
-    <div class="container">
-        <div class="page-header">
-            <h1>Product Detail</h1>
-
-            <p class="lead">Fill the below information to add a product</p>
-        </div>
-
-        <form:form action="${pageContext.request.contextPath}/admin/product/addProduct" method="post"
-                   commandName="product" enctype="multipart/form-data">
-        <div class="form-group">
-            <label for="name">Name</label><form:errors path="productName" cssStyle="color: #ff0000;"/>
-            <form:input path="productName" id="name" class="form-Control"/>
-        </div>
-
-        <div class="form-group">
-            <label for="category">Category</label>
-            <label class="checkbox-inline">
-                <form:radiobutton path="productCategory" id="category" value="instrument"/>
-                Instrument</label>
-            <label class="checkbox-inline">
-                <form:radiobutton path="productCategory" id="category" value="record"/>
-                Record</label>
-            <label class="checkbox-inline">
-                <form:radiobutton path="productCategory" id="category" value="accessory"/>
-                Accessory</label>
-        </div>
-
-        <div class="form-group">
-            <label for="description">Description</label>
-            <form:textarea path="productDescription" id="description" class="form-Control"/>
-        </div>
-
-        <div class="form-group">
-            <label for="price">Price</label></label><form:errors path="productPrice" cssStyle="color: #ff0000;"/>
-            <form:input path="productPrice" id="price" class="form-Control"/>
-        </div>
-
-        <div class="form-group">
-            <label for="condition">Condition</label>
-            <label class="checkbox-inline">
-                <form:radiobutton path="productCondition" id="condition" value="new"/>
-                New</label>
-            <label class="checkbox-inline">
-                <form:radiobutton path="productCondition" id="condition" value="used"/>
-                Used</label>
-        </div>
-
-
-        <div class="form-group">
-            <label for="status">Status</label>
-            <label class="checkbox-inline">
-                <form:radiobutton path="productStatus" id="status" value="active"/>
-                Active</label>
-            <label class="checkbox-inline">
-                <form:radiobutton path="productStatus" id="status" value="inactive"/>
-                Inactive</label>
-        </div>
-
-        <div class="form-group">
-            <label for="unitStock">Unit In Stock</label></label><form:errors path="unitStock" cssStyle="color: #ff0000;"/>
-            <form:input path="unitStock" id="unitStock" class="form-Control"/>
-        </div>
-
-        <div class="form-group">
-            <label for="productManufacture">Manufacturer</label>
-            <form:input path="productManufacture" id="productManufacture" class="form-Control"/>
-        </div>
-
-        <div class="form-group">
+<div class="container">
+	
+  <main>
+  <p>Fill the below information to add a product</p>
+  <input id="tab1" type="radio" name="tabs" class="NoDisplay" checked>
+  <label for="tab1">Product Detail</label>
+    
+  <input id="tab2" type="radio" name="tabs" class="NoDisplay">
+  <label for="tab2">Image</label>
+    
+     <section id="content1">
+     
+    <p>  
+      <table width="80%">
+      <form:form class="go-right" action="${pageContext.request.contextPath}/admin/product/addProduct" method="post" commandName="product">
+        
+        <tr>
+        	<td width="50%"> Category & Type </td>
+        	<td colspan="2" >
+        		<form:select path="productCategory" id="category">
+         		<form:option value="Books"></form:option>
+         		<form:option value="Stationary"></form:option>
+         		<form:option value="Sport & Fitness"></form:option>
+         		</form:select>
+         	
+        		<form:select path="productCondition" id="condition">
+         		<form:option value="New"></form:option>
+         		<form:option value="Used"></form:option>
+         		</form:select>
+         	</td>
+        
+        </tr>
+        
+         <tr>
+         	<td width="50%">Product Name </td>
+         	<td colspan="2" width="50%"> <form:input path="productName" id="productName" type="text" placeholder="Product Name"  size="60%"/></td>
+         	
+       </tr>
+        
+          <tr>
+          	<td width="50%">Description </td>
+         	<td colspan="2"><form:textarea path="productDescription" id="description"  placeholder="Product Description" rows="3" cols="60%"/>  </td>
+         	
+         </tr>
+         
+        <tr>
+          	<td width="50%">Unit In Stock  </td>
+          	<td colspan="2"><form:input path="unitStock" id="unitStock" placeholder="Product Unit"/></td>
+         	
+         </tr>
+        
+          <tr>
+         	<td width="50%">Price</td> 
+         	<td colspan="2"><form:input path="productPrice" id="price" placeholder="Product Price"/> </td>
+         	 
+         </tr>
+         
+          <tr>
+         	<td width="50%">Manufacturer</td> 
+         	<td colspan="2"><form:input path="productManufacture" id="pmft" placeholder="Product Manufacture" size="60%"/></td> 
+         </tr>
+         
+         <tr>
+         	<td width="50%"></td>
+         <td colspan="2">Active<form:radiobutton path="productStatus" id="status" value="active"/> &nbsp;&nbsp;&nbsp;&nbsp;
+         	Inactive<form:radiobutton path="productStatus" id="status" value="inactive"/> </td>
+         <tr>
+        
+          <tr  align="right">
+         	<td colspan="3">	<input type="submit" value="Submit" class="btn btn-default"> 
+         	<a href="<c:url value="/admin/productInventory"/>" class="btn btn-default">Cancel</a> </td>
+         </tr>
+          </form:form>
+          </table>
+    </p>
+ 	
+  </section>
+    
+   <section id="content2">
+ <p>
+  
+      <form:form class="go-right" action="${pageContext.request.contextPath}/admin/product/addProductImg" method="post" commandName="productImg" enctype="multipart/form-data">
+        
+         <div class="form-group">
             <label class="control-label" for="productImage">Upload Picture</label>
             <form:input id="productImage" path="productImage" type="file" class="form:input-large"/>
         </div>
 
-        <br><br>
-        <input type="submit" value="Submit" class="btn btn-default">
-        <a href="<c:url value="/admin/productInventory"/>" class="btn btn-default">Cancel</a>
+        <div>
+        	<input type="submit" value="Submit" class="btn btn-default"> 
+         	<a href="<c:url value="/admin/productInventory"/>" class="btn btn-default">Cancel</a>
+        </div>
+        
+      </form:form>
+ </p>
+ 
+  </section>
+    
+</main>
 
-        </form:form>
-<%@include file="/WEB-INF/views/template/footer.jsp" %>
+<%@include file="/WEB-INF/views/template/footer.jsp"%>
+</div>
+</div>
+

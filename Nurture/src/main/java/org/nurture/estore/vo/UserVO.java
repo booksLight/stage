@@ -2,11 +2,22 @@ package org.nurture.estore.vo;
 
 public class UserVO {
 
+	private Integer id;
 	private String name;
 	private String type;
+	private String email;
+	private String mobile;
 	private boolean isValid;
 	
 	public UserVO(){}
+
+	public Integer getId() {
+		return id;
+	}
+
+	public void setId(Integer id) {
+		this.id = id;
+	}
 
 	public String getName() {
 		return name;
@@ -32,9 +43,28 @@ public class UserVO {
 		this.isValid = isValid;
 	}
 
+	public String getEmail() {
+		return email;
+	}
+
+	public void setEmail(String email) {
+		this.email = email;
+	}
+
+	public String getMobile() {
+		return mobile;
+	}
+
+	public void setMobile(String mobile) {
+		this.mobile = mobile;
+	}
+
 	@Override
 	public String toString() {
-		return "ModuleUserVo [name=" + name + ", type=" + type + ", isValid=" + isValid + "]";
+		return "UserVO [id=" + id + ", name=" + name + ", type=" + type + ", email=" + email + ", mobile=" + mobile
+				+ ", isValid=" + isValid + "]";
 	}
+
+	
 	
 }

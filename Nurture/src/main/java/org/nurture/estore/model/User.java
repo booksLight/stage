@@ -1,8 +1,11 @@
 package org.nurture.estore.model;
 
+import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
+
+import org.hibernate.validator.constraints.NotEmpty;
 
 @Entity( name="Users")
 public class User {
@@ -10,12 +13,42 @@ public class User {
     @Id
     @GeneratedValue
     private Integer userId;
+    
+    
     private String username;
+
+   
     private String password;
+    
+    @NotEmpty(message = "The email must not be null")
+    @Column(name="email")
+    private String userEmail;
+    
+    @NotEmpty(message = "The Mobile must not be null")
+    @Column(name="mobile")
+    private String userMobile;
+    
     private boolean enabled;
     private Integer customerId;
 
-    public Integer getUserId() {
+    
+    public String getUserEmail() {
+		return userEmail;
+	}
+
+	public void setUserEmail(String userEmail) {
+		this.userEmail = userEmail;
+	}
+
+	public String getUserMobile() {
+		return userMobile;
+	}
+
+	public void setUserMobile(String userMobile) {
+		this.userMobile = userMobile;
+	}
+
+	public Integer getUserId() {
         return userId;
     }
 
@@ -54,6 +87,13 @@ public class User {
     public void setCustomerId(Integer customerId) {
         this.customerId = customerId;
     }
+
+	@Override
+	public String toString() {
+		return "User [userId=" + userId + ", username=" + username + ", password=" + password + ", userEmail="
+				+ userEmail + ", userMobile=" + userMobile + ", enabled=" + enabled + ", customerId=" + customerId
+				+ "]";
+	}
 
 
 }

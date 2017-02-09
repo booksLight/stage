@@ -3,7 +3,10 @@ package org.nurture.estore.controller.admin;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.validation.BindingResult;
+import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
 import org.nurture.estore.controller.CartController;
 import org.nurture.estore.controller.RegisterController;
 import org.nurture.estore.manager.AppManager;
@@ -17,6 +20,7 @@ import org.slf4j.LoggerFactory;
 import java.util.List;
 
 import javax.servlet.http.HttpServletRequest;
+import javax.validation.Valid;
 
 @Controller
 @RequestMapping("/admin")
@@ -71,6 +75,8 @@ public class AdminHome {
         return state;
 
     }
+    
+    
     
     //Generic Logger for this class
     private void ctrLog(Class<? extends AdminHome> paramCclass, String paramMethod, String paramMsg) {

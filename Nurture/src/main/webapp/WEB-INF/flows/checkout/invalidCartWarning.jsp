@@ -6,9 +6,7 @@
         <section>
             <div class="jumbotron">
                 <div class="container">
-                    <h1 class="alert alert-danger">Checkout cancelled!</h1>
-
-                    <p>Your checkout process is cancelled! You may continue shopping.</p>
+                    <h1>Invalid Cart!</h1>
                 </div>
             </div>
         </section>

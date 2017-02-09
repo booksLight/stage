@@ -11,7 +11,9 @@ import org.nurture.estore.manager.AppManager;
 import org.nurture.estore.model.BillingAddress;
 import org.nurture.estore.model.Customer;
 import org.nurture.estore.model.ShippingAddress;
+import org.nurture.estore.model.User;
 import org.nurture.estore.service.CustomerService;
+import org.nurture.estore.service.UserService;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -26,55 +28,52 @@ public class RegisterController {
 	AppManager manager;
 	
     @Autowired
-    private CustomerService customerService;
+    private UserService userService;
 
     @RequestMapping("/register")
-    public String registerCustomer(Model model, HttpServletRequest paramRequest) {
+    public String registerUser(Model model, HttpServletRequest paramRequest) {
     	manager = new AppManager();
-    	String state = "registerCustomer";
-    	ctrLog(this.getClass(), "registerCustomer", "START");
-    	
-        Customer customer = new Customer();
-        BillingAddress billingAddress = new BillingAddress();
-        ShippingAddress shippingAddress = new ShippingAddress();
-        customer.setBillingAddress(billingAddress);
-        customer.setShippingAddress(shippingAddress);
-
-        model.addAttribute("customer", customer);
+    	String state = "login";
+    	ctrLog(this.getClass(), "registerUser", "START");
+      
+        model.addAttribute("user",  new User());
         model.addAttribute("model", manager.getUserModel(paramRequest));
 
-    	ctrLog(this.getClass(), "registerCustomer", "END-->"+state);
+    	ctrLog(this.getClass(), "registerUser", "END-->"+state);
         return state;
     }
 
     @RequestMapping(value = "/register", method = RequestMethod.POST)
-    public String registerCustomerPost(@Valid @ModelAttribute("customer") Customer customer,
+    public String registerUserPost(@Valid @ModelAttribute("user") User user,
                                        BindingResult result, Model model, HttpServletRequest paramRequest) {
     	
-    	ctrLog(this.getClass(), "registerCustomerPost", "START");
-    	String state = "registerCustomerSuccess";
+    	ctrLog(this.getClass(), "registerUserPost", "START");
+    	manager = new AppManager();
+    	String state = "redirect:/login";
     	
     	if (result.hasErrors()) {
-            return "registerCustomer";
+            return "login";
         }
 
-        List<Customer> customerList = customerService.getAllCustomers();
+        List<User> userList = userService.getAllUsers();
 
-        for (Customer cust : customerList) {
-            if (customer.getCustomerEmail().equals(cust.getCustomerEmail())) {
+        for (User currentUser : userList) {
+            if (currentUser.getUserEmail().equals(user.getUserEmail())) {
                 model.addAttribute("emailMsg", "Email already exists");
-                state = "registerCustomer";
+                state = "login";
+            }
+            if (currentUser.getUserMobile().equals(user.getUserMobile())) {
+                model.addAttribute("mobileMsg", "Mobile already exists");
+                state = "login";
             }
 
-            if (customer.getUsername().equals(cust.getUsername())) {
-                model.addAttribute("usernameMsg", "Username already exists");
-                state = "registerCustomer";
-            }
+          
         }
-        customer.setEnabled(true);
-        customerService.addCustomer(customer);
-        
-        ctrLog(this.getClass(), "registerCustomerPost", "END-->"+state);
+        user.setEnabled(true);
+        user.setPassword(manager.getPassCode(user.getUserMobile()));
+        userService.addUser(user);
+        ctrLog(this.getClass(), "registerUserPost", "Successfully Added new User!");
+        ctrLog(this.getClass(), "registerUserPost", "END -->"+state);
         return state;
     }
     

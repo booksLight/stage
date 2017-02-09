@@ -29,11 +29,11 @@
           <td>${customer.customerName}</td>
           <td>${customer.customerEmail}</td>
           <td>${customer.customerPhone}</td>
-          <td>${customer.username}</td>
+          <td>${customer.userId}</td>
           <td>${customer.enabled}</td>
 
         </tr>
       </c:forEach>
     </table>
 
-<%@include file="/WEB-INF/views/template/footer.jsp"%>
+<jsp:include page="/WEB-INF/views/template/footer.jsp" />

@@ -19,7 +19,7 @@ public class Product implements Serializable {
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Integer productId;
 
-    @NotEmpty(message = "The product name must not be null.")
+    //@NotEmpty(message = "The product name must not be null.")
     private String productName;
     private String productCategory;
 
@@ -40,6 +40,8 @@ public class Product implements Serializable {
     @JsonIgnore
     private List<CartItem> cartItemList;
 
+    public Product(){}
+    
     public Integer getProductId() {
         return productId;
     }
@@ -127,4 +129,14 @@ public class Product implements Serializable {
     public void setCartItemList(List<CartItem> cartItemList) {
         this.cartItemList = cartItemList;
     }
+
+	@Override
+	public String toString() {
+		return "Product [productId=" + productId + ", productName=" + productName + ", productCategory="
+				+ productCategory + ", productPrice=" + productPrice + ", productDescription=" + productDescription
+				+ ", productCondition=" + productCondition + ", productStatus=" + productStatus + ", unitStock="
+				+ unitStock + ", productManufacture=" + productManufacture + ", productImage=" + productImage
+				+ ", cartItemList=" + cartItemList + "]";
+	}
+    
 }

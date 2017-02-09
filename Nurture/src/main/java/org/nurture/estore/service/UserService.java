@@ -12,4 +12,6 @@ public interface UserService {
 	List<User> getAllUsers();
 
 	User getUserByName(String username);
+	
+	User getUserByMobile(String mobile);
 }

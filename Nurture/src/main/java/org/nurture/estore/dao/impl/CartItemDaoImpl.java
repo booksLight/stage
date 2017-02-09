@@ -51,4 +51,16 @@ public class CartItemDaoImpl implements CartItemDao{
         return (CartItem) query.uniqueResult();
     }
 
+	public void removeCartItemById(Integer cartItemId) {
+		Session session ;
+		CartItem myObject ;
+		
+		 System.out.println("\n\n Removing cartiitemid ="+cartItemId);
+		 session = sessionFactory.getCurrentSession();
+		 myObject = (CartItem) session.load(CartItem.class,cartItemId);
+		 session.delete(myObject);
+		 session.flush();
+
+	}
+
 }

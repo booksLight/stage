@@ -6,6 +6,7 @@ import org.springframework.security.core.userdetails.User;
 import org.springframework.security.web.bind.annotation.AuthenticationPrincipal;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
+import org.nurture.estore.manager.AppManager;
 import org.nurture.estore.model.Cart;
 import org.nurture.estore.model.CartItem;
 import org.nurture.estore.model.Customer;
@@ -14,14 +15,24 @@ import org.nurture.estore.service.CartItemService;
 import org.nurture.estore.service.CartService;
 import org.nurture.estore.service.CustomerService;
 import org.nurture.estore.service.ProductService;
+import org.nurture.estore.vo.ModelVo;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
+import java.io.IOException;
 import java.util.List;
+
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
 
 
 @Controller
 @RequestMapping("/rest/cart")
 public class CartResources {
 
+	private static final Logger logger = LoggerFactory.getLogger(CartResources.class);
+	
+	
     @Autowired
     CartService cartService;
 
@@ -34,6 +45,8 @@ public class CartResources {
     @Autowired
     private ProductService productService;
 
+    AppManager manager;
+    
     @RequestMapping("/{cartId}")
     public
     @ResponseBody
@@ -41,42 +54,63 @@ public class CartResources {
         return cartService.getCartById(cartId);
     }
 
-    @RequestMapping(value = "/add/{productId}", method = RequestMethod.PUT)
+    @RequestMapping(value = "/add/{productId}", method = RequestMethod.POST)
     @ResponseStatus(value = HttpStatus.NO_CONTENT)
-    public void addItem(@PathVariable(value = "productId") int productId,
-                        @AuthenticationPrincipal User activeUser) {
+    public void addItem(@PathVariable(value = "productId") int productId, HttpServletRequest paramReq, HttpServletResponse response) throws IOException {
+        
+    	resLog(this.getClass(), "addItem", "START " + productId);
+    	
+    
+        ModelVo sessionUser = manager.getUserModel(paramReq);
+        Integer lookupUserId = (sessionUser != null ? sessionUser.getUserVo() !=null ? sessionUser.getUserVo().getId():0:0);
+        System.out.println("\n **** Customer lookupUserId ="+lookupUserId);
         Customer customer =
-                customerService.getCustomerByUsername(activeUser.getUsername());
+                customerService.getCustomerByUserID(lookupUserId);
+        
+       int ciid = 0;
+      
         Cart cart = customer.getCart();
+        System.out.println("\n **** Cart ="+cart.toString());
         Product product = productService.getProductById(productId);
+        System.out.println("\n **** product ="+product.toString());
         List<CartItem> cartItems = cart.getCartItems();
-
+       
+        System.out.println("\n **** cartItems length ="+cartItems.size());
         for (int i = 0; i < cartItems.size(); i++) {
             if (product.getProductId() == cartItems.get(i).getProduct().getProductId()) {
                 CartItem cartItem = cartItems.get(i);
-                cartItem.setQuantity(cartItem.getQuantity() + 1);
+                cartItem.setCartItemId(cartItem.getCartItemId());
+                cartItem.setQuantity(cartItem.getQuantity() );
                 cartItem.setTotalPrice(product.getProductPrice() * cartItem.getQuantity());
+                cartItem.setProduct(product);
                 cartItemService.addCartItem(cartItem);
+                ciid = cartItem.getCartItemId() ;
 
-                return;
             }
         }
 
-        CartItem cartItem = new CartItem();
+      CartItem cartItem = new CartItem();
+      //cartItem.setCartItemId((ciid+1));
         cartItem.setProduct(product);
         cartItem.setQuantity(1);
         cartItem.setTotalPrice(product.getProductPrice() * cartItem.getQuantity());
         cartItem.setCart(cart);
         cartItemService.addCartItem(cartItem);
+       
+        
+    	resLog(this.getClass(), "addItem", "END " + productId);
     }
 
-    @RequestMapping(value = "/remove/{productId}", method = RequestMethod.PUT)
+ 
+
+    @RequestMapping(value = "/remove/{cartItemId}", method = RequestMethod.POST)
     @ResponseStatus(value = HttpStatus.NO_CONTENT)
-    public void removeItem (@PathVariable(value = "productId") int productid) {
-        CartItem cartItem = cartItemService.getCartItemByProductId(productid);
-        cartItemService.removeCartItem(cartItem);
+    public void removeItem (@PathVariable(value = "cartItemId") int cartItemId) {
+    	resLog(this.getClass(), "removeItem", "START " + cartItemId);
+        cartItemService.removeCartItemById(cartItemId);
+        resLog(this.getClass(), "removeItem", "END="+cartItemId);
     }
-
+    
     @RequestMapping(value = "/{cartId}", method = RequestMethod.DELETE)
     @ResponseStatus(value = HttpStatus.NO_CONTENT)
     public void clearCart (@PathVariable(value = "cartId") int cartId) {
@@ -92,4 +126,11 @@ public class CartResources {
     @ResponseStatus(value = HttpStatus.INTERNAL_SERVER_ERROR, reason = "Internal server error")
     public void handleServerErrors (Exception e) {}
 
+    
+    
+    
+    //Generic Logger for this class
+    private void resLog(Class<? extends CartResources> paramCclass, String paramMethod, String paramMsg) {
+		logger.info(paramCclass.getName() + " : " + paramMethod + "() : " + paramMsg);
+	}
 }

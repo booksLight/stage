@@ -13,21 +13,18 @@ public class Customer implements Serializable{
 
     @Id
     @GeneratedValue
-    private int customerId;
+     int customerId;
 
     @NotEmpty(message = "The customer name must be not null")
     private String customerName;
 
     @NotEmpty(message = "The customer email must not be null")
     private String customerEmail;
+    
     private String customerPhone;
 
-    @NotEmpty(message = "The customer username must not be null")
-    private String username;
-
-    @NotEmpty(message = "The customer password must not be null")
-    private String password;
-
+    private Integer userId;
+    
     private boolean enabled;
 
     @OneToOne
@@ -43,6 +40,8 @@ public class Customer implements Serializable{
     @JsonIgnore
     private Cart cart;
 
+    public Customer(){}
+    
     public int getCustomerId() {
         return customerId;
     }
@@ -75,23 +74,16 @@ public class Customer implements Serializable{
         this.customerPhone = customerPhone;
     }
 
-    public String getUsername() {
-        return username;
-    }
 
-    public void setUsername(String username) {
-        this.username = username;
-    }
+    public Integer getUserId() {
+		return userId;
+	}
 
-    public String getPassword() {
-        return password;
-    }
+	public void setUserId(Integer userId) {
+		this.userId = userId;
+	}
 
-    public void setPassword(String password) {
-        this.password = password;
-    }
-
-    public boolean isEnabled() {
+	public boolean isEnabled() {
         return enabled;
     }
 
@@ -122,4 +114,13 @@ public class Customer implements Serializable{
     public void setCart(Cart cart) {
         this.cart = cart;
     }
+
+	@Override
+	public String toString() {
+		return "Customer [customerId=" + customerId + ", customerName=" + customerName + ", customerEmail="
+				+ customerEmail + ", customerPhone=" + customerPhone + ", userId=" + userId + ", enabled=" + enabled
+				+ ", billingAddress=" + billingAddress + ", shippingAddress=" + shippingAddress + ", cart=" + cart
+				+ "]";
+	}
+    
 }
