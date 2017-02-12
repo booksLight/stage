@@ -110,14 +110,11 @@ public class HomeController {
     	modelUser.setUserVo(userVO);
     		if(isNewCustomer(curentUser)){
     			
-    			System.out.println("\n \n (((((((((((( NEW CUSTOMER FOUND !)))))))))))");
+    			System.out.println("\n \n (((((((((((( Existing CUSTOMER FOUND !)))))))))))");
     			modelUser.setCartEnable(false);
+    		} else {
     			 System.out.println("\n **** Adding Customer since seems new one!");
           		 return "redirect:/customer/details";
-    	
-    		} else {
-    			 /*System.out.println("\n **** Adding Customer since seems new one!");
-          		 return "redirect:/customer/details";*/
     		}
     	
     	model.addAttribute(Constants.MODEL_USER,modelUser);
@@ -132,8 +129,9 @@ public class HomeController {
 
 	private boolean isNewCustomer(User curentUser) {
 		Customer customer = customerService.getCustomerByUserID((curentUser.getUserId()));
-		System.out.println("\n\t isNewCustomer ===== "+customer);
-		return customer!=null ? true:false;
+		boolean state = customer!=null ? true:false;
+		System.out.println("\n\t isNewCustomer ===== "+state);
+		return state;
 	}
 
 

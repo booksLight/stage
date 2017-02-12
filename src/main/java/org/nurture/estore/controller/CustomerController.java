@@ -111,7 +111,7 @@ public class CustomerController {
                                        BindingResult result, Model model, HttpServletRequest paramRequest) {
     	
     	ctrLog(this.getClass(), "getCustomerShippingAddress", "START");
-    	String state = "customerDetails";
+    	String state = "productList";
     	
     	/*if (result.hasErrors()) {
     		System.out.println("\n\t RESULT ERRORS ="+result.hasErrors());

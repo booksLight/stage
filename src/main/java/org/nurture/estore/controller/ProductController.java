@@ -32,6 +32,7 @@ public class ProductController {
     	ctrLog(this.getClass(), "getProducts", "START");
     	 model.addAttribute("model", manager.getUserModel(paramRequest));
         List<Product> products = productService.getProductList();
+        System.out.println("\n\t PRODUCTS SIZE = "+ products.size());
         model.addAttribute("products", products);
         ctrLog(this.getClass(), "getProducts", "END-->"+state);
         return state;

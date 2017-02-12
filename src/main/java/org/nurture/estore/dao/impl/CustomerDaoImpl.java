@@ -82,10 +82,7 @@ public class CustomerDaoImpl implements CustomerDao{
 		 Session session = sessionFactory.getCurrentSession();
 	        Query query = session.createQuery("from Customer where userId = ?");
 	        query.setInteger(0, userId);
-
-	        if(query.uniqueResult() != null){
 	        	 return (Customer) query.uniqueResult();
-	        }
-	       return new Customer();
+	     
 	}
 }
