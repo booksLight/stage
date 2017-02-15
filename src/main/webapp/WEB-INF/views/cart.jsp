@@ -1,8 +1,8 @@
-<%@ taglib prefix="spring" uri="http://www.springframework.org/tags" %>
-<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 <%@ page contentType="text/html; charset=UTF-8" pageEncoding="UTF-8" language="java" %>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<%@taglib prefix="form" uri="http://www.springframework.org/tags/form" %>
+<%@taglib prefix="spring" uri="http://www.springframework.org/tags" %>
 <jsp:include page="/WEB-INF/views/template/header.jsp" />
-<%--  <%@include file="/WEB-INF/views/template/header.jsp" %>  --%>
 
 <div class="container-wrapper">
     <div class="container">
@@ -39,7 +39,7 @@
                         <td>{{item.product.productName}}</td>
                         <td>{{item.product.productPrice}}</td>
                         <td>{{item.quantity}}</td>
-                        <td>{{item.totalPrice}}</td>
+                        <td class="fa fa-inr" style="font-size:20px;color:red">{{item.totalPrice}}</td>
                         <td><a href="#" class="label label-danger" ng-click="removeFromCart(item.cartItemId)">{{item.cartItemId}}
                             <span class="glyphicon glyphicon-remove"></span>remove</a>
                         </td>

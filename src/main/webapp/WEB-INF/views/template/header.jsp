@@ -1,23 +1,27 @@
-<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
-<%--
-  Created by :
-  User: Rakesh
-  Date: 27.01.2017
-  Time: 21:50
-  To change this template use File | Settings | File Templates.
---%>
 <%@ page contentType="text/html; charset=UTF-8" pageEncoding="UTF-8" language="java" %>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<%@taglib prefix="form" uri="http://www.springframework.org/tags/form" %>
+<%@taglib prefix="spring" uri="http://www.springframework.org/tags" %>
+
 <html>
 <head>
-    <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1">
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<meta name="keywords" content="footer, address, phone, icons" />
+    <link rel="stylesheet" href="http://maxcdn.bootstrapcdn.com/font-awesome/4.2.0/css/font-awesome.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+	<link href="http://fonts.googleapis.com/css?family=Cookie" rel="stylesheet" type="text/css">
+	<link href="<c:url value="/resources/css/demo.css"/>" rel="stylesheet">
+	<link href="<c:url value="/resources/css/footer.css"/>" rel="stylesheet">
+	
+    
+    
     <!-- The above 3 meta tags *must* come first in the head; any other head content must come *after* these tags -->
     <meta name="description" content="">
     <meta name="author" content="">
     <link rel="icon" href="../../favicon.ico">
 
-    <title>Liberary</title>
+    <title>Book Light</title>
 
     <!-- Angular JS -->
     <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.0.1/angular.min.js"></script>
@@ -32,7 +36,11 @@
     <link href="<c:url value="/resources/css/main.css"/>" rel="stylesheet">
 
   <!-- Common JS -->
-<!--     <script src="/resources/js/main.js"></script> -->
+       <script src="/resources/js/main.js"></script>
+		<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.2/jquery.min.js"></script>
+		<script>window.jQuery || document.write('<script src="<c:url value="/resources/js/jquery-1.12.2.min.js"/>"><\/script>')</script>
+		<script src="<c:url value="/resources/js/bootstrap.min.js"/>"></script>
+
 
 </head>
 <!-- NAVBAR ================================================== -->
@@ -53,12 +61,18 @@
                     <a class="navbar-brand" href="#">${model.title}</a> 
                 </div>
                 <div id="navbar" class="navbar-collapse collapse">
+                <!--  Modifiying -->
+                
+                	<div id="hDiv" class="hgdiv" style="display:block">
+                	<div style="page-break-inside: avoid">
                     <ul class="nav navbar-nav">
                         <li <%--class="active"--%>><a href="<c:url value="/"/>">${model.home}</a></li>
                         <li><a href="<c:url value="/product/productList"/>">${model.product}</a></li>
                         <li><a href="#contact">${model.contact}</a></li>
                     </ul>
-                    <ul class="nav navbar-nav pull-right">
+                    </div>
+                    <div  style="ppage-break-before: always">
+                    <ul class="nav navbar-nav pull-right" >
                         <c:if test="${model.userVo != null}">
                          <c:if test="${model.userVo.name != null}">
                             
@@ -70,18 +84,22 @@
                                 <li><a href="<c:url value="/customer/cart"/>">Cart</a></li>
                             </c:if>
                             
-                            <c:if test="${model.userVo.type == 'admin'}">
+                            <c:if test="${model.userVo.type == 'ADMIN'}">
                                 <li><a href="<c:url value="/admin"/>">Admin</a></li>
+                            </c:if>
+                            
+                             <c:if test="${model.userVo.type == 'CUSTOMER'}">
+                                <li><a href="<c:url value="/customer/profile"/>">Profile</a></li>
                             </c:if>
                         </c:if>
                         <c:if test="${model.userVo == null}">
                             <li><a href="<c:url value="/login"/>">Login</a></li>
-                        
                         </c:if>
                     </ul>
+                    </div>
+                    </div>
                 </div>
             </div>
         </nav>
-
-    </div>
+</div>
 </div>

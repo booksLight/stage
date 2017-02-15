@@ -1,15 +1,11 @@
-<%@ page contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"
-	language="java"%>
-<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
-<%@taglib prefix="form" uri="http://www.springframework.org/tags/form"%>
+<%@ page contentType="text/html; charset=UTF-8" pageEncoding="UTF-8" language="java" %>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<%@taglib prefix="form" uri="http://www.springframework.org/tags/form" %>
+<%@taglib prefix="spring" uri="http://www.springframework.org/tags" %>
 <jsp:include page="/WEB-INF/views/template/header.jsp" />
-<%--  <%@include file="/WEB-INF/views/template/header.jsp" %>  --%>
 
-<div class="container-wrapper">
-<div class="container">
-	
   <main>
-  <p>Fill the below information to add a product</p>
+  <p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; Fill the below information to add a product</p>
   <input id="tab1" type="radio" name="tabs" class="NoDisplay" checked>
   <label for="tab1">Product Detail</label>
     
@@ -107,6 +103,3 @@
 </main>
 
 <%@include file="/WEB-INF/views/template/footer.jsp"%>
-</div>
-</div>
-

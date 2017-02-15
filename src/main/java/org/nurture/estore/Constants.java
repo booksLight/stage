@@ -19,6 +19,17 @@ public class Constants {
 	public static final String SESSION_USER = "suser";
 	
 	
+	// Privileged Attributes :
+	public static final String ROL_TYPE_ADM = "ADMIN";
+	public static final String ROL_TYPE_CUS = "CUSTOMER";
+	public static final String ROL_TYPE_USE = "USER";
+	public static final String ROL_TYPE_VIS = "VISITOR";
+	
+	// Number based on alphabet orders!
+	public static final Integer ADM_ID = 41;
+	public static final Integer CUST_ID = 114;
+	public static final Integer USE_ID = 63;
+	public static final Integer VIS_ID = 112;
 	
 	// General Attributes
 	public static final boolean TRUE = true;

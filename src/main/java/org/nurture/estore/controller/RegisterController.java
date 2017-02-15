@@ -69,6 +69,7 @@ public class RegisterController {
 
           
         }
+        user.setRolId(manager.getRol("USER"));
         user.setEnabled(true);
         user.setPassword(manager.getPassCode(user.getUserMobile()));
         userService.addUser(user);

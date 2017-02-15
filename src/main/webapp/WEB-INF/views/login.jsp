@@ -1,9 +1,9 @@
-<%@ page contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"
-	language="java"%>
-<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
-<jsp:include page="/WEB-INF/views/template/header.jsp" />
+<%@ page contentType="text/html; charset=UTF-8" pageEncoding="UTF-8" language="java" %>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@taglib prefix="form" uri="http://www.springframework.org/tags/form" %>
-<%--  <%@include file="/WEB-INF/views/template/header.jsp" %>  --%>
+<%@taglib prefix="spring" uri="http://www.springframework.org/tags" %>
+<jsp:include page="/WEB-INF/views/template/header.jsp" />
+
 <script>
 function popup(){
 	document.getElementById('popupLogin').style.display = 'block'; 
@@ -18,8 +18,6 @@ function popupClose(){
 }
 </script>
 
-<div class="container-wrapper">
-	<div class="container">
 		<div id="login-box">
 
 			<div class="center-page">
@@ -35,7 +33,16 @@ function popupClose(){
 		
 		<br /> <br /> <br /> 
 
-
+<c:if test="${not empty isLogin}" >
+ <script> 
+ <span>
+ errorError occured<br />
+</span>
+ popup(); 
+ 
+ </script>
+ <c:out value="${isLogin}"></c:out>
+</c:if>
 	<div id="popupLogin" class="overlay" style="display:none">
 			<div class="popup">
 				<h2>Sign In</h2>
@@ -97,7 +104,7 @@ function popupClose(){
 			</div>
 		</div>
 		</div>
-	</div>
-</div>
 
-<%@include file="/WEB-INF/views/template/footer.jsp"%>
+
+<!-- Footer  -->
+<jsp:include page="/WEB-INF/views/template/footer.jsp" />

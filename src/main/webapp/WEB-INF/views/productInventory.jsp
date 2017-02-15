@@ -1,17 +1,14 @@
 <%@ page contentType="text/html; charset=UTF-8" pageEncoding="UTF-8" language="java" %>
-<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@taglib prefix="form" uri="http://www.springframework.org/tags/form" %>
 <%@taglib prefix="spring" uri="http://www.springframework.org/tags" %>
 <jsp:include page="/WEB-INF/views/template/header.jsp" />
-<%--  <%@include file="/WEB-INF/views/template/header.jsp" %>  --%>
 
-<div class="container-wrapper">
-    <div class="container">
-        <div class="page-header">
+ <div class="page-header">
             <h1>Product Inventory Page</h1>
 
-            <p class="lead">Try to change something</p>
-        </div>
+            <p class="lead">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; Products</p>
+ </div>
 
         <table class="table table-striped table-hover">
             <thead>
@@ -26,18 +23,18 @@
             </thead>
             <c:forEach items="${products}" var="product">
                 <tr>
-                    <td><img src="<c:url value="/resources/images/${product.productId}.png"/>"
+                    <td><img src="<c:url value='/resources/images/${product.productId}.png'/>"
                              alt="image" style="width: 100%"></td>
                     <td>${product.productName}</td>
                     <td>${product.productCategory}</td>
                     <td>${product.productCondition}</td>
                     <td>${product.productPrice}$</td>
-                    <td><a href="<spring:url value="/product/viewProduct/${product.productId}" />">
-                        <span class="glyphicon glyphicon-info-sign"></span></a>
-                        <a href="<spring:url value="/admin/product/deleteProduct/${product.productId}" />">
-                            <span class="glyphicon glyphicon-remove"></span></a>
-                        <a href="<spring:url value="/admin/product/editProduct/${product.productId}" />">
-                            <span class="glyphicon glyphicon-pencil"></span></a></td>
+                    <td><a href="<spring:url value='/product/viewProduct/${product.productId}' />">
+                        <span class='glyphicon glyphicon-info-sign'></span></a>
+                        <a href="<spring:url value='/admin/product/deleteProduct/${product.productId}' />">
+                            <span class='glyphicon glyphicon-remove'></span></a>
+                        <a href="<spring:url value='/admin/product/editProduct/${product.productId}'/>">
+                            <span class="glyphicon glyphicon-pencil"></span></a>
 
                     </td>
                 </tr>
@@ -46,4 +43,7 @@
 
         <a href="<spring:url value="/admin/product/addProduct"/>" class="btn btn-primary">Add product</a>
 
+   
+
 <jsp:include page="/WEB-INF/views/template/footer.jsp" />
+

@@ -42,7 +42,7 @@ public class CustomerController {
     		customerDet.setUserId(curentUser.getId());
     		customerDet.setCustomerEmail(curentUser.getEmail());
     		customerDet.setCustomerName(curentUser.getName());
-    		
+    		customerDet.setCustomerPhone(curentUser.getMobile() != null ? curentUser.getMobile() : null);
     		
     	}else{
     		state = "redirect:/login";
@@ -135,6 +135,34 @@ public class CustomerController {
         return state;
    
     }
+    
+    
+    @RequestMapping("/profile")
+    public String viewCustomerProfile(Model model, HttpServletRequest paramRequest) {
+    	manager = new AppManager();
+    	String state = "customerProfile";
+    	ctrLog(this.getClass(), "viewCustomerProfile", "START");
+    	customerDet = new Customer();
+    	UserVO curentUser = (UserVO) paramRequest.getSession().getAttribute("suser");
+    	if(curentUser!=null){
+    		
+    		customerDet.setUserId(curentUser.getId());
+    		customerDet.setCustomerEmail(curentUser.getEmail());
+    		customerDet.setCustomerName(curentUser.getName());
+    		customerDet.setCustomerPhone(curentUser.getMobile() != null ? curentUser.getMobile() : null);
+    		
+    		
+    	}else{
+    		state = "redirect:/login";
+    	}
+    	
+        model.addAttribute("customer",  customerDet);
+        model.addAttribute("model", manager.getUserModel(paramRequest));
+
+    	ctrLog(this.getClass(), "viewCustomerProfile", "END-->"+state);
+        return state;
+    }
+
     
     
   //Generic Logger for this class

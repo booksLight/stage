@@ -1,15 +1,13 @@
 <%@ page contentType="text/html; charset=UTF-8" pageEncoding="UTF-8" language="java" %>
-<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@taglib prefix="form" uri="http://www.springframework.org/tags/form" %>
+<%@taglib prefix="spring" uri="http://www.springframework.org/tags" %>
 <jsp:include page="/WEB-INF/views/template/header.jsp" />
-<%--  <%@include file="/WEB-INF/views/template/header.jsp" %>  --%>
 
-<div class="container-wrapper">
-  <div class="container">
     <div class="page-header">
       <h1>Edit Product</h1>
 
-      <p class="lead">Please, update the product information here</p>
+      <p class="lead">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; Please, update the product information here</p>
     </div>
 
     <form:form action="${pageContext.request.contextPath}/admin/product/editProduct" method="post"

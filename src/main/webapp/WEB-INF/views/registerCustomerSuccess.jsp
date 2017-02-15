@@ -1,11 +1,10 @@
-<%@ taglib prefix="spring" uri="http://www.springframework.org/tags" %>
-<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 <%@ page contentType="text/html; charset=UTF-8" pageEncoding="UTF-8" language="java" %>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<%@taglib prefix="form" uri="http://www.springframework.org/tags/form" %>
+<%@taglib prefix="spring" uri="http://www.springframework.org/tags" %>
 <jsp:include page="/WEB-INF/views/template/header.jsp" />
-<%--  <%@include file="/WEB-INF/views/template/header.jsp" %>  --%>
 
-<div class="container-wrapper">
-    <div class="container">
+
         <section>
             <div class="jumbotron">
                 <div class="container">
@@ -20,9 +19,10 @@
             </p>
         </section>
 
-    </div>
-</div>
+
 
 <script src="<c:url value="/resources/js/controller.js"/>"></script>
 
-<%@include file="/WEB-INF/views/template/footer.jsp" %>
+
+<!-- Footer  -->
+<jsp:include page="/WEB-INF/views/template/footer.jsp" />

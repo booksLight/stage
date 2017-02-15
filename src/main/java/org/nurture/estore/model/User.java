@@ -4,6 +4,7 @@ import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
+import javax.persistence.Transient;
 
 import org.hibernate.validator.constraints.NotEmpty;
 
@@ -29,8 +30,10 @@ public class User {
     private String userMobile;
     
     private boolean enabled;
-    private Integer customerId;
+    
+    @Transient private Integer customerId;
 
+    private Integer rolId; 
     
     public String getUserEmail() {
 		return userEmail;
@@ -88,12 +91,20 @@ public class User {
         this.customerId = customerId;
     }
 
+    
+	public Integer getRolId() {
+		return rolId;
+	}
+
+	public void setRolId(Integer rolId) {
+		this.rolId = rolId;
+	}
+
 	@Override
 	public String toString() {
 		return "User [userId=" + userId + ", username=" + username + ", password=" + password + ", userEmail="
 				+ userEmail + ", userMobile=" + userMobile + ", enabled=" + enabled + ", customerId=" + customerId
-				+ "]";
+				+ ", rolId=" + rolId + "]";
 	}
-
 
 }

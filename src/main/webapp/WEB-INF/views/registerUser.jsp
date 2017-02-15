@@ -1,11 +1,10 @@
 <%@ page contentType="text/html; charset=UTF-8" pageEncoding="UTF-8" language="java" %>
-<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@taglib prefix="form" uri="http://www.springframework.org/tags/form" %>
+<%@taglib prefix="spring" uri="http://www.springframework.org/tags" %>
 <jsp:include page="/WEB-INF/views/template/header.jsp" />
-<%--  <%@include file="/WEB-INF/views/template/header.jsp" %>  --%>
 
-<div class="container-wrapper">
-    <div class="container">
+
         <div class="page-header">
             <h1>Register User</h1>
 
@@ -118,4 +117,7 @@
         <a href="<c:url value="/"/>" class="btn btn-default">Cancel</a>
 
         </form:form>
-<%@include file="/WEB-INF/views/template/footer.jsp" %>
+        
+
+<!-- Footer  -->
+<jsp:include page="/WEB-INF/views/template/footer.jsp" />

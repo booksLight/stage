@@ -22,9 +22,8 @@ cartApp.controller("cartCtrl", function ($scope, $http) {
     };
 
     $scope.addToCart = function(productId) {
-    	alert("\n***** Selected productId for addToCart = "+productId);
+    	
         $http.post('/cart/rest/cart/add/'+ productId).success(function () {
-        	alert("Adding "+productId);
             $scope.refreshCart();
         });
     };

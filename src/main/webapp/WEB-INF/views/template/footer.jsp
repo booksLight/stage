@@ -1,24 +1,7 @@
-<%@ page contentType="text/html; charset=UTF-8" pageEncoding="UTF-8" language="java" %>
-<html>
-<head>
-	<meta http-equiv="X-UA-Compatible" content="IE=edge">
-	<meta name="viewport" content="width=device-width, initial-scale=1">
-	<meta name="keywords" content="footer, address, phone, icons" />
-
-	<link rel="stylesheet" href="http://maxcdn.bootstrapcdn.com/font-awesome/4.2.0/css/font-awesome.min.css">
-	<link href="http://fonts.googleapis.com/css?family=Cookie" rel="stylesheet" type="text/css">
-	<link href="<c:url value="/resources/css/demo.css"/>" rel="stylesheet">
-	<link href="<c:url value="/resources/css/footer.css"/>" rel="stylesheet">
+</div>
 
 
-	
-	
-</head>
 <!-- NAVBAR ================================================== -->
-<body>
-
-		
-
 		<!-- The content of your page would go here. -->
 
 		<footer class="footer-distributed">
@@ -28,11 +11,11 @@
 				<h3>Book <span>Light</span></h3>
 
 				<p class="footer-links">
-					<a href="#">Home</a>
+					<a href="/cart">Home</a>
 					&nbsp;|&nbsp;
-					<a href="#">Products</a>
-					&nbsp;|&nbsp;
-					<a href="#">About</a>
+					<a href="/cart/product/productList"> Products</a>
+					&nbsp;|&nbsp;	
+					<a href="/cart/about">About</a>
 					&nbsp;|&nbsp;
 					<a href="#">Contact</a>
 				</p>
@@ -54,7 +37,7 @@
 
 				<div>
 					<i class="fa fa-envelope"></i>
-					<p><a href="mailto:bookslight@outlook.com">bookslight@outlook.com</a></p>
+					<p><a href="mailto:bookslight@outlook.com">Write Us</a></p>
 				</div>
 
 			</div>
@@ -62,8 +45,8 @@
 			<div class="footer-right">
 
 				<p class="footer-company-about">
-					<span>About the company</span>
-					We are end to end service provider & supplier .
+					<span>About Us</span>
+					We are passionate about helping our customers to get the best experience here.
 				</p>
 
 				<div class="footer-icons">
@@ -80,14 +63,6 @@
 		</footer>
 <!-- /.container -->
 
-
-<!-- Bootstrap core JavaScript
-================================================== -->
-<!-- Placed at the end of the document so the pages load faster -->
-
-	
-<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.2/jquery.min.js"></script>
-<script>window.jQuery || document.write('<script src="<c:url value="/resources/js/jquery-1.12.2.min.js"/>"><\/script>')</script>
-<script src="<c:url value="/resources/js/bootstrap.min.js"/>"></script>
+</div>
 </body>
 </html>

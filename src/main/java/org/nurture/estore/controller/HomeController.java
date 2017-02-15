@@ -52,7 +52,19 @@ public class HomeController {
     }
 
   
-	
+    @RequestMapping("/about")
+    public String getAbout(Model model, HttpServletRequest paramRequest) {
+    	ctrLog(this.getClass(), "getAbout", "START");
+    	 manager = new AppManager();
+    	 String state = "about";
+    	 
+    	 ModelVo tmpModel = manager.getUserModel(paramRequest);
+    	  model.addAttribute("model",tmpModel);
+    		
+    	 ctrLog(this.getClass(), "getAbout", "END ->"+state);
+    		
+    	return state;
+    }
 
 
 	@RequestMapping("/login")
@@ -62,6 +74,7 @@ public class HomeController {
 		ctrLog(this.getClass(), "getLogin", "START");
 		manager = new AppManager();
     	String state = "login";
+    	paramModel.addAttribute("isLogin","YES");
     	paramModel.addAttribute("user",  new User());
 		paramModel.addAttribute("model", manager.getModel(paramRequest));
     	 

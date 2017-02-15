@@ -2,6 +2,7 @@ package org.nurture.estore.manager;
 
 import javax.servlet.http.HttpServletRequest;
 import org.nurture.estore.Constants;
+import org.nurture.estore.model.Privileged;
 import org.nurture.estore.model.User;
 import org.nurture.estore.vo.ModelVo;
 import org.nurture.estore.vo.UserVO;
@@ -113,9 +114,15 @@ public class AppManager {
 			mappedUser.setId(parmUser.getUserId());
 			mappedUser.setName(parmUser.getUsername() !=null ? parmUser.getUsername():parmUser.getUserMobile());
 			mappedUser.setEmail(parmUser.getUserEmail() !=null ? parmUser.getUserEmail():null);
-			mappedUser.setMobile(parmUser.getUserMobile() !=null ? parmUser.getUserMobile() : null);
+			mappedUser.setMobile(parmUser.getUserMobile() !=null ? parmUser.getUserMobile().length() >= 1 ? parmUser.getUserMobile() : null:null);
 			mappedUser.setValid(parmUser.isEnabled());
-			mappedUser.setType("admin");
+			mappedUser.setType(
+					(
+							parmUser.getRolId() == Constants.ADM_ID ? Constants.ROL_TYPE_ADM 
+									: parmUser.getRolId() == Constants.CUST_ID ? Constants.ROL_TYPE_CUS 
+											: parmUser.getRolId() == Constants.USE_ID ? Constants.ROL_TYPE_USE 
+													:Constants.ROL_TYPE_VIS)
+					);
 		}
 		
 		mgrLog(this.getClass(), "getMapUserVO", "END->");
@@ -134,6 +141,28 @@ public class AppManager {
 	// Generic Logger
 	public void mgrLog(Class<? extends AppManager> paramCclass, String paramMethod, String paramMsg) {
 		logger.info(paramCclass.getName() + " : " + paramMethod + "() : " + paramMsg);
+	}
+
+	public Integer getRol(String regType) {
+		Privileged access;
+		Integer rolId = 0;
+		if(regType.equalsIgnoreCase(Constants.ROL_TYPE_ADM)){
+			access = Privileged.ADMIN;
+			rolId = access.getAccessCode();
+		}
+		if(regType.equalsIgnoreCase("CUSTOMER")){
+			access = Privileged.CUSTOMER;
+			rolId = access.getAccessCode();
+		}
+		if(regType.equalsIgnoreCase("USER")){
+			access = Privileged.USER;
+			rolId = access.getAccessCode();
+		}
+		if(regType.equalsIgnoreCase("VISITOR")){
+			access = Privileged.VISITOR;
+			rolId = access.getAccessCode();
+		}
+		return rolId;
 	}
 
 	
