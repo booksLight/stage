@@ -72,12 +72,12 @@ function popupClose(){
 							
 							<div>
 								<form:input path="userEmail" id="email" type="text" placeholder="Email"/>
-								<label for="email">Email</label>
+								<label for="email">Email</label><form:errors path="userEmail" cssClass="error"/>
 							</div>
 
 							<div>
 								<form:input path="userMobile" id="mobile"  type="text" placeholder="Mobile" /> 
-								<label for="mobile">Mobile</label>
+								<label for="mobile">Mobile</label><form:errors path="userMobile" cssClass="error"/>
 							</div>
 							<br/>
 							<div>

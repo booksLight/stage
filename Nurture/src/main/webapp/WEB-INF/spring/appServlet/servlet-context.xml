@@ -17,6 +17,7 @@
 	
 	<context:annotation-config />
 	<context:component-scan base-package="org.nurture.estore" />
+	  <context:property-placeholder location="classpath:message.properties" /> 
 	<tx:annotation-driven/>
 	
 	<!-- Enables the Spring MVC @Controller programming model -->
@@ -36,7 +37,10 @@
 		<beans:property name="contentType" value="UTF-8"/>
 	</beans:bean>
 	
-	
+	 <beans:bean id="messageSource"
+        class="org.springframework.context.support.ReloadableResourceBundleMessageSource">
+       <beans:property name="basename" value="/WEB-INF/messages" />
+    </beans:bean>
 	
 	
 </beans:beans>

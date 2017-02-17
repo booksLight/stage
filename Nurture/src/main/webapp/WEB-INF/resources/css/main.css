@@ -399,3 +399,6 @@ input:checked + label {
 	-webkit-overflow-scrolling: touch;
 	
 }
+.error { 
+		color: red; font-weight: bold; 
+	}

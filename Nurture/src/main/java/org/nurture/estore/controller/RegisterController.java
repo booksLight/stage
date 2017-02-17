@@ -51,6 +51,7 @@ public class RegisterController {
     	
     	ctrLog(this.getClass(), "registerUserPost", "START");
     	manager = new AppManager();
+    	boolean error = false;
     	String state = "redirect:/login";
     	
     	if (result.hasErrors()) {
@@ -61,15 +62,18 @@ public class RegisterController {
 
         for (User currentUser : userList) {
             if (currentUser.getUserEmail().equals(user.getUserEmail())) {
-                model.addAttribute("emailMsg", "Email already exists");
-                state = "login";
+            	result.rejectValue("userEmail", "duplicate.user.userEmail");
+            	error = true;
             }
             if (currentUser.getUserMobile().equals(user.getUserMobile())) {
-                model.addAttribute("mobileMsg", "Mobile already exists");
-                state = "login";
+            	result.rejectValue("userMobile", "duplicate.user.mobile");
+            	error = true;
             }
-
-          
+     
+        }
+        
+        if (error) {
+            return "login";
         }
         user.setRolId(manager.getRol("USER"));
         user.setEnabled(true);
