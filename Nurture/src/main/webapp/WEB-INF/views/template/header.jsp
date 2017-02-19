@@ -24,8 +24,8 @@
     <title>Book Light</title>
 
     <!-- Angular JS -->
-    <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.0.1/angular.min.js"></script>
-
+    <script src = "https://ajax.googleapis.com/ajax/libs/angularjs/1.3.3/angular.min.js"></script>
+   
     <!-- Bootstrap core CSS -->
     <link href="<c:url value="/resources/css/bootstrap.min.css"/>" rel="stylesheet">
 
@@ -36,7 +36,7 @@
     <link href="<c:url value="/resources/css/main.css"/>" rel="stylesheet">
 
   <!-- Common JS -->
-       <script src="/resources/js/main.js"></script>
+       <script src="<c:url value="/resources/js/controller.js"/>"></script>
 		<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.2/jquery.min.js"></script>
 		<script>window.jQuery || document.write('<script src="<c:url value="/resources/js/jquery-1.12.2.min.js"/>"><\/script>')</script>
 		<script src="<c:url value="/resources/js/bootstrap.min.js"/>"></script>

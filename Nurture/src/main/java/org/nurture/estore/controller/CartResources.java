@@ -48,31 +48,30 @@ public class CartResources {
     AppManager manager;
     
     @RequestMapping("/{cartId}")
-    public
-    @ResponseBody
-    Cart getCartById(@PathVariable(value = "cartId") int cartId) {
+    public @ResponseBody Cart getCartById(@PathVariable(value = "cartId") int cartId) {
+    	resLog(this.getClass(), "getCartById", "START " + cartId);
         return cartService.getCartById(cartId);
     }
 
-    @RequestMapping(value = "/add/{productId}", method = RequestMethod.POST)
-    @ResponseStatus(value = HttpStatus.NO_CONTENT)
-    public void addItem(@PathVariable(value = "productId") int productId, HttpServletRequest paramReq, HttpServletResponse response) throws IOException {
+    @RequestMapping(value = "/add/{productId}", method = RequestMethod.GET) 
+    public String addItem(@PathVariable(value = "productId") int productId, HttpServletRequest paramReq) throws IOException {
         
     	resLog(this.getClass(), "addItem", "START " + productId);
-    	
+    	manager = new AppManager();
     
         ModelVo sessionUser = manager.getUserModel(paramReq);
         Integer lookupUserId = (sessionUser != null ? sessionUser.getUserVo() !=null ? sessionUser.getUserVo().getId():0:0);
         System.out.println("\n **** Customer lookupUserId ="+lookupUserId);
+        //TODO redirect to login if lookupUserId ==0
         Customer customer =
                 customerService.getCustomerByUserID(lookupUserId);
         
        int ciid = 0;
       
         Cart cart = customer.getCart();
-        System.out.println("\n **** Cart ="+cart.toString());
+        //System.out.println("\n **** Cart ="+cart.toString());
         Product product = productService.getProductById(productId);
-        System.out.println("\n **** product ="+product.toString());
+       // System.out.println("\n **** product ="+product.toString());
         List<CartItem> cartItems = cart.getCartItems();
        
         System.out.println("\n **** cartItems length ="+cartItems.size());
@@ -98,19 +97,20 @@ public class CartResources {
         cartItemService.addCartItem(cartItem);
        
         
-    	resLog(this.getClass(), "addItem", "END " + productId);
+    	resLog(this.getClass(), "addItem", "END " + productId +"\t Cart ID="+cart.getCartId());
+    	 return "redirect:/customer/cart";
     }
 
  
 
-    @RequestMapping(value = "/remove/{cartItemId}", method = RequestMethod.POST)
-    @ResponseStatus(value = HttpStatus.NO_CONTENT)
-    public void removeItem (@PathVariable(value = "cartItemId") int cartItemId) {
+    @RequestMapping(value = "/remove/{cartItemId}", method = RequestMethod.GET)
+    public String removeItem (@PathVariable(value = "cartItemId") int cartItemId) {
     	resLog(this.getClass(), "removeItem", "START " + cartItemId);
         cartItemService.removeCartItemById(cartItemId);
         resLog(this.getClass(), "removeItem", "END="+cartItemId);
+        return "redirect:/customer/cart";
     }
-    
+   
     @RequestMapping(value = "/{cartId}", method = RequestMethod.DELETE)
     @ResponseStatus(value = HttpStatus.NO_CONTENT)
     public void clearCart (@PathVariable(value = "cartId") int cartId) {

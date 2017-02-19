@@ -47,8 +47,9 @@ public class OrderController {
        // return state + cart;
         model.addAttribute("model", manager.getModel(paramRequest));
         model.addAttribute("order",getCustomerByCartId(cartId));
+        return "redirect:/customer/details";
         //return "redirect:/checkout/"+cartId;
-        return "collectCustomerInfo";
+        //return "collectCustomerInfo";
     }
     
    
@@ -64,7 +65,8 @@ public class OrderController {
     	 cosLog(this.getClass(), "checkoutOrder", "END");
     	 model.addAttribute("model", manager.getModel(paramRequest));
     	 model.addAttribute("order",getCustomerByCartId(cartId));
-    	return "collectCustomerInfo";
+    	//return "customerDetails";
+    	 return "redirect:/customer/details";
     }
     	
     @RequestMapping("/order/shipping/{cartId}")
@@ -108,15 +110,15 @@ public class OrderController {
     	System.out.println("\n ***** CustomerOrderService -->getCartById() = "+cartId);
         Cart cart = cartService.getCartById(cartId);
         customerOrder.setCart(cart);
-        System.out.println("\n ***** CustomerOrderService -->customerOrder.setCart(cart) = "+cart);
+      
 
         Customer customer = cart.getCustomer();
         customerOrder.setCustomer(customer);
         customerOrder.setBillingAddress(customer.getBillingAddress());
         customerOrder.setShippingAddress(customer.getShippingAddress());
-        System.out.println("\n *****Adding  CustomerOrderService -->addCustomerOrder = "+customerOrder);
+      
         customerOrderService.addCustomerOrder(customerOrder);
-        System.out.println("\n *****Successfully CustomerOrderService -->addCustomerOrder = "+customerOrder);
+       
         
         return customerOrder;
 		

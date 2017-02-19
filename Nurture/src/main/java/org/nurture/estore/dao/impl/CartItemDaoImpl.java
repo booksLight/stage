@@ -52,15 +52,24 @@ public class CartItemDaoImpl implements CartItemDao{
     }
 
 	public void removeCartItemById(Integer cartItemId) {
-		Session session ;
-		CartItem myObject ;
-		
+				
 		 System.out.println("\n\n Removing cartiitemid ="+cartItemId);
-		 session = sessionFactory.getCurrentSession();
-		 myObject = (CartItem) session.load(CartItem.class,cartItemId);
+		 Session session = sessionFactory.getCurrentSession();
+		 
+		 /*	 CartItem myObject = (CartItem) session.load(CartItem.class,cartItemId);
+		if(myObject != null){
 		 session.delete(myObject);
-		 session.flush();
-
+		}*/
+		 
+		 Query query = session.createQuery("delete CartItem where cartItemId = :cartItemId");
+		 query.setParameter("cartItemId", cartItemId);
+		  
+		 int result = query.executeUpdate();
+		  
+		 if (result > 0) {
+			 System.out.println("\n\n"+cartItemId +" deleted successfully.");
+		 }
+		
 	}
 
 }

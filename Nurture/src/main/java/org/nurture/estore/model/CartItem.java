@@ -14,7 +14,7 @@ public class CartItem implements Serializable{
     @GeneratedValue
     private Integer cartItemId;
 
-    @ManyToOne
+    @ManyToOne(cascade = CascadeType.ALL)
     @JoinColumn(name = "cartId")
     @JsonIgnore
     private Cart cart;
