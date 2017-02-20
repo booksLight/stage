@@ -47,7 +47,7 @@ public class OrderController {
        // return state + cart;
         model.addAttribute("model", manager.getModel(paramRequest));
         model.addAttribute("order",getCustomerByCartId(cartId));
-        return "redirect:/customer/details";
+        return "redirect:/customer/details/verify";
         //return "redirect:/checkout/"+cartId;
         //return "collectCustomerInfo";
     }
@@ -119,7 +119,6 @@ public class OrderController {
       
         customerOrderService.addCustomerOrder(customerOrder);
        
-        
         return customerOrder;
 		
 	}

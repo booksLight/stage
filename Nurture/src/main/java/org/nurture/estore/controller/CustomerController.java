@@ -164,6 +164,30 @@ public class CustomerController {
     }
 
     
+    //During Checkout veify Customer details
+    @RequestMapping("/details/verify")
+    public String verifyCustomer(Model model, HttpServletRequest paramRequest) {
+    	manager = new AppManager();
+    	String state = "customerDetails";
+    	ctrLog(this.getClass(), "verifyCustomer", "START");
+    	
+    	UserVO curentUser = (UserVO) paramRequest.getSession().getAttribute("suser");
+    	
+    	if(curentUser!=null){
+    		System.out.println("\n*******\n\t CustomerService Current USER ="+curentUser);
+    		customerDet = customerService.getCustomerByUserID(curentUser.getId());
+    	}else{
+    		state = "redirect:/login";
+    	}
+       customerDet.setEnabled(false);
+        model.addAttribute("customer",  customerDet);
+        model.addAttribute("model", manager.getUserModel(paramRequest));
+
+    	ctrLog(this.getClass(), "verifyCustomer", "END-->"+state);
+        return state;
+    }
+
+    
     
   //Generic Logger for this class
     private void ctrLog(Class<? extends CustomerController> paramCclass, String paramMethod, String paramMsg) {

@@ -3,15 +3,15 @@
 <%@taglib prefix="form" uri="http://www.springframework.org/tags/form" %>
 <%@taglib prefix="spring" uri="http://www.springframework.org/tags" %>
 <jsp:include page="/WEB-INF/views/template/header.jsp" />
-<script src = "https://ajax.googleapis.com/ajax/libs/angularjs/1.3.3/angular.min.js"></script>
 <script src="<c:url value="/resources/js/controller.js"/>"></script>
+
 <div class="container-wrapper">
     <div class="container">
-  	<section>
+  
                   <h1>Cart</h1>
                     <p>All the selected products in your shopping cart</p>
-    </section>
-    <section>     
+   
+    
             <div ng-controller = "cartCtrl" ng-init="initCartId('${cartId}')">
 
                 <div>
@@ -49,7 +49,7 @@
 
                 <a href="<spring:url value="/product/productList" />" class="btn btn-default">Continue Shopping</a>
             </div>
-       </section>   
+        
  </div></div>
 <br/><br/><br/>
  

@@ -4,12 +4,12 @@
 <%@taglib prefix="spring" uri="http://www.springframework.org/tags" %>
 <jsp:include page="/WEB-INF/views/template/header.jsp" />
 	
-  <main>
+<main>
   <p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; Fill the below information to add a product</p>
   <input id="tab1" type="radio" name="tabs" class="NoDisplay" checked>
   <label for="tab1">Customer Info</label>
     
-  <input id="tab2" type="radio" name="tabs" class="NoDisplay">
+  <input id="tab2" type="radio" name="tabs" class="NoDisplay" >
   <label for="tab2">Billing Address:</label>
   
    <input id="tab3" type="radio" name="tabs" class="NoDisplay">
@@ -17,21 +17,30 @@
  
  <!--  CUSTOMER DETAILS  TAB -->
   <section id="content1">
-    <p>
+   
     
       <table>
       <form:form class="go-right" action="${pageContext.request.contextPath}/customer/info" method="post" commandName="customer">
+       
+      
+                               
+        
         
         <tr>
         	<td> Customer Name </td>
-        	<td><form:hidden path="userId" id="uid" placeholder="User ID" size="3" /></td>
-        	<td><form:input path="customerName" id="name" type="text" placeholder="Customer Name" /></td>
+        	<td> <form:hidden path="userId" id="uid" placeholder="User ID" size="3" /> </td>
+        	<td><c:if test="${customer.isEnabled() == true}}"><form:input path="customerName" id="name" type="text" placeholder="Customer Name" /></c:if>
+        		<form:input path="customerName" id="name" type="text" placeholder="Customer Name" readonly="true"/>
+        	</td>
         </tr>
         
          <tr>
          	<td>Customer Email </td>
          	<td></td>
-         	<td> <form:input path="customerEmail" id="email" placeholder="Vlaid Email Address"/> </td>
+         	<td>  
+         		<c:if test="${customer.isEnabled() == true}}"> <form:input path="customerEmail" id="email" placeholder="Vlaid Email Address"/></c:if>
+         		<form:input path="customerEmail" id="email" placeholder="Vlaid Email Address" readonly="true"/>
+          </td>
        </tr>
         
          <%--  <tr>
@@ -43,25 +52,27 @@
         <tr>
           	<td >Customer Phone No. </td>
           		<td></td>
-          	<td> <form:input path="customerPhone" id="phone" placeholder="Active Phone Number" /></td>
+          	<td><c:if test="${customer.isEnabled() == true}}"> <form:input path="customerPhone" id="phone" placeholder="Active Phone Number" /></c:if>
+          		<form:input path="customerPhone" id="phone" placeholder="Active Phone Number" readonly="true" />
+          	</td>
          </tr>
           <tr  align="right">
          	
-         	<td colspan="3"><a class="btn btn-default" href="${pageContext.request.contextPath}/product/productList"> Cancel </a>   
-         	<input type="submit" class="btn btn-default" value="Update">
+         	<td colspan="3">
+         	
          	</td>
          </tr>
          
           </form:form>
           </table>
-   	</p>
+ 
  	
   </section>
     
     
  <!--  BILLING ADDREES TAB -->
    <section id="content2">
- <p>
+
   
     <table>
         <form:form class="go-right" action="${pageContext.request.contextPath}/customer/billing/address" method="post" commandName="customer">
@@ -115,13 +126,13 @@
          
           </form:form>
           </table>
- 	</p>
+
   </section>
   
   <!--  SHIPPING ADDREES TAB -->
    <section id="content3">
- 	<p>
-  
+ 
+  <p>
     <table>
         <form:form class="go-right" action="${pageContext.request.contextPath}/customer/shipping/address" method="post" commandName="customer">
         
@@ -176,7 +187,7 @@
           </table>
  	</p>
   </section>
-    
+ 
 </main>
 
 

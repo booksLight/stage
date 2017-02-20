@@ -1,6 +1,6 @@
 @import url('http://fonts.googleapis.com/css?family=Open+Sans:400,600,700');
 @import url('http://netdna.bootstrapcdn.com/font-awesome/4.1.0/css/font-awesome.css');
-
+/*  Tbas Reference : https://codepen.io/oknoblich/pen/tfjFl */
 .container-wrapper {
     height: 80%;
     margin: auto;
@@ -314,7 +314,7 @@ main {
 }
 
 section {
-  display: block;
+  display: none;
   padding: 20px 0 0;
   border-top: 1px solid #ddd;
 }
@@ -342,7 +342,8 @@ label:before {
 label[for*='1']:before { content: '\f1cb'; }
 label[for*='2']:before { content: '\f17d'; }
 label[for*='3']:before { content: '\f16b'; }
-label[for*='4']:before { content: '\f1a9'; }
+
+
 
 label:hover {
   color: #888;
@@ -358,8 +359,7 @@ input:checked + label {
 
 #tab1:checked ~ #content1,
 #tab2:checked ~ #content2,
-#tab3:checked ~ #content3,
-#tab4:checked ~ #content4 {
+#tab3:checked ~ #content3 {
   display: block;
 }
 
@@ -394,11 +394,11 @@ input:checked + label {
 
 // ***** NEW TABS RESPONSIVE
 
-.cd-tabs nav {
+ .cd-tabs nav {
 	overflow: auto;
 	-webkit-overflow-scrolling: touch;
 	
 }
 .error { 
 		color: red; font-weight: bold; 
-	}
+	} 
