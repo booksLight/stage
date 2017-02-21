@@ -47,18 +47,7 @@
                         <a href="${ourl}" class="btn btn-warning btn-large"><span class="glyphicon glyphicon-shopping-cart"></span> Order Now</a>
                         <a href="<spring:url value="${curl}" />" class="btn btn-default"><span class="glyphicon glyphicon-hand-right"></span> View Cart</a>
                     </p>
-
-			
-                 <%--    <p ng-controller="cartCtrl">
-                        <a href="<c:url value="${url}"/>" class="btn btn-default">Back</a>
-                        <a href="<c:url value="${cur}"/>" class="btn btn-warning btn-large"
-                         ng-click="addToCart('${product.productId}')"
-                      				class="glyphicon glyphicon-shopping-cart">Order Now </a>
-                      				
-                      				
-                       <a href="<spring:url value="/customer/cart"/>" class="btn btn-default">-
-                            <span class="glyphicon glyphicon-hand-right"></span>View cart</a>
-                    </p> --%>
+               
                 </div>
             </div>
         </div>

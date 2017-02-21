@@ -62,8 +62,6 @@ public class CustomerController {
     	ctrLog(this.getClass(), "getCustomerInfo", "START");
     	String state = "customerDetails";
     	
-    	System.out.println("\n*******\n\t CustomerService getCustomerInfo CUSTOMER ="+customer);
-    	
     	if(customer.getCustomerName()!=null && customer.getCustomerName().length() >4){
     		customerDet.setCustomerName(customer.getCustomerName() );
     	}
@@ -88,11 +86,11 @@ public class CustomerController {
     	String state = "customerDetails";
     	
 
-    	System.out.println("\n*******\n\t CustomerService getCustomerBillingAddress CUSTOMER ="+customer);
+    	logger.debug("\n*******\n\t CustomerService getCustomerBillingAddress CUSTOMER ");
     	
     	
     	BillingAddress billAddress = (customer != null ? customer.getBillingAddress() != null ? customer.getBillingAddress() :null:null);
-    	System.out.println("\n*******\n\t CustomerService BillingAddress ="+billAddress.toString());
+    	logger.debug("\n*******\n\t CustomerService BillingAddress.");
       
     	
 		
@@ -127,9 +125,6 @@ public class CustomerController {
           
         
     	model.addAttribute("customer",  customerDet);
-       // customerService.addCustomer(customer);
-    	System.out.println("\n*******\n CUSTOMER  ="+customer.toString());
-    	System.out.println("\n*******\n  CUSTOMER DETAILS ="+customerDet.toString());
     	customerService.addCustomer(customerDet);
         ctrLog(this.getClass(), "getCustomerShippingAddress", "END-->"+state);
         return state;
@@ -174,7 +169,7 @@ public class CustomerController {
     	UserVO curentUser = (UserVO) paramRequest.getSession().getAttribute("suser");
     	
     	if(curentUser!=null){
-    		System.out.println("\n*******\n\t CustomerService Current USER ="+curentUser);
+    		logger.debug("\n*******\n\t CustomerService Current USER.");
     		customerDet = customerService.getCustomerByUserID(curentUser.getId());
     	}else{
     		state = "redirect:/login";

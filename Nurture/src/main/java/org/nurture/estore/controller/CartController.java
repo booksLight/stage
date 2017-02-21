@@ -6,6 +6,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -39,7 +40,7 @@ public class CartController {
 
     AppManager manager;
     
-    @RequestMapping
+    @RequestMapping(method = RequestMethod.GET)
     public String getCart(HttpServletRequest paramRequest ) {
     	
     	ctrLog(this.getClass(), "getCart", "START");
@@ -54,7 +55,7 @@ public class CartController {
     		ctrLog(this.getClass(),"getCart", "Current User ="+curentUser.toString());
       
     		int cartId = customer.getCart().getCartId();
-        	ctrLog(this.getClass(), "getCart", "END ->"+state+cartId);
+        	ctrLog(this.getClass(), "getCart", "END ");
         	state = state + cartId;
     	}else{
     		state = "redirect:/login";
@@ -62,13 +63,13 @@ public class CartController {
     	return state;
     }
 
-    @RequestMapping("/{cartId}")
+    @RequestMapping(value ="/{cartId}", method = RequestMethod.GET)
     public String getCartRedirect(@PathVariable(value = "cartId") int cartId, Model model,HttpServletRequest paramRequest) {
     	ctrLog(this.getClass(), "getCartRedirect", "START");
     	manager = new AppManager();
     	String state = "cart";
     	CartItemsVO civ;
-    	ProductVO pvo;
+    	ProductVO pvo = null;
     	Double cartGrandTotal = 0.0;
     	List<CartItemsVO> civs = null;
     	
@@ -77,8 +78,8 @@ public class CartController {
     	 }
     	Cart cart= cartService.getCartById(cartId);
     	if(cart != null){
-    		 civs = new ArrayList();
-    		System.out.println("\n ***** CartItem SIZE ="+cart.getCartItems().size());
+    		 civs = new ArrayList<CartItemsVO>();
+    		 logger.info("\n ***** CartItem SIZE ="+cart.getCartItems().size());
     		for(CartItem item : cart.getCartItems()){
     			civ = new CartItemsVO();
     			civ.setCartId(cartId);

@@ -61,20 +61,19 @@ public class CartResources {
     
         ModelVo sessionUser = manager.getUserModel(paramReq);
         Integer lookupUserId = (sessionUser != null ? sessionUser.getUserVo() !=null ? sessionUser.getUserVo().getId():0:0);
-        System.out.println("\n **** Customer lookupUserId ="+lookupUserId);
-        //TODO redirect to login if lookupUserId ==0
+        if(lookupUserId > 0){
+        	
+        
         Customer customer =
                 customerService.getCustomerByUserID(lookupUserId);
-        
+       
        int ciid = 0;
       
         Cart cart = customer.getCart();
-        //System.out.println("\n **** Cart ="+cart.toString());
         Product product = productService.getProductById(productId);
-       // System.out.println("\n **** product ="+product.toString());
         List<CartItem> cartItems = cart.getCartItems();
-       
-        System.out.println("\n **** cartItems length ="+cartItems.size());
+
+      
         for (int i = 0; i < cartItems.size(); i++) {
             if (product.getProductId() == cartItems.get(i).getProduct().getProductId()) {
                 CartItem cartItem = cartItems.get(i);
@@ -87,7 +86,7 @@ public class CartResources {
 
             }
         }
-
+       
       CartItem cartItem = new CartItem();
       //cartItem.setCartItemId((ciid+1));
         cartItem.setProduct(product);
@@ -95,9 +94,10 @@ public class CartResources {
         cartItem.setTotalPrice(product.getProductPrice() * cartItem.getQuantity());
         cartItem.setCart(cart);
         cartItemService.addCartItem(cartItem);
-       
-        
-    	resLog(this.getClass(), "addItem", "END " + productId +"\t Cart ID="+cart.getCartId());
+        resLog(this.getClass(), "addItem", "END ");
+        }else{
+    	resLog(this.getClass(), "addItem", "No any Customer/user login... ");
+        }
     	 return "redirect:/customer/cart";
     }
 
