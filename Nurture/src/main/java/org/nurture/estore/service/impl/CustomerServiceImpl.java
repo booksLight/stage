@@ -4,6 +4,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.nurture.estore.dao.CustomerDao;
 import org.nurture.estore.model.Customer;
+import org.nurture.estore.model.ShippingAddress;
 import org.nurture.estore.service.CustomerService;
 
 import java.util.List;
@@ -32,5 +33,9 @@ public class CustomerServiceImpl implements CustomerService{
 
 	public Customer getCustomerByUserID(Integer userId) {
 		 return customerDao.getCustomerByUserID(userId);
+	}
+
+	public boolean updateShippingAddress(Customer customerParam) {
+		return customerDao.updateShippingAddress(customerParam);
 	}
 }

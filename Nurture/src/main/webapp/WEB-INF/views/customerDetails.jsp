@@ -29,8 +29,8 @@
         <tr>
         	<td> Customer Name </td>
         	<td> <form:hidden path="userId" id="uid" placeholder="User ID" size="3" /> </td>
-        	<td><c:if test="${customer.isEnabled() == true}}"><form:input path="customerName" id="name" type="text" placeholder="Customer Name" /></c:if>
-        		<form:input path="customerName" id="name" type="text" placeholder="Customer Name" readonly="true"/>
+        	<td>
+        		<form:input path="customerName" id="name" type="text" placeholder="Customer Name" />
         	</td>
         </tr>
         
@@ -38,7 +38,6 @@
          	<td>Customer Email </td>
          	<td></td>
          	<td>  
-         		<c:if test="${customer.isEnabled() == true}}"> <form:input path="customerEmail" id="email" placeholder="Vlaid Email Address"/></c:if>
          		<form:input path="customerEmail" id="email" placeholder="Vlaid Email Address" readonly="true"/>
           </td>
        </tr>
@@ -52,14 +51,14 @@
         <tr>
           	<td >Customer Phone No. </td>
           		<td></td>
-          	<td><c:if test="${customer.isEnabled() == true}}"> <form:input path="customerPhone" id="phone" placeholder="Active Phone Number" /></c:if>
+          	<td>
           		<form:input path="customerPhone" id="phone" placeholder="Active Phone Number" readonly="true" />
           	</td>
          </tr>
           <tr  align="right">
          	
-         	<td colspan="3">
-         	
+         	<td colspan="3"><a class="btn btn-default" href="${pageContext.request.contextPath}/product/productList"> Cancel </a>   
+         	<input type="submit" class="btn btn-default" value="Update">
          	</td>
          </tr>
          

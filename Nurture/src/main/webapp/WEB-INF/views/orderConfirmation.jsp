@@ -91,9 +91,9 @@
 
                         <br/><br/>
 
-	<a class="btn btn-default" href="/cart/order/shipping/6">Back</a>
-		<a class="btn btn-default" href="/cart/order/receipt/6">Submit Order</a>
-		<a class="btn btn-default" href="/cart/customer/cart/6">Cancel</a>
+	<a class="btn btn-default" href="/cart/customer/cart">Cancel</a>
+		<a class="btn btn-default" href="/cart/order/receipt/${cartId}">Submit Order</a>
+		
 
                       
                     </div>

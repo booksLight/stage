@@ -66,7 +66,7 @@ public class OrderController {
     	 model.addAttribute("model", manager.getModel(paramRequest));
     	 model.addAttribute("order",getCustomerByCartId(cartId));
     	//return "customerDetails";
-    	 return "redirect:/customer/details";
+    	 return "redirect:/customer/details/verify";
     }
     	
     @RequestMapping("/order/shipping/{cartId}")
@@ -89,6 +89,7 @@ public class OrderController {
     	 cosLog(this.getClass(), "confirmationOrder", "END");
     	 model.addAttribute("order",getCustomerByCartId(cartId));
     	 model.addAttribute("model", manager.getModel(paramRequest));
+    	 model.addAttribute("cartId", cartId);
     	return "orderConfirmation";
     }
     
@@ -100,8 +101,9 @@ public class OrderController {
     	 cosLog(this.getClass(), "receiptOrder", "START");
     	 cosLog(this.getClass(), "receiptOrder", "Parameters = "+cartId);
     	 cosLog(this.getClass(), "receiptOrder", "END");
-    	// model.addAttribute("order",getCustomerByCartId(cartId));
+    	 model.addAttribute("order",getCustomerByCartId(cartId));
     	 model.addAttribute("model", manager.getModel(paramRequest));
+    	 model.addAttribute("cartId", cartId);
     	return "thankCustomer";
     }
     

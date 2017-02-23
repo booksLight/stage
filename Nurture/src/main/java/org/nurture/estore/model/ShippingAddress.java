@@ -1,5 +1,6 @@
 package org.nurture.estore.model;
 
+import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
@@ -14,12 +15,12 @@ public class ShippingAddress implements Serializable{
     @Id
     @GeneratedValue
     private int shippingAddressId;
-    private String streetName;
-    private String apartmentNumber;
-    private String city;
-    private String state;
-    private String country;
-    private String zipCode;
+    @Column private String streetName;
+    @Column private String apartmentNumber;
+    @Column private String city;
+    @Column private String state;
+    @Column private String country;
+    @Column private String zipCode;
 
     @OneToOne
     private Customer customer;

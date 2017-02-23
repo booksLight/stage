@@ -10,13 +10,14 @@ import org.nurture.estore.dao.CustomerDao;
 import org.nurture.estore.model.Authorities;
 import org.nurture.estore.model.Cart;
 import org.nurture.estore.model.Customer;
+import org.nurture.estore.model.ShippingAddress;
 import org.nurture.estore.model.User;
 
 import javax.swing.text.DefaultEditorKit;
 import java.util.List;
 
 /**
- * Created by Andrew on 26.04.2016.
+ * Created by Rakesh Sharma on 22.02.2017.
  */
 @Repository
 @Transactional
@@ -85,4 +86,38 @@ public class CustomerDaoImpl implements CustomerDao{
 	        	 return (Customer) query.uniqueResult();
 	     
 	}
+
+	public boolean updateShippingAddress(Customer customerParam) {
+			System.out.println("\n\n CustomerDaoImpl --> updateShippingAddress() : START"+customerParam.getShippingAddress().toString());
+			boolean state = false;
+		 if(customerParam != null && customerParam.getShippingAddress() != null){
+			 Session session = sessionFactory.getCurrentSession();
+			 String updateShipAddHql = "Update ShippingAddress set "
+			 				+ "streetName = :newStreet,"
+			 					+ "apartmentNumber = :newapArtmentNumber,"
+			 						+ "city = :newCity,"
+			 							+ "state = :newstate,"
+			 								+ "country = :newCountry,"
+			 									+ "zipCode = :newZipCode"
+			 				+ " where shippingAddressId = :shippAddressId";
+			 
+			 Query query = session.createQuery(updateShipAddHql);
+		        query.setParameter("newStreet",customerParam.getShippingAddress().getStreetName());
+		        	query.setParameter("newapArtmentNumber",customerParam.getShippingAddress().getApartmentNumber());
+		        			query.setParameter("newCity",customerParam.getShippingAddress().getCity());
+		        					query.setParameter("newstate",customerParam.getShippingAddress().getState());
+		        							query.setParameter("newCountry",customerParam.getShippingAddress().getCountry());
+		        									query.setParameter("newZipCode",customerParam.getShippingAddress().getZipCode());
+		        										query.setParameter("shippAddressId",customerParam.getShippingAddress().getShippingAddressId());
+		        										System.out.println("HQL: " + query.toString());
+		        int rowCount = query.executeUpdate();
+		        System.out.println("Rows affected: " + rowCount);
+			 state = rowCount >0 ? true:false;
+		 }
+			System.out.println("\n\n CustomerDaoImpl --> updateShippingAddress() : END");
+			
+		return state;
+	}
+	
+	
 }

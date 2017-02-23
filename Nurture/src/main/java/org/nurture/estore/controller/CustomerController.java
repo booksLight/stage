@@ -109,7 +109,7 @@ public class CustomerController {
                                        BindingResult result, Model model, HttpServletRequest paramRequest) {
     	
     	ctrLog(this.getClass(), "getCustomerShippingAddress", "START");
-    	String state = "productList";
+    	String state = "redirect:/";
     	
     	/*if (result.hasErrors()) {
     		System.out.println("\n\t RESULT ERRORS ="+result.hasErrors());
@@ -122,10 +122,14 @@ public class CustomerController {
     	
     	
     	customerDet.setShippingAddress(shippingAddress);
-          
+    	ctrLog(this.getClass(), "**** getCustomerShippingAddress", "Customer ID-->"+customerDet.getCustomerId());
         
     	model.addAttribute("customer",  customerDet);
-    	customerService.addCustomer(customerDet);
+    	
+    	boolean response = customerService.updateShippingAddress(customerDet);
+    	if(!response){
+    		state = "redirect:/";
+    	}
         ctrLog(this.getClass(), "getCustomerShippingAddress", "END-->"+state);
         return state;
    
@@ -163,11 +167,22 @@ public class CustomerController {
     @RequestMapping("/details/verify")
     public String verifyCustomer(Model model, HttpServletRequest paramRequest) {
     	manager = new AppManager();
-    	String state = "customerDetails";
+    	String state = "shippingDetails";
     	ctrLog(this.getClass(), "verifyCustomer", "START");
     	
     	UserVO curentUser = (UserVO) paramRequest.getSession().getAttribute("suser");
-    	
+    	//Adding cartId to Model oblject
+    	if(curentUser!=null){
+    		Customer temCustomer = customerService.getCustomerByUserID(curentUser.getId());
+    		ctrLog(this.getClass(),"getCustomerByUserID", "START");
+      
+    		int cartId = temCustomer.getCart().getCartId();
+        	ctrLog(this.getClass(), "getCustomerByUserID", "END ");
+        	model.addAttribute("cartId", cartId);
+    	}else{
+    		state = "redirect:/login";
+    	}
+    	//adding Customer to model object
     	if(curentUser!=null){
     		logger.debug("\n*******\n\t CustomerService Current USER.");
     		customerDet = customerService.getCustomerByUserID(curentUser.getId());
@@ -182,7 +197,48 @@ public class CustomerController {
         return state;
     }
 
-    
+    @RequestMapping(value = "/shipping/address/update", method = RequestMethod.POST)
+    public String updateShippingAddress(@Valid @ModelAttribute("customer") Customer customer,
+                                       BindingResult result, Model model, HttpServletRequest paramRequest) {
+    	
+    	ctrLog(this.getClass(), "getCustomerShippingAddress", "START");
+    	String state = "redirect:/details/verify";
+    	
+    	/*if (result.hasErrors()) {
+    		System.out.println("\n\t RESULT ERRORS ="+result.hasErrors());
+    		state = "redirect:/customer/details";
+            return state;
+        }*/
+
+    	UserVO curentUser = (UserVO) paramRequest.getSession().getAttribute("suser");
+    	if(curentUser!=null){
+    		Customer temCustomer = customerService.getCustomerByUserID(curentUser.getId());
+    		ctrLog(this.getClass(),"getCustomerByUserID", "START");
+      
+    		int cartId = temCustomer.getCart().getCartId();
+        	ctrLog(this.getClass(), "getCustomerByUserID", "END ");
+        	model.addAttribute("cartId", cartId);
+    	}else{
+    		state = "redirect:/login";
+    	}
+    	
+    	
+    	ShippingAddress shippingAddress = (customer != null ? customer.getShippingAddress() != null ? customer.getShippingAddress() :null:null);
+    	
+    	
+    	customerDet.setShippingAddress(shippingAddress);
+    	ctrLog(this.getClass(), "**** getCustomerShippingAddress", "Customer ID-->"+customerDet.getCustomerId());
+        
+    	model.addAttribute("customer",  customerDet);
+    	
+    	boolean response = customerService.updateShippingAddress(customerDet);
+    	if(!response){
+    		state = "redirect:/";
+    	}
+        ctrLog(this.getClass(), "getCustomerShippingAddress", "END-->"+state);
+        return state;
+   
+    }
     
   //Generic Logger for this class
     private void ctrLog(Class<? extends CustomerController> paramCclass, String paramMethod, String paramMsg) {
