@@ -166,7 +166,7 @@
           	<td >Shipping Country </td>
           		<td></td>
           	<td>   
-          		<form:select path="billingAddress.country" id="shippingCountry">
+          		<form:select path="shippingAddress.country" id="shippingCountry">
           			<form:option value="-Select-"></form:option>
           			<form:option value="India"></form:option>
           		</form:select>

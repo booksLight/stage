@@ -202,7 +202,7 @@ public class CustomerController {
                                        BindingResult result, Model model, HttpServletRequest paramRequest) {
     	
     	ctrLog(this.getClass(), "getCustomerShippingAddress", "START");
-    	String state = "redirect:/details/verify";
+    	String state = "redirect:/customer/details/verify";
     	
     	/*if (result.hasErrors()) {
     		System.out.println("\n\t RESULT ERRORS ="+result.hasErrors());

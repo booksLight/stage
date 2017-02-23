@@ -91,28 +91,26 @@ public class CustomerDaoImpl implements CustomerDao{
 			System.out.println("\n\n CustomerDaoImpl --> updateShippingAddress() : START"+customerParam.getShippingAddress().toString());
 			boolean state = false;
 		 if(customerParam != null && customerParam.getShippingAddress() != null){
+			 ShippingAddress shipAdd =  customerParam.getShippingAddress();
 			 Session session = sessionFactory.getCurrentSession();
-			 String updateShipAddHql = "Update ShippingAddress set "
-			 				+ "streetName = :newStreet,"
-			 					+ "apartmentNumber = :newapArtmentNumber,"
-			 						+ "city = :newCity,"
-			 							+ "state = :newstate,"
-			 								+ "country = :newCountry,"
-			 									+ "zipCode = :newZipCode"
-			 				+ " where shippingAddressId = :shippAddressId";
+			// session.saveOrUpdate(customerParam.getShippingAddress());
+			
+			 String hqlUpdateQuery= "update shippingaddress set streetName=:newStreet, apartmentNumber=:newapArtmentNumber, city=:newCity, state=:newstate, country=:newCountry, zipCode=:newZipCode where shippingAddressId=:shippAddressId";
 			 
-			 Query query = session.createQuery(updateShipAddHql);
-		        query.setParameter("newStreet",customerParam.getShippingAddress().getStreetName());
-		        	query.setParameter("newapArtmentNumber",customerParam.getShippingAddress().getApartmentNumber());
-		        			query.setParameter("newCity",customerParam.getShippingAddress().getCity());
-		        					query.setParameter("newstate",customerParam.getShippingAddress().getState());
-		        							query.setParameter("newCountry",customerParam.getShippingAddress().getCountry());
-		        									query.setParameter("newZipCode",customerParam.getShippingAddress().getZipCode());
-		        										query.setParameter("shippAddressId",customerParam.getShippingAddress().getShippingAddressId());
-		        										System.out.println("HQL: " + query.toString());
-		        int rowCount = query.executeUpdate();
+			 Query query1 = session.createSQLQuery(hqlUpdateQuery);
+			 		query1.setParameter("newStreet",customerParam.getShippingAddress().getStreetName().toString());
+		        	query1.setParameter("newapArtmentNumber",customerParam.getShippingAddress().getApartmentNumber().toString());
+		        	query1.setParameter("newCity",customerParam.getShippingAddress().getCity().toString());
+		        	query1.setParameter("newstate",customerParam.getShippingAddress().getState().toString());
+		        	query1.setParameter("newCountry",customerParam.getShippingAddress().getCountry().toString());
+		        	query1.setParameter("newZipCode",customerParam.getShippingAddress().getZipCode());
+		        	query1.setParameter("shippAddressId",customerParam.getShippingAddress().getShippingAddressId());
+		 
+		        int rowCount = query1.executeUpdate();
+		       
 		        System.out.println("Rows affected: " + rowCount);
 			 state = rowCount >0 ? true:false;
+				System.out.println("\n\n CustomerDaoImpl --> updateShippingAddress() : SUCCESS *****");
 		 }
 			System.out.println("\n\n CustomerDaoImpl --> updateShippingAddress() : END");
 			
