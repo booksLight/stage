@@ -232,9 +232,7 @@ public class CustomerController {
     	model.addAttribute("customer",  customerDet);
     	
     	boolean response = customerService.updateShippingAddress(customerDet);
-    	if(!response){
-    		state = "redirect:/";
-    	}
+    	ctrLog(this.getClass(), "getCustomerShippingAddress", "updateShippingAddress ==-->"+response);
         ctrLog(this.getClass(), "getCustomerShippingAddress", "END-->"+state);
         return state;
    

@@ -130,7 +130,7 @@
  
   <p>
     <table>
-        <form:form class="go-right" action="${pageContext.request.contextPath}/customer/shipping/address" method="post" commandName="customer">
+        <form:form class="go-right" action="${pageContext.request.contextPath}/customer/shipping/address/update" method="post" commandName="customer">
         
         <tr>
         	<td>Building Name/Number</td>
@@ -175,7 +175,7 @@
          </tr>
           <tr  align="right">
          	
-         	<td colspan="2"><a class="btn btn-default" href="${pageContext.request.contextPath}/product/productList"> Cancel </a> </td>
+         	<td colspan="2"> </td>
          	<td>  <input type="submit" class="btn btn-default" value="Update"></td>
          </tr>
          
