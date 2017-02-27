@@ -171,6 +171,22 @@ public class HomeController {
     }
 	
 	
+	
+	/* @RequestMapping("/social")
+	    public String getSoclialHome(Model model, HttpServletRequest paramRequest) {
+	    	ctrLog(this.getClass(), "getSoclialHome", "START");
+	    	 manager = new AppManager();
+	    	 String state = "social";
+	    	 
+	    	 ModelVo tmpModel = manager.getUserModel(paramRequest);
+	    	  model.addAttribute("model",tmpModel);
+	    		System.out.println("\n ^^^^^^^^^^^ Model ="+tmpModel.toString());
+	    	 ctrLog(this.getClass(), "getSoclialHome", "END ->"+state);
+	    		
+	    	return state;
+	    }*/
+
+	
 	private void ctrLog(Class<? extends HomeController> paramCclass, String paramMethod, String paramMsg) {
 		logger.info(paramCclass.getName() + " : " + paramMethod + "() : " + paramMsg);
 		

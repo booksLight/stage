@@ -168,6 +168,28 @@
 			<artifactId>javax.mail-api</artifactId>
 			<version>1.5.5</version>
 		</dependency>
+		
+<!-- https://mvnrepository.com/artifact/com.google.apis/google-api-services-people -->
+
+		<!-- <dependency>
+			<groupId>com.google.apis</groupId>
+			<artifactId>google-api-services-people</artifactId>
+			<version>v1-rev61-1.22.0</version>
+		</dependency> 
+		
+		
+		<dependency>
+			<groupId>com.google.cloud.dataflow</groupId>
+			<artifactId>google-cloud-dataflow-java-sdk-all</artifactId>
+			<version>1.9.0</version>
+		</dependency>
+		
+		<dependency>
+			<groupId>com.google.oauth-client</groupId>
+			<artifactId>google-oauth-client-jetty</artifactId>
+			<version>1.11.0-beta</version>
+		</dependency>
+		-->
 
 		<dependency>
 			<groupId>junit</groupId>
