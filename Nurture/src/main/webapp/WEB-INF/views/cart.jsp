@@ -42,7 +42,7 @@
                         <th></th>
                         <th></th>
                         <th>Grand Total</th>
-                        <th>${calGrandTotal}</th>
+                        <th class="fa fa-inr" style="font-size:22px;color:red">${calGrandTotal}</th>
                         <th></th>
                     </tr>
                 </table>

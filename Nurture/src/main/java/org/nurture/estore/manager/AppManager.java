@@ -4,8 +4,10 @@ import javax.mail.MessagingException;
 import javax.mail.internet.AddressException;
 import javax.servlet.http.HttpServletRequest;
 import org.nurture.estore.Constants;
+import org.nurture.estore.model.Customer;
 import org.nurture.estore.model.Privileged;
 import org.nurture.estore.model.User;
+import org.nurture.estore.service.CustomerService;
 import org.nurture.estore.service.IMail;
 import org.nurture.estore.service.impl.MailImpl;
 import org.nurture.estore.vo.ModelVo;
@@ -156,10 +158,7 @@ public class AppManager {
 	
 	
 	
-	// Generic Logger
-	public void mgrLog(Class<? extends AppManager> paramCclass, String paramMethod, String paramMsg) {
-		logger.info(paramCclass.getName() + " : " + paramMethod + "() : " + paramMsg);
-	}
+	
 
 	public Integer getRol(String regType) {
 		Privileged access;
@@ -183,8 +182,26 @@ public class AppManager {
 		return rolId;
 	}
 
+	public Customer getCustomerByUser(CustomerService customerService, HttpServletRequest paramRequest) {
+		 mgrLog(this.getClass(), "getCustomerByUser", "START");
+		
+		// Fetching looged user from the session
+		UserVO curentUser = updateSession(null, paramRequest);
+    	
+    	if(curentUser!=null){
+    		 mgrLog(this.getClass(), "getCustomerByUser", "END with Customer");
+    		 return customerService.getCustomerByUserID(curentUser.getId());
+    	}
+    	mgrLog(this.getClass(), "getCustomerByUser", "END with null");
+		return null;
+	}
+
 	
 
 
+	// Generic Logger
+		public void mgrLog(Class<? extends AppManager> paramCclass, String paramMethod, String paramMsg) {
+			logger.info(paramCclass.getName() + " : " + paramMethod + "() : " + paramMsg);
+		}
 
 }

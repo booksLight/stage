@@ -78,7 +78,7 @@
                                         <h4><strong>Grand Total:</strong></h4>
                                     </td>
                                     <td class="text-center text-danger">
-                                        <h4><strong>$ ${order.cart.grandTotal}</strong></h4>
+                                        <h4 class="fa fa-inr" style="font-size:22px;color:red"><strong> ${order.cart.grandTotal}</strong></h4>
                                     </td>
                                 </tr>
 
@@ -101,4 +101,7 @@
             </div>
         </div>
 
+
+<script src="<c:url value="/resources/js/controller.js"/>"></script>
+<!-- Footer  -->
 <jsp:include page="/WEB-INF/views/template/footer.jsp" />

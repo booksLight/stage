@@ -167,30 +167,27 @@ public class CustomerController {
     @RequestMapping("/details/verify")
     public String verifyCustomer(Model model, HttpServletRequest paramRequest) {
     	manager = new AppManager();
+    	Customer temCustomer;
     	String state = "shippingDetails";
     	ctrLog(this.getClass(), "verifyCustomer", "START");
     	
     	UserVO curentUser = (UserVO) paramRequest.getSession().getAttribute("suser");
     	//Adding cartId to Model oblject
     	if(curentUser!=null){
-    		Customer temCustomer = customerService.getCustomerByUserID(curentUser.getId());
-    		ctrLog(this.getClass(),"getCustomerByUserID", "START");
-      
-    		int cartId = temCustomer.getCart().getCartId();
-        	ctrLog(this.getClass(), "getCustomerByUserID", "END ");
+    		 temCustomer = customerService.getCustomerByUserID(curentUser.getId());
+    		 int cartId = temCustomer.getCart().getCartId();
+    		 
+    		 temCustomer.setEnabled(false);
+    		 model.addAttribute("customer",  temCustomer);
         	model.addAttribute("cartId", cartId);
+        	
+        	
     	}else{
     		state = "redirect:/login";
     	}
-    	//adding Customer to model object
-    	if(curentUser!=null){
-    		logger.debug("\n*******\n\t CustomerService Current USER.");
-    		customerDet = customerService.getCustomerByUserID(curentUser.getId());
-    	}else{
-    		state = "redirect:/login";
-    	}
-       customerDet.setEnabled(false);
-        model.addAttribute("customer",  customerDet);
+    	
+    	
+      
         model.addAttribute("model", manager.getUserModel(paramRequest));
 
     	ctrLog(this.getClass(), "verifyCustomer", "END-->"+state);
@@ -198,10 +195,11 @@ public class CustomerController {
     }
 
     @RequestMapping(value = "/shipping/address/update", method = RequestMethod.POST)
-    public String updateShippingAddress(@Valid @ModelAttribute("customer") Customer customer,
+    public String updateShippingAddress(@Valid @ModelAttribute("customer") Customer updateCustomer,
                                        BindingResult result, Model model, HttpServletRequest paramRequest) {
     	
     	ctrLog(this.getClass(), "getCustomerShippingAddress", "START");
+    	ctrLog(this.getClass(), "getCustomerShippingAddress", "CUSTOMER Apartment No = "+updateCustomer.getShippingAddress().getApartmentNumber());
     	String state = "redirect:/customer/details/verify";
     	
     	/*if (result.hasErrors()) {
@@ -209,30 +207,37 @@ public class CustomerController {
     		state = "redirect:/customer/details";
             return state;
         }*/
-
-    	UserVO curentUser = (UserVO) paramRequest.getSession().getAttribute("suser");
-    	if(curentUser!=null){
-    		Customer temCustomer = customerService.getCustomerByUserID(curentUser.getId());
-    		ctrLog(this.getClass(),"getCustomerByUserID", "START");
-      
-    		int cartId = temCustomer.getCart().getCartId();
-        	ctrLog(this.getClass(), "getCustomerByUserID", "END ");
+    		
+    	Customer existCustomer = manager.getCustomerByUser(customerService,  paramRequest);
+    	
+    	if(existCustomer != null && updateCustomer != null){
+    		ctrLog(this.getClass(), "**** updateShippingAddress", "Logged Customer ID-->"+existCustomer.getCustomerId());
+    		
+    		ShippingAddress updatedShipAdd = updateCustomer.getShippingAddress();
+    		ShippingAddress currentShipAdd = existCustomer.getShippingAddress();
+    		
+    		currentShipAdd.setApartmentNumber(updatedShipAdd !=null ? updatedShipAdd.getApartmentNumber() : currentShipAdd.getApartmentNumber());
+    		currentShipAdd.setStreetName(updatedShipAdd !=null  ? updatedShipAdd.getStreetName() : currentShipAdd.getApartmentNumber() );
+    		currentShipAdd.setCity(updatedShipAdd !=null  ? updatedShipAdd.getCity() : currentShipAdd.getCity() );
+    		currentShipAdd.setState(updatedShipAdd !=null  ? updatedShipAdd.getState() : currentShipAdd.getState() );
+    		currentShipAdd.setZipCode(updatedShipAdd !=null  ? updatedShipAdd.getZipCode() : currentShipAdd.getZipCode() );
+    		currentShipAdd.setCountry(updatedShipAdd !=null  ? updatedShipAdd.getCountry() : currentShipAdd.getCountry() );
+    		
+    		existCustomer.setShippingAddress(currentShipAdd);
+    		
+    		int cartId = existCustomer.getCart().getCartId();
         	model.addAttribute("cartId", cartId);
+        
+        	
+        	boolean response = customerService.updateShippingAddress(existCustomer);
+        	
+        	model.addAttribute("customer",  existCustomer);
+        	ctrLog(this.getClass(), "getCustomerShippingAddress", "updateShippingAddress ==-->"+response);
+        	
     	}else{
     		state = "redirect:/login";
     	}
     	
-    	
-    	ShippingAddress shippingAddress = (customer != null ? customer.getShippingAddress() != null ? customer.getShippingAddress() :null:null);
-    	
-    	
-    	customerDet.setShippingAddress(shippingAddress);
-    	ctrLog(this.getClass(), "**** getCustomerShippingAddress", "Customer ID-->"+customerDet.getCustomerId());
-        
-    	model.addAttribute("customer",  customerDet);
-    	
-    	boolean response = customerService.updateShippingAddress(customerDet);
-    	ctrLog(this.getClass(), "getCustomerShippingAddress", "updateShippingAddress ==-->"+response);
         ctrLog(this.getClass(), "getCustomerShippingAddress", "END-->"+state);
         return state;
    

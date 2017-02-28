@@ -6,7 +6,7 @@ public class Constants {
 
 	//model Info
 
-	public static final String MODEL_TITILE = "Book Light";
+	public static final String MODEL_TITILE = "Books Light";
 	public static final String MODEL_PRODUCTS = "Products";
 	public static final String MODEL_CONTACTS = "Contacts";
 	public static final String MODEL_HOME = "Home";

@@ -1,3 +1,5 @@
+<%@ page contentType="text/html; charset=UTF-8" pageEncoding="UTF-8" language="java" %>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 </div>
 
 
@@ -7,15 +9,15 @@
 		<footer class="footer-distributed">
 
 			<div class="footer-left">
-
-				<h3>Book <span>Light</span></h3>
+				<h3><img class="img-circle"  src="<c:url value="/resources/images/bottomLogo.png"/>"
+                             alt="image" style="width:20%" height="14%" > Book <span>Light</span></h3>
 
 				<p class="footer-links">
 					<a href="/cart">Home</a>
 					&nbsp;|&nbsp;
 					<a href="/cart/product/productList"> Products</a>
 					&nbsp;|&nbsp;	
-					<a href="/cart/about">About</a>
+					<a href="#">Services</a>
 					&nbsp;|&nbsp;
 					<a href="#">Contact</a>
 				</p>
@@ -45,7 +47,7 @@
 			<div class="footer-right">
 
 				<p class="footer-company-about">
-					<span>About Us</span>
+					<span>About <a href="/cart/about">...</a></span>
 					We are passionate about helping our customers to get the best experience here.
 				</p>
 

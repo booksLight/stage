@@ -39,7 +39,7 @@ function popupClose(){
 	<div id="popupLogin" class="overlay" style="display:none">
 			<div class="popup">
 				<h2>Sign In</h2>
-				<a class="close" href="javascript:popupClose()">X</a>
+				<a class="close" href="javascript:popupClose()">Register</a>
 				<div class="content">
 					<form class="go-right" name="loginForm" action="<c:url value="/security_check"/>" method="post">
 						

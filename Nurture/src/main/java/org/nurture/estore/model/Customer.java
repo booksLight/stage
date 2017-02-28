@@ -99,15 +99,17 @@ public class Customer implements Serializable{
         this.billingAddress = billingAddress;
     }
 
+   
+
     public ShippingAddress getShippingAddress() {
-        return shippingAddress;
-    }
+		return shippingAddress;
+	}
 
-    public void setShippingAddress(ShippingAddress shippingAddress) {
-        this.shippingAddress = shippingAddress;
-    }
+	public void setShippingAddress(ShippingAddress shippingAddress) {
+		this.shippingAddress = shippingAddress;
+	}
 
-    public Cart getCart() {
+	public Cart getCart() {
         return cart;
     }
 

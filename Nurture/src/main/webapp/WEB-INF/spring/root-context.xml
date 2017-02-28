@@ -17,11 +17,11 @@
     <bean id="datasource" class="org.springframework.jdbc.datasource.DriverManagerDataSource">
        <property name="driverClassName" value="com.mysql.jdbc.Driver" />
       
-    <!--  	--> 
+    <!--  		--> 
        <property name="url" value="jdbc:mysql://nurturedbinstance.cuvnif7wyyki.us-west-2.rds.amazonaws.com:3306/nurture" />
 		<property name="username" value="nurture" />
 		<property name="password" value="nurtures" />
-	
+
 	 
 	 <!--	
 		<property name="url" value="jdbc:mysql://localhost:3306/nurture" />

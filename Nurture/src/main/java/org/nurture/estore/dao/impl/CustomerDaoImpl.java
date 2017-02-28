@@ -88,8 +88,10 @@ public class CustomerDaoImpl implements CustomerDao{
 	}
 
 	public boolean updateShippingAddress(Customer customerParam) {
-			System.out.println("\n\n CustomerDaoImpl --> updateShippingAddress() : START"+customerParam.getShippingAddress().toString());
+		
 			boolean state = false;
+
+	    				
 		 if(customerParam != null && customerParam.getShippingAddress() != null){
 			 ShippingAddress shipAdd =  customerParam.getShippingAddress();
 			 Session session = sessionFactory.getCurrentSession();
@@ -97,12 +99,15 @@ public class CustomerDaoImpl implements CustomerDao{
 			
 			 String hqlUpdateQuery= "update shippingaddress set streetName=:newStreet, apartmentNumber=:newapArtmentNumber, city=:newCity, state=:newstate, country=:newCountry, zipCode=:newZipCode where shippingAddressId=:shippAddressId";
 			 
+			
+			System.out.println("\n @@@@@@@@@@@@@@@@@@@@@  Shipment Address ID =");
+			 
 			 Query query1 = session.createSQLQuery(hqlUpdateQuery);
 			 		query1.setParameter("newStreet",customerParam.getShippingAddress().getStreetName().toString());
 		        	query1.setParameter("newapArtmentNumber",customerParam.getShippingAddress().getApartmentNumber().toString());
 		        	query1.setParameter("newCity",customerParam.getShippingAddress().getCity().toString());
 		        	query1.setParameter("newstate",customerParam.getShippingAddress().getState().toString());
-		        	query1.setParameter("newCountry",customerParam.getShippingAddress().getCountry().toString());
+		        	query1.setParameter("newCountry",customerParam.getShippingAddress().getCountry());
 		        	query1.setParameter("newZipCode",customerParam.getShippingAddress().getZipCode());
 		        	query1.setParameter("shippAddressId",customerParam.getShippingAddress().getShippingAddressId());
 		 

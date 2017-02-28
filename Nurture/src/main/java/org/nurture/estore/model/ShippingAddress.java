@@ -89,15 +89,12 @@ public class ShippingAddress implements Serializable{
         this.customer = customer;
     }
 
-    @Override
-    public String toString() {
-        return "ShippingAddress{" +
-                "zipCode='" + zipCode + '\'' +
-                ", country='" + country + '\'' +
-                ", state='" + state + '\'' +
-                ", city='" + city + '\'' +
-                ", apartmentNumber='" + apartmentNumber + '\'' +
-                ", streetName='" + streetName + '\'' +
-                '}';
-    }
+	@Override
+	public String toString() {
+		return "ShippingAddress [shippingAddressId=" + shippingAddressId + ", streetName=" + streetName
+				+ ", apartmentNumber=" + apartmentNumber + ", city=" + city + ", state=" + state + ", country="
+				+ country + ", zipCode=" + zipCode + ", customer=" + customer + "]";
+	}
+
+  
 }
