@@ -10,7 +10,7 @@
 
 			<div class="footer-left">
 				<h3><img class="img-circle"  src="<c:url value="/resources/images/bottomLogo.png"/>"
-                             alt="image" style="width:20%" height="14%" > Book <span>Light</span></h3>
+                             alt="image" style="width:20%" height="14%" > Books <span>Light</span></h3>
 
 				<p class="footer-links">
 					<a href="/cart">Home</a>

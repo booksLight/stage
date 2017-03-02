@@ -8,6 +8,9 @@ import org.springframework.transaction.annotation.Transactional;
 import org.nurture.estore.dao.CartDao;
 import org.nurture.estore.model.Cart;
 import org.nurture.estore.service.CustomerOrderService;
+import org.nurture.estore.service.impl.MailImpl;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import java.io.IOException;
 
@@ -17,7 +20,9 @@ import java.io.IOException;
 @Repository
 @Transactional
 public class CartDaoImpl implements CartDao {
-
+	
+	private static final Logger logger = LoggerFactory.getLogger(CartDaoImpl.class);
+	
     @Autowired
     private SessionFactory sessionFactory;
 
@@ -30,7 +35,7 @@ public class CartDaoImpl implements CartDao {
     }
 
     public Cart validate(int cartId) throws IOException {
-    	System.out.println("\n ******\t this is requestParameters.cartId = "+cartId);
+    	logger.debug("\n ******\t this is requestParameters.cartId = "+cartId);
        /* Cart cart = getCartById(cartId);
         if (cart == null || cart.getCartItems().size() == 0) {
               throw new IOException(cartId + "");

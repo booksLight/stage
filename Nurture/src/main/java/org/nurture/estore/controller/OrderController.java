@@ -34,7 +34,7 @@ public class OrderController {
     @RequestMapping("/order/{cartId}")
     public String createOrder(@PathVariable("cartId") int cartId,Model model, HttpServletRequest paramRequest) {
     	
-    	System.out.println("\n ***** CustomerOrderService -->createOrder() = "+cartId);
+    	logger.debug("\n ***** CustomerOrderService -->createOrder() = "+cartId);
     	 manager = new AppManager();
     	 String state = "checkout?cartId=";
     	 
@@ -43,7 +43,7 @@ public class OrderController {
     	 }
     	getCustomerByCartId(cartId);
         
-        System.out.println("\n ***** Returning to CustomerOrderService --> = "+state + cartId);
+        logger.debug("\n ***** Returning to CustomerOrderService --> = "+state + cartId);
        // return state + cart;
         model.addAttribute("model", manager.getModel(paramRequest));
         model.addAttribute("order",getCustomerByCartId(cartId));
@@ -109,7 +109,7 @@ public class OrderController {
     
     private CustomerOrder getCustomerByCartId(int cartId) {
     	CustomerOrder customerOrder = new CustomerOrder();
-    	System.out.println("\n ***** CustomerOrderService -->getCartById() = "+cartId);
+    	logger.debug("\n ***** CustomerOrderService -->getCartById() = "+cartId);
         Cart cart = cartService.getCartById(cartId);
         customerOrder.setCart(cart);
       

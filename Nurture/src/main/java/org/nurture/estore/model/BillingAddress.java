@@ -4,9 +4,12 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 import javax.persistence.OneToOne;
+import javax.persistence.Table;
+
 import java.io.Serializable;
 
 @Entity
+@Table
 public class BillingAddress implements Serializable {
 
     private static final long serialVersionUID = 740048053943023684L;

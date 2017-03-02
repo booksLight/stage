@@ -18,4 +18,6 @@ public interface UserDao {
 	User getUserByName(String username);
 	
 	User getUserByMobile(String mobile);
+
+	void updateUserName(User userParam);
 }

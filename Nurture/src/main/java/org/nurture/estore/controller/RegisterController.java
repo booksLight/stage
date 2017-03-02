@@ -80,7 +80,12 @@ public class RegisterController {
         user.setPassword(manager.getPassCode(user.getUserMobile()));
         userService.addUser(user);
         ctrLog(this.getClass(), "registerUserPost", "Successfully Added new User!");
-        manager.mailRegistrationAcknowledgment(user!= null ? user : null);
+        try{
+        	manager.mailRegistrationAcknowledgment(user!= null ? user : null);
+        }catch(Exception e){
+        	 ctrLog(this.getClass(), "registerUserPost", "ERROR -->"+e);
+        	
+        }
         ctrLog(this.getClass(), "registerUserPost", "END -->"+state);
         return state;
     }

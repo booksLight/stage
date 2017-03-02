@@ -9,17 +9,19 @@ import org.nurture.estore.model.Privileged;
 import org.nurture.estore.model.User;
 import org.nurture.estore.service.CustomerService;
 import org.nurture.estore.service.IMail;
+import org.nurture.estore.service.UserService;
 import org.nurture.estore.service.impl.MailImpl;
 import org.nurture.estore.vo.ModelVo;
 import org.nurture.estore.vo.UserVO;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.beans.factory.annotation.Autowired;
 
 public class AppManager {
 
 	private static final Logger logger = LoggerFactory.getLogger(AppManager.class);
 
-	/*
+		/*
 	 * Model Info 
 	 */
 	public ModelVo getUserModel(HttpServletRequest paramReq){
@@ -199,9 +201,31 @@ public class AppManager {
 	
 
 
-	// Generic Logger
-		public void mgrLog(Class<? extends AppManager> paramCclass, String paramMethod, String paramMsg) {
-			logger.info(paramCclass.getName() + " : " + paramMethod + "() : " + paramMsg);
+	
+
+		public void updateUserName(Customer customerParam, UserService userService) {
+			mgrLog(this.getClass(), "updateUserName", "START");
+			if(customerParam != null ){
+				
+			User useParam = new User();
+			
+			useParam.setUsername(customerParam.getCustomerName());
+			useParam.setRolId(getRol("CUSTOMER"));
+			useParam.setUserId(customerParam.getUserId());
+			try{
+				userService.saveOrUpdateUserName(useParam);
+			}catch(Exception e){mgrLog(this.getClass(), "updateUserName", "Exception :" +e.getMessage());}
+			}else{
+				mgrLog(this.getClass(), "updateUserName", "Customer is null...Over");
+			}
+			mgrLog(this.getClass(), "getCustomerByUser", "END ");
 		}
 
+		
+		
+		
+		// Generic Logger
+				public void mgrLog(Class<? extends AppManager> paramCclass, String paramMethod, String paramMsg) {
+					logger.info(paramCclass.getName() + " : " + paramMethod + "() : " + paramMsg);
+				}
 }

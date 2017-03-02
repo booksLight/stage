@@ -1,6 +1,8 @@
 package org.nurture.estore.service;
 
 import java.util.List;
+
+import org.nurture.estore.model.Customer;
 import org.nurture.estore.model.User;
 
 public interface UserService {
@@ -14,4 +16,6 @@ public interface UserService {
 	User getUserByName(String username);
 	
 	User getUserByMobile(String mobile);
+
+	void saveOrUpdateUserName(User userParam);
 }

@@ -45,7 +45,6 @@ public class HomeController {
     	 
     	 ModelVo tmpModel = manager.getUserModel(paramRequest);
     	  model.addAttribute("model",tmpModel);
-    		System.out.println("\n ^^^^^^^^^^^ Model ="+tmpModel.toString());
     	 ctrLog(this.getClass(), "getHome", "END ->"+state);
     		
     	return state;
@@ -122,11 +121,8 @@ public class HomeController {
     	userVO = manager.updateSession(userVO,paramRequest);
     	modelUser.setUserVo(userVO);
     		if(isNewCustomer(curentUser)){
-    			
-    			System.out.println("\n \n (((((((((((( Existing CUSTOMER FOUND !)))))))))))");
     			modelUser.setCartEnable(false);
     		} else {
-    			 System.out.println("\n **** Adding Customer since seems new one!");
           		 return "redirect:/customer/details";
     		}
     	
@@ -143,7 +139,6 @@ public class HomeController {
 	private boolean isNewCustomer(User curentUser) {
 		Customer customer = customerService.getCustomerByUserID((curentUser.getUserId()));
 		boolean state = customer!=null ? true:false;
-		System.out.println("\n\t isNewCustomer ===== "+state);
 		return state;
 	}
 
@@ -180,7 +175,6 @@ public class HomeController {
 	    	 
 	    	 ModelVo tmpModel = manager.getUserModel(paramRequest);
 	    	  model.addAttribute("model",tmpModel);
-	    		System.out.println("\n ^^^^^^^^^^^ Model ="+tmpModel.toString());
 	    	 ctrLog(this.getClass(), "getSoclialHome", "END ->"+state);
 	    		
 	    	return state;

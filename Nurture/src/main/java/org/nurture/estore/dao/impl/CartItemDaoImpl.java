@@ -9,6 +9,9 @@ import org.springframework.transaction.annotation.Transactional;
 import org.nurture.estore.dao.CartItemDao;
 import org.nurture.estore.model.Cart;
 import org.nurture.estore.model.CartItem;
+import org.nurture.estore.util.FileUpload;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import java.util.List;
 
@@ -19,6 +22,8 @@ import java.util.List;
 @Transactional
 public class CartItemDaoImpl implements CartItemDao{
 
+	private static final Logger logger = LoggerFactory.getLogger(CartItemDaoImpl.class);
+	
     @Autowired
     private SessionFactory sessionFactory;
 
@@ -53,7 +58,7 @@ public class CartItemDaoImpl implements CartItemDao{
 
 	public void removeCartItemById(Integer cartItemId) {
 				
-		 System.out.println("\n\n Removing cartiitemid ="+cartItemId);
+		 logger.debug("\n\n Removing cartiitemid ="+cartItemId);
 		 Session session = sessionFactory.getCurrentSession();
 		 
 		 /*	 CartItem myObject = (CartItem) session.load(CartItem.class,cartItemId);
@@ -67,7 +72,7 @@ public class CartItemDaoImpl implements CartItemDao{
 		 int result = query.executeUpdate();
 		  
 		 if (result > 0) {
-			 System.out.println("\n\n"+cartItemId +" deleted successfully.");
+			 logger.debug("\n\n"+cartItemId +" deleted successfully.");
 		 }
 		
 	}

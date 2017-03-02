@@ -8,10 +8,12 @@ import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.multipart.MultipartFile;
 import org.nurture.estore.manager.AppManager;
 import org.nurture.estore.model.Product;
 import org.nurture.estore.service.ProductService;
+import org.nurture.estore.util.FileUpload;
 import org.nurture.estore.vo.ProductImg;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -31,6 +33,9 @@ public class AdminProduct {
 	private static final Logger logger = LoggerFactory.getLogger(AdminProduct.class);
 	AppManager manager;
     private Path path;
+    
+    @Autowired
+    FileUpload fileUpload;
 
     @Autowired
     private ProductService productService;
@@ -58,7 +63,7 @@ public class AdminProduct {
    
     @RequestMapping(value = "/product/addProduct", method = RequestMethod.POST)
     public String addProductPost(@Valid @ModelAttribute("product") Product product,  BindingResult result, Model model,  HttpServletRequest request) {
-    	System.out.println("\n ******** /product/addProduct (product): "+product.toString());
+   
     	
         if (result.hasErrors()) {
         	 ctrLog(this.getClass(), "addProductPost", "ERROR ="+result.toString());
@@ -93,10 +98,17 @@ public class AdminProduct {
     }
 
     @RequestMapping(value = "/product/addProductImg", method = RequestMethod.POST)
-    public String addProductPost(@Valid @ModelAttribute("productImg") ProductImg productImg,  BindingResult result, Model model,  HttpServletRequest request) {
-    	System.out.println("\n ******** /product/addProductImg (product): "+productImg.toString());
-    	String state = "redirect:/admin/productInventory/";
+    public String UploadProductImgPost(@RequestParam("file") MultipartFile file, Model model, HttpServletRequest request) {
     	
+    	
+    	  ctrLog(this.getClass(), "UploadProductImgPost", "START...");
+    		String state = "redirect:/admin/productInventory/";
+    		
+    		   		
+    		model.addAttribute("message", fileUpload.process(file));
+    
+    	
+    	 ctrLog(this.getClass(), "UploadProductImgPost", "END...");
     	return state;
     }
     

@@ -7,6 +7,7 @@ import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 import org.nurture.estore.controller.RegisterController;
 import org.nurture.estore.dao.UserDao;
+import org.nurture.estore.model.ShippingAddress;
 import org.nurture.estore.model.User;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -27,9 +28,9 @@ public class UserDaoImpl implements UserDao {
 		if(user != null){
 		 Session session = sessionFactory.getCurrentSession();
 		 session.saveOrUpdate(user);
-		 ctrLog(this.getClass(), "addUser", "The "+user.getUserEmail() +"Successfully registered!");
+		 udaoImplLog(this.getClass(), "addUser", "The "+user.getUserEmail() +"Successfully registered!");
 		}else{
-		ctrLog(this.getClass(), "addUser", "The user is null..");
+			udaoImplLog(this.getClass(), "addUser", "The user is null..");
 		}
 	}
 
@@ -58,7 +59,7 @@ public class UserDaoImpl implements UserDao {
 
 	
 	public User getUserByMobile(String mobile) {
-		System.out.println("\n *************** getUserByMobile() :"+mobile);
+		logger.debug("\n *************** getUserByMobile() :"+mobile);
 		Session session = sessionFactory.getCurrentSession();
 		 Query query = session.createQuery("from Users where mobile = ?");
 	        query.setString(0, mobile);
@@ -72,10 +73,33 @@ public class UserDaoImpl implements UserDao {
 	
 	
 	
-	//Generic Logger for this class
-    private void ctrLog(Class<? extends UserDaoImpl> paramCclass, String paramMethod, String paramMsg) {
-  		logger.info(paramCclass.getName() + " : " + paramMethod + "() : " + paramMsg);
-  	}
+	
+
+public void updateUserName(User userParam) {
+	udaoImplLog(this.getClass(), "updateUserName", " START");
+		if(userParam != null ){
+			
+			Session session = sessionFactory.getCurrentSession();
+			String hqlUpdateQuery= "update users set username=:userNameParm, rolId=:rolIdParm where userId=:userIdParam";
+			
+			Query query1 = session.createSQLQuery(hqlUpdateQuery);
+	 		query1.setParameter("userNameParm",userParam.getUsername().toString());
+        	query1.setParameter("rolIdParm",userParam.getRolId());
+        	query1.setParameter("userIdParam",userParam.getUserId());	
+        	int rowCount = query1.executeUpdate();
+       
+        	logger.debug("**** User has been updated with Name and Roll; Rows affected: " + rowCount);
+		}
+		
+		udaoImplLog(this.getClass(), "updateUserName", " END");
+		
+	}
 
 	
+
+
+//Generic Logger for this class
+private void udaoImplLog(Class<? extends UserDaoImpl> paramCclass, String paramMethod, String paramMsg) {
+		logger.info(paramCclass.getName() + " : " + paramMethod + "() : " + paramMsg);
+	}
 }

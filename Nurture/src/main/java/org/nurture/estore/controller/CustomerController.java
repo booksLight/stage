@@ -12,6 +12,7 @@ import org.nurture.estore.model.BillingAddress;
 import org.nurture.estore.model.Customer;
 import org.nurture.estore.model.ShippingAddress;
 import org.nurture.estore.service.CustomerService;
+import org.nurture.estore.service.UserService;
 import org.nurture.estore.vo.UserVO;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -27,9 +28,14 @@ public class CustomerController {
 	private static final Logger logger = LoggerFactory.getLogger(CustomerController.class);
 	AppManager manager;
 	Customer customerDet;
+	
     @Autowired
     private CustomerService customerService;
-
+    
+    @Autowired
+    UserService userService;
+ 
+   
     @RequestMapping("/details")
     public String viewCustomer(Model model, HttpServletRequest paramRequest) {
     	manager = new AppManager();
@@ -38,7 +44,7 @@ public class CustomerController {
     	customerDet = new Customer();
     	UserVO curentUser = (UserVO) paramRequest.getSession().getAttribute("suser");
     	if(curentUser!=null){
-    		System.out.println("\n*******\n\t CustomerService Current USER ="+curentUser);
+    		
     		customerDet.setUserId(curentUser.getId());
     		customerDet.setCustomerEmail(curentUser.getEmail());
     		customerDet.setCustomerName(curentUser.getName());
@@ -71,6 +77,9 @@ public class CustomerController {
     	}
       
         model.addAttribute("customer",  customerDet);
+        
+        manager.updateUserName(customerDet,userService);
+        
        
         ctrLog(this.getClass(), "getCustomerInfo", "END-->"+state);
         return state;
@@ -91,11 +100,7 @@ public class CustomerController {
     	
     	BillingAddress billAddress = (customer != null ? customer.getBillingAddress() != null ? customer.getBillingAddress() :null:null);
     	logger.debug("\n*******\n\t CustomerService BillingAddress.");
-      
-    	
-		
-		//96310 26902 // 0271651H (Ramesh Kumar[Chuunu])
-		
+      	
         customerDet.setBillingAddress(billAddress);
         model.addAttribute("customer",  customerDet);
       
@@ -112,8 +117,7 @@ public class CustomerController {
     	String state = "redirect:/";
     	
     	/*if (result.hasErrors()) {
-    		System.out.println("\n\t RESULT ERRORS ="+result.hasErrors());
-    		state = "redirect:/customer/details";
+    			state = "redirect:/customer/details";
             return state;
         }*/
 
@@ -125,11 +129,12 @@ public class CustomerController {
     	ctrLog(this.getClass(), "**** getCustomerShippingAddress", "Customer ID-->"+customerDet.getCustomerId());
         
     	model.addAttribute("customer",  customerDet);
-    	
-    	boolean response = customerService.updateShippingAddress(customerDet);
-    	if(!response){
-    		state = "redirect:/";
-    	}
+    	customerDet.setEnabled(true);
+    	customerService.addCustomer(customerDet);
+//    	boolean response = customerService.updateShippingAddress(customerDet);
+//    	if(!response){
+//    		state = "redirect:/";
+//    	}
         ctrLog(this.getClass(), "getCustomerShippingAddress", "END-->"+state);
         return state;
    
@@ -203,7 +208,6 @@ public class CustomerController {
     	String state = "redirect:/customer/details/verify";
     	
     	/*if (result.hasErrors()) {
-    		System.out.println("\n\t RESULT ERRORS ="+result.hasErrors());
     		state = "redirect:/customer/details";
             return state;
         }*/
@@ -243,7 +247,25 @@ public class CustomerController {
    
     }
     
-  //Generic Logger for this class
+    
+    
+  public CustomerService getCustomerService() {
+		return customerService;
+	}
+
+	public void setCustomerService(CustomerService customerService) {
+		this.customerService = customerService;
+	}
+
+	public UserService getUserService() {
+		return userService;
+	}
+
+	public void setUserService(UserService userService) {
+		this.userService = userService;
+	}
+
+	//Generic Logger for this class
     private void ctrLog(Class<? extends CustomerController> paramCclass, String paramMethod, String paramMsg) {
   		logger.info(paramCclass.getName() + " : " + paramMethod + "() : " + paramMsg);
   	}

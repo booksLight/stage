@@ -12,6 +12,9 @@ import org.nurture.estore.model.Cart;
 import org.nurture.estore.model.Customer;
 import org.nurture.estore.model.ShippingAddress;
 import org.nurture.estore.model.User;
+import org.nurture.estore.service.impl.MailImpl;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import javax.swing.text.DefaultEditorKit;
 import java.util.List;
@@ -23,6 +26,8 @@ import java.util.List;
 @Transactional
 public class CustomerDaoImpl implements CustomerDao{
 
+	private static final Logger logger = LoggerFactory.getLogger(CustomerDaoImpl.class);
+	
     @Autowired
     private SessionFactory sessionFactory;
 
@@ -79,7 +84,7 @@ public class CustomerDaoImpl implements CustomerDao{
     }
 
 	public Customer getCustomerByUserID(Integer userId) {
-		System.out.println("\n\n CustomerDaoImpl --> getCustomerByUserID() "+userId);
+		logger.debug("\n\n CustomerDaoImpl --> getCustomerByUserID() "+userId);
 		 Session session = sessionFactory.getCurrentSession();
 	        Query query = session.createQuery("from Customer where userId = ?");
 	        query.setInteger(0, userId);
@@ -97,10 +102,10 @@ public class CustomerDaoImpl implements CustomerDao{
 			 Session session = sessionFactory.getCurrentSession();
 			// session.saveOrUpdate(customerParam.getShippingAddress());
 			
-			 String hqlUpdateQuery= "update shippingaddress set streetName=:newStreet, apartmentNumber=:newapArtmentNumber, city=:newCity, state=:newstate, country=:newCountry, zipCode=:newZipCode where shippingAddressId=:shippAddressId";
+			 String hqlUpdateQuery= "update ShippingAddress set streetName=:newStreet, apartmentNumber=:newapArtmentNumber, city=:newCity, state=:newstate, country=:newCountry, zipCode=:newZipCode where shippingAddressId=:shippAddressId";
 			 
 			
-			System.out.println("\n @@@@@@@@@@@@@@@@@@@@@  Shipment Address ID =");
+			logger.debug("\n @@@@@@@@@@@@@@@@@@@@@  Shipment Address ID =");
 			 
 			 Query query1 = session.createSQLQuery(hqlUpdateQuery);
 			 		query1.setParameter("newStreet",customerParam.getShippingAddress().getStreetName().toString());
@@ -113,11 +118,11 @@ public class CustomerDaoImpl implements CustomerDao{
 		 
 		        int rowCount = query1.executeUpdate();
 		       
-		        System.out.println("Rows affected: " + rowCount);
+		        logger.debug("Rows affected: " + rowCount);
 			 state = rowCount >0 ? true:false;
-				System.out.println("\n\n CustomerDaoImpl --> updateShippingAddress() : SUCCESS *****");
+				logger.debug("\n\n CustomerDaoImpl --> updateShippingAddress() : SUCCESS *****");
 		 }
-			System.out.println("\n\n CustomerDaoImpl --> updateShippingAddress() : END");
+			logger.debug("\n\n CustomerDaoImpl --> updateShippingAddress() : END");
 			
 		return state;
 	}

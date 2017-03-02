@@ -82,20 +82,27 @@
     
    <section id="content2">
  <p>
-  
-      <form:form class="go-right" action="${pageContext.request.contextPath}/admin/product/addProductImg" method="post" commandName="productImg" enctype="multipart/form-data">
+  <center><h1>${ message }</h1></center>
+     
+     
+      <form method="POST" enctype="multipart/form-data" action="${pageContext.request.contextPath}/admin/product/addProductImg">
+            <p>File to upload: <input type="file" name="file"></p>
+            <p><input type="submit" value="Upload"> Press here to upload the file!</p>
+        </form>
+     
+   <%--    <form class="go-right" action="${pageContext.request.contextPath}/admin/product/addProductImg" method="POST" enctype="multipart/form-data">
         
          <div class="form-group">
-            <label class="control-label" for="productImage">Upload Picture</label>
-            <form:input id="productImage" path="productImage" type="file" class="form:input-large"/>
+            <label class="control-label">Upload Picture</label>
+            <input id="productImage" name="productImage" type="file" class="form:input-large"/>
         </div>
 
         <div>
-        	<input type="submit" value="Submit" class="btn btn-default"> 
+        	<input type="submit" value="Upload" class="btn btn-default"> 
          	<a href="<c:url value="/admin/productInventory"/>" class="btn btn-default">Cancel</a>
         </div>
         
-      </form:form>
+      </form> --%>
  </p>
  
   </section>

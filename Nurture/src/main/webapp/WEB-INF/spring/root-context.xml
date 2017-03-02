@@ -17,18 +17,18 @@
     <bean id="datasource" class="org.springframework.jdbc.datasource.DriverManagerDataSource">
        <property name="driverClassName" value="com.mysql.jdbc.Driver" />
       
-    <!--  		--> 
+    <!--  		
     
-       <property name="url" value="jdbc:mysql://mysqlmumnurture.czr5lvaaqq4h.ap-south-1.rds.amazonaws.com:3306/Nurture" />
+       <property name="url" value="jdbc:mysql://mysqlmumnurture.czr5lvaaqq4h.ap-south-1.rds.amazonaws.com:3306/nurture" />
 		<property name="username" value="nurture" />
 		<property name="password" value="nurtures" />
-
+ 	-->
 	 
-	 <!--	
+	 <!--	-->	
 		<property name="url" value="jdbc:mysql://localhost:3306/nurture" />
 		<property name="username" value="root" />
 		<property name="password" value="root" />
-	-->
+
     </bean>
 
     <bean id="hibernate4AnnotatedSessionFactory" class="org.springframework.orm.hibernate5.LocalSessionFactoryBean">
@@ -54,10 +54,18 @@
 </bean>
 
 
- <!--    <bean id="multipartResolver"
+
+<bean class="org.springframework.web.multipart.commons.CommonsMultipartResolver" id="multipartResolver"/>
+
+<bean class="org.nurture.estore.util.FileUpload" id="fileUpload"/>
+
+
+
+<!--    <bean id="multipartResolver"
           class="org.springframework.web.multipart.commons.CommonsMultipartResolver">
         <property name="maxUploadSize" value="1024000"/>
-    </bean> -->
+    </bean> 
+     -->
     
 <!-- <bean id="concurrencyFilter"
 class="org.springframework.security.web.session.ConcurrentSessionFilter">
