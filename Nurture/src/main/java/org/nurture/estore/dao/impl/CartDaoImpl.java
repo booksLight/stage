@@ -1,5 +1,6 @@
 package org.nurture.estore.dao.impl;
 
+import org.hibernate.Query;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -8,6 +9,7 @@ import org.springframework.transaction.annotation.Transactional;
 import org.nurture.estore.dao.CartDao;
 import org.nurture.estore.model.Cart;
 import org.nurture.estore.service.CustomerOrderService;
+import org.nurture.estore.service.impl.CartServiceImpl;
 import org.nurture.estore.service.impl.MailImpl;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -15,7 +17,7 @@ import org.slf4j.LoggerFactory;
 import java.io.IOException;
 
 /**
- * Created by Andrew on 07.05.2016.
+ * Created by Rakesh Sharma on 22.02.2017.
  */
 @Repository
 @Transactional
@@ -54,4 +56,23 @@ public class CartDaoImpl implements CartDao {
         Session session = sessionFactory.getCurrentSession();
         session.saveOrUpdate(cart);
     }
+
+	public void updateGrandTotal(Cart cartParam) {
+		daoLog(this.getClass(), "updateGrandTotal", "START");
+		 Session session = sessionFactory.getCurrentSession();
+		 
+		String hqlUpdateQuery= "update cart set grandTotal=:cartTotal where cartId=:newCartId";
+			 Query query1 = session.createSQLQuery(hqlUpdateQuery);
+			 		query1.setParameter("cartTotal", cartParam.getGrandTotal());
+			 		query1.setParameter("newCartId",cartParam.getCartId());
+		int rowCount = query1.executeUpdate();
+		logger.debug("Grand Total updated.... Cart Rows affected: " + rowCount);
+		daoLog(this.getClass(), "updateGrandTotal", "END");
+	}
+	
+	
+	
+	 private void daoLog(Class<? extends CartDaoImpl> paramCclass, String paramMethod, String paramMsg) {
+			logger.info(paramCclass.getName() + " : " + paramMethod + "() : " + paramMsg);
+		}
 }

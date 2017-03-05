@@ -33,4 +33,12 @@ public class ProductServiceImpl implements ProductService {
     public void deleteProduct(Product product) {
         productDao.deleteProduct(product);
     }
+
+	public List<Product> getProducts(Integer offset, Integer maxResults) {
+		return productDao.getProducts(offset, maxResults);
+	}
+
+	public Long countProducts() {
+		return productDao.countProducts();
+	}
 }

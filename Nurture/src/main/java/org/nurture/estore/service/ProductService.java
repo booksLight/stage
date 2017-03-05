@@ -16,4 +16,7 @@ public interface ProductService {
 
     void deleteProduct(Product product);
 
+	List<Product> getProducts(Integer offset, Integer maxResults);
+	public Long countProducts();
+
 }

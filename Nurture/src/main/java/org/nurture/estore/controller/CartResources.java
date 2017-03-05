@@ -53,6 +53,7 @@ public class CartResources {
         return cartService.getCartById(cartId);
     }
 
+    //Request from OrderNow buton from product View
     @RequestMapping(value = "/add/{productId}", method = RequestMethod.GET) 
     public String addItem(@PathVariable(value = "productId") int productId, HttpServletRequest paramReq) throws IOException {
         

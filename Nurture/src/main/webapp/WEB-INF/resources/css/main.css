@@ -284,6 +284,8 @@ form.go-right input:focus + label, form.go-right textarea:focus + label, form.go
   box-sizing: border-box;
 }
 
+
+
 html, body {
   height: 100%;
 }
@@ -390,6 +392,15 @@ input:checked + label {
   width: 10%;
   display: inline-block;
   margin-left: 20px;;
+}
+
+.prodtb {
+    
+    width: 99%;
+    height: 10%;;
+    overflow: auto;
+    align:center;
+    
 }
 
 // ***** NEW TABS RESPONSIVE

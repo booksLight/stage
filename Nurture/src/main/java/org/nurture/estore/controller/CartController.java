@@ -101,7 +101,8 @@ public class CartController {
     			}
     			civs.add(civ);
     		}
-    			
+    		cart.setGrandTotal(cartGrandTotal);
+    			cartService.updateGrandTotal(cart);
     	}
     	model.addAttribute("calGrandTotal", cartGrandTotal);
     	model.addAttribute("cartItems",civs);

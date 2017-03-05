@@ -6,10 +6,9 @@
 
         <div class="page-header">
             <h1>All Products</h1>
-		<p class="lead"> &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; Check all the awesome products available now!</p>
-        </div>
-
-        <table class="table table-striped table-hover">
+		 </div>
+		 <center>
+	        <table class="table table-striped table-hover prodtb">
             <thead>
             <tr class="bg-success">
                 <th>Photo Thumb</th>
@@ -17,24 +16,23 @@
                 <th>Category</th>
                 <th>Condition</th>
                 <th>Price</th>
-                <th></th>
+                <th>Action</th>
             </tr>
             </thead>
             <c:forEach items="${products}" var="product">
                 <tr>
                     <td><img src="<c:url value="/resources/images/${product.productId}.png"/>"
                              alt="image" style="width: 20%"></td>
-                    <td>${product.productName}</td>
+                    <td style="float: left;color:blue;">${product.productName}</td>
                     <td>${product.productCategory}</td>
                     <td>${product.productCondition}</td>
-                    <td class="fa fa-inr" style="font-size:20px;color:red";align="right">${product.productPrice}</td>
+                    <td class="fa fa-inr" style="font-size:20px;color:red;display:  float: left; margin-left: 30%; inline-block;">${product.productPrice}</td>
                     <td>
                     	<a href="<spring:url value="/product/viewProduct/${product.productId}"/>"><span class="glyphicon glyphicon-info-sign"></span></a>
                    </td>
                 </tr>
             </c:forEach>
         </table>
-
-
+        </center>
 <!-- Footer  -->
 <jsp:include page="/WEB-INF/views/template/footer.jsp" />

@@ -6,9 +6,7 @@
 
 <jsp:useBean id="now" class="java.util.Date" />
     <div class="page-header">
-            <h1>Order</h1>
-
-            <p class="lead">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; Order confirmation</p>
+           <p class="lead">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; Order confirmation</p>
         </div>
 
         <div class="container">
@@ -20,13 +18,16 @@
                     <div class="well col-xs-10 col-sm-10 col-md-6 col-xs-offset-1 col-sm-offset-1 col-md-offset-3">
 
                        <div class="txt-center">
-                            <h1>Receipt</h1>
+                            <h1>Provisional Receipt</h1>
                        </div>
+                       
                         <div class="row">
-                            <div class="col-xs-6 col-sm-6 col-md-6">
+                            <div class="col-xs-6 col-sm-6 col-md-5">
+                            <h3>  ${order.cart.customer.customerName}</h3> 
                                 <address>
                                     <strong>Shipping Address</strong><br/>
-                                    ${order.cart.customer.shippingAddress.streetName}
+                                   	
+                                    ${order.cart.customer.shippingAddress.apartmentNumber}   <br/> ${order.cart.customer.shippingAddress.streetName}
                                 <br/>
                                     ${order.cart.customer.shippingAddress.city}, ${order.cart.customer.shippingAddress.state}
                                 <br/>
@@ -42,6 +43,7 @@
                             <div class="col-xs-6 col-sm-6 col-md-6">
                                 <address>
                                     <strong>Billing Address</strong><br/>
+                                     ${order.cart.customer.billingAddress.apartmentNumber}   <br/>
                                         ${order.cart.customer.billingAddress.streetName}
                                     <br/>
                                         ${order.cart.customer.billingAddress.city}, ${order.cart.customer.billingAddress.state}

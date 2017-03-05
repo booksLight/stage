@@ -15,4 +15,8 @@ public interface ProductDao {
     void editProduct(Product product);
 
     void deleteProduct(Product product);
+
+	List<Product> getProducts(Integer offset, Integer maxResults);
+
+	Long countProducts();
 }

@@ -27,6 +27,16 @@ public class CustomerOrder implements Serializable{
     @OneToOne
     @JoinColumn(name = "shippingAddressId")
     private ShippingAddress shippingAddress;
+    
+   
+    @Column
+    private boolean isConfirmed;
+    
+    @Column
+    private boolean isShipped;
+    
+    @Column
+    private boolean status;
 
     public int getCustomerOrderId() {
         return customerOrderId;
@@ -67,5 +77,30 @@ public class CustomerOrder implements Serializable{
     public void setShippingAddress(ShippingAddress shippingAddress) {
         this.shippingAddress = shippingAddress;
     }
+
+	public boolean isConfirmed() {
+		return isConfirmed;
+	}
+
+	public void setConfirmed(boolean isConfirmed) {
+		this.isConfirmed = isConfirmed;
+	}
+
+	public boolean isShipped() {
+		return isShipped;
+	}
+
+	public void setShipped(boolean isShipped) {
+		this.isShipped = isShipped;
+	}
+
+	public boolean isStatus() {
+		return status;
+	}
+
+	public void setStatus(boolean status) {
+		this.status = status;
+	}
+    
 }
 

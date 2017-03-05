@@ -2,14 +2,19 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@taglib prefix="form" uri="http://www.springframework.org/tags/form" %>
 <%@taglib prefix="spring" uri="http://www.springframework.org/tags" %>
+<%@taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
+
+<jsp:useBean id="now" class="java.util.Date" />
+<fmt:formatDate var="year" value="${now}" pattern="yyMMdd" />
+
 <jsp:include page="/WEB-INF/views/template/header.jsp" />
 
         <br/>  <br/>  <br/>
             <div class="jumbotron">
                 <div class="container">
-                    <h1>Thank you for your business!</h1>
+                    <h1>Thank you   ${order.cart.customer.customerName} for your business!</h1>
 
-                    <p>Your order will be shipped in two business days!</p>
+                    <p>Your order (<b><i>${ordReceiptNo}</i></b>)  will be shipped in two business days!</p>
                 </div>
             </div>
        

@@ -21,6 +21,7 @@
 		<slfj-version>1.7.22</slfj-version>
 		<mysql-version>5.0.5</mysql-version>
 		<junit-version>4.12</junit-version>
+		<gson-version>2.2.2</gson-version>
 	</properties>
 	<dependencies>
 
@@ -189,6 +190,12 @@
 			</dependency> <dependency> <groupId>com.google.oauth-client</groupId> <artifactId>google-oauth-client-jetty</artifactId> 
 			<version>1.11.0-beta</version> </dependency> -->
 
+		<dependency>
+			<groupId>com.google.code.gson</groupId>
+			<artifactId>gson</artifactId>
+			<version>${gson-version}</version>
+		</dependency>
+		
 		<dependency>
 			<groupId>junit</groupId>
 			<artifactId>junit</artifactId>

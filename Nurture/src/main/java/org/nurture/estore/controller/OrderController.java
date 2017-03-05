@@ -7,8 +7,12 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.servlet.support.RequestContext;
 
+import java.text.SimpleDateFormat;
+import java.util.Date;
+
 import javax.servlet.http.HttpServletRequest;
 
+import org.nurture.estore.Constants;
 import org.nurture.estore.manager.AppManager;
 import org.nurture.estore.model.Cart;
 import org.nurture.estore.model.Customer;
@@ -101,9 +105,26 @@ public class OrderController {
     	 cosLog(this.getClass(), "receiptOrder", "START");
     	 cosLog(this.getClass(), "receiptOrder", "Parameters = "+cartId);
     	 cosLog(this.getClass(), "receiptOrder", "END");
-    	 model.addAttribute("order",getCustomerByCartId(cartId));
+    	 
+    	 CustomerOrder customerNewOrder =  getCustomerByCartId(cartId);
+    	 customerNewOrder.setConfirmed(Constants.TRUE);
+    	 customerOrderService.addCustomerOrder(customerNewOrder);
+  
+    	 String ordDT= new SimpleDateFormat("yyMMdd").format(new Date());
+    	 
+    	 String  orderNo = "BL-"+ordDT+String.valueOf( customerNewOrder.getCustomerOrderId());
+    	 System.out.println("   \n\t *********\n ORDER NO TO CUSTOMER ="+ orderNo );
+    	 
+    	  try{
+          	manager.mailOrderAcknowledgment(customerNewOrder.getCustomer().getCustomerEmail(), customerNewOrder.getCustomer().getCustomerName(), orderNo);
+          }catch(Exception e){
+        	  cosLog(this.getClass(), "receiptOrder", "ERROR -->"+e);
+          	
+          } 
+    	 model.addAttribute("order",customerNewOrder);
     	 model.addAttribute("model", manager.getModel(paramRequest));
     	 model.addAttribute("cartId", cartId);
+    	 model.addAttribute("ordReceiptNo", orderNo);
     	return "thankCustomer";
     }
     
@@ -118,9 +139,6 @@ public class OrderController {
         customerOrder.setCustomer(customer);
         customerOrder.setBillingAddress(customer.getBillingAddress());
         customerOrder.setShippingAddress(customer.getShippingAddress());
-      
-        customerOrderService.addCustomerOrder(customerOrder);
-       
         return customerOrder;
 		
 	}

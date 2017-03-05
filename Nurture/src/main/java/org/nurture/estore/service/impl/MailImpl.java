@@ -42,18 +42,23 @@ public class MailImpl implements IMail {
 	}
 	
 	
-	//customized feedback
-    public void generateAndSendFeedbacks(final String sendTo, final String msg) throws AddressException, MessagingException {
+	//User Registration Email
+    public void registrationAcknowledgmet(final String sendTo, final String msg) throws AddressException, MessagingException {
    	 
 		// Step1
     	mailSession = Session.getDefaultInstance(configureMailServerProperties(), null);
-    	
  
 		// Step 2 & 3
     	sendFeedBack(mailSession, composeMessage(mailSession,sendTo,msg));
 	}
 	
-    
+    // Order Confirmation Email 
+	public void orderReceipt(final String sendTo, String customerName, String orderNo) throws AddressException, MessagingException {
+		// Step1
+    	mailSession = Session.getDefaultInstance(configureMailServerProperties(), null);
+    	// Step 2 & 3
+    	sendFeedBack(mailSession, composeOrderConfirmationMessage(mailSession,sendTo,customerName,orderNo));
+	}
     
     
     // Configurable Mail Server Properties 
@@ -101,6 +106,39 @@ public class MailImpl implements IMail {
 	}
     
     
+ // Composing Order Confirmation response message
+    private MimeMessage composeOrderConfirmationMessage(final Session mailSessionParam, final String sendTo,  final String customerParm,  final String orderParm) throws AddressException, MessagingException {
+	
+		logger.debug("\n START :: composeMessage()");
+		
+		generateMailMessage = new MimeMessage(mailSessionParam);
+		
+		if(sendTo != null){
+			generateMailMessage.addRecipient(Message.RecipientType.TO, new InternetAddress(sendTo));
+		
+		
+		if(sendCC != null){
+			generateMailMessage.addRecipient(Message.RecipientType.CC, new InternetAddress(sendCC));
+		}
+		
+		generateMailMessage.setSubject("Books Ligh - Order Confirmation !");
+		String fmsg ="Dear "+customerParm;
+		
+		
+		 fmsg += orderParm != null ? " ("+ orderParm +")":"-"; 
+		 
+		String emailBody = "Greetings from Books Light! <br><br>We're pleased to announce that received your an valuable order <b>"+orderParm +"</b>. Plz allow us 3 working days to dispatch at your end.  <br/><br/> Request to plz keep track your status from our portal."
+				+ "<br><br>We hope you enjoy too access me here..., and continue to enjoy participating in the program! <br><br> Thanks & Kind Regards, <br> Customer Care :<br/><b/>Books Light";
+		generateMailMessage.setContent(emailBody, "text/html");
+		
+		logger.debug("\n END :: composeMessage()");
+		}
+		return generateMailMessage;
+	}
+    
+    
+    
+    
     //sending feedback by configured mail server
     private void sendFeedBack(final Session mailSession, final MimeMessage generateMailMessageParam) throws MessagingException {
     	logger.debug("\nSTART :: sendFeedBack()");
@@ -112,5 +150,8 @@ public class MailImpl implements IMail {
 		transport.close();
 		logger.debug("\nEND :: sendFeedBack()");
 	}
+
+
+
 
 }

@@ -1,28 +1,39 @@
 package org.nurture.estore.controller;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.support.PagedListHolder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RequestParam;
+
+import com.google.gson.Gson;
+import com.google.gson.GsonBuilder;
+
 import org.nurture.estore.manager.AppManager;
 import org.nurture.estore.model.Customer;
 import org.nurture.estore.model.Product;
 import org.nurture.estore.service.CustomerService;
 import org.nurture.estore.service.ProductService;
 import org.nurture.estore.vo.ModelVo;
+import org.nurture.estore.vo.ProductJsonObject;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
+import java.io.IOException;
+import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 
 import javax.servlet.http.HttpServletRequest;
 
 @Controller
 @RequestMapping("/product")
-public class ProductController {
+public class ProductControlleToDor {
 
-	private static final Logger logger = LoggerFactory.getLogger(ProductController.class);
+	private static final Logger logger = LoggerFactory.getLogger(ProductControlleToDor.class);
 	
     @Autowired
     private ProductService productService;
@@ -32,20 +43,31 @@ public class ProductController {
     
     AppManager manager;
     
-    @RequestMapping("/productList")
-    public String getProducts (Model model, HttpServletRequest paramRequest) {
+    
+    // PAGINATION :http://stackoverflow.com/questions/31883643/how-do-i-add-simple-pagination-for-spring-mvc
+    @RequestMapping(value="/productList", method = RequestMethod.GET, produces =  "application/json")
+    public String getProducts (@RequestParam(required = false) Integer page, Model model , Integer offset, Integer maxResults, HttpServletRequest paramRequest)throws IOException {
     	manager = new AppManager();
     	String state = "productList";
-    	ctrLog(this.getClass(), "getProducts", "START");
-    	 model.addAttribute("model", manager.getUserModel(paramRequest));
-        List<Product> products = productService.getProductList();
-        System.out.println("\n\t PRODUCTS SIZE = "+ products.size());
-        model.addAttribute("products", products);
+    	
+    	 List<Product> products = productService.getProducts(offset, maxResults);
+		  
+		  
+    	 model.addAttribute("count", productService.countProducts());  
+    	 model.addAttribute("offset", offset);
+    	model.addAttribute("products",products != null ? products: new ArrayList<Product>());
+    	  model.addAttribute("model", manager.getUserModel(paramRequest));
         ctrLog(this.getClass(), "getProducts", "END-->"+state);
         return state;
     }
 
-    @RequestMapping("/viewProduct/{productId}")
+  
+
+	
+
+
+
+	@RequestMapping("/viewProduct/{productId}")
     public String viewProduct(@PathVariable int productId, Model model, HttpServletRequest paramRequest) {
     	manager = new AppManager();
     	String state = "viewProduct";
@@ -59,8 +81,19 @@ public class ProductController {
         return state;
     }
     
+	
+	
+	  private List<Product> createPaginationData(Integer pageDisplayLength) {
+		  List<Product> products = productService.getProductList();
+		  return products != null ? products: new ArrayList<Product>();
+		}
+	  
+	  
+	 
+	  
+	
     //Generic Logger for this class
-    private void ctrLog(Class<? extends ProductController> paramCclass, String paramMethod, String paramMsg) {
+    private void ctrLog(Class<? extends ProductControlleToDor> paramCclass, String paramMethod, String paramMsg) {
   		logger.info(paramCclass.getName() + " : " + paramMethod + "() : " + paramMsg);
   	}
 }

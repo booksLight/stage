@@ -149,7 +149,7 @@ public class AppManager {
 		 if(user != null){
 	    	IMail mail = new MailImpl();
 	    	if(user.getUserEmail() != null && user.getPassword() != null){
-	    	mail.generateAndSendFeedbacks((user.getUserEmail() != null ? user.getUserEmail() :null), (user.getPassword() != null ? user.getPassword() : null));
+	    	mail.registrationAcknowledgmet((user.getUserEmail() != null ? user.getUserEmail() :null), (user.getPassword() != null ? user.getPassword() : null));
 	    	mgrLog(this.getClass(), "mailRegistrationAcknowledgment", "Registratin AckCode="+user.getPassword());
 	    	}
 		 }else{
@@ -159,7 +159,21 @@ public class AppManager {
 	    }
 	
 	
-	
+	 public void mailOrderAcknowledgment(String custEmail,String custParam, String OrderParam)throws AddressException, MessagingException{
+		 mgrLog(this.getClass(), "mailOrderAcknowledgment", "START");
+		 if(custEmail != null){
+			 String sendto = (custEmail != null ? custEmail:null);
+	    	IMail mail = new MailImpl();
+	    
+	    		mail.orderReceipt(sendto, custParam, OrderParam);
+	    		mgrLog(this.getClass(), "mailOrderAcknowledgment", " Order Number  ="+OrderParam);
+	    	
+		 }else{
+		 mgrLog(this.getClass(), "mailOrderAcknowledgment", "Invalid Custoemr emilat");
+		 
+		 mgrLog(this.getClass(), "mailOrderAcknowledgment", "END");}
+	    }
+	 
 	
 
 	public Integer getRol(String regType) {
