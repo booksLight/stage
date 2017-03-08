@@ -1,98 +1,63 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <beans xmlns="http://www.springframework.org/schema/beans"
-       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-       xmlns:security="http://www.springframework.org/schema/security"
-       xmlns:webflow-config="http://www.springframework.org/schema/webflow-config"
-       xsi:schemaLocation="http://www.springframework.org/schema/beans 
-       http://www.springframework.org/schema/beans/spring-beans.xsd 
-       http://www.springframework.org/schema/security 
-       http://www.springframework.org/schema/security/spring-security.xsd 
-       http://www.springframework.org/schema/webflow-config 
-       http://www.springframework.org/schema/webflow-config/spring-webflow-config.xsd">
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://www.springframework.org/schema/beans 
+       http://www.springframework.org/schema/beans/spring-beans.xsd">
 
 	<!-- Root Context: defines shared resources visible to all other web components -->
-		
-  
-    
-    <bean id="datasource" class="org.springframework.jdbc.datasource.DriverManagerDataSource">
-       <property name="driverClassName" value="com.mysql.jdbc.Driver" />
-      
-    <!--  		
-    
-       <property name="url" value="jdbc:mysql://mysqlmumnurture.czr5lvaaqq4h.ap-south-1.rds.amazonaws.com:3306/nurture" />
-		<property name="username" value="nurture" />
-		<property name="password" value="nurtures" />
- 	-->
-	 
-	 <!--	-->	
+
+
+
+	<bean id="datasource"
+		class="org.springframework.jdbc.datasource.DriverManagerDataSource">
+		<property name="driverClassName" value="com.mysql.jdbc.Driver" />
+
+		<!-- <property name="url" value="jdbc:mysql://mysqlmumnurture.czr5lvaaqq4h.ap-south-1.rds.amazonaws.com:3306/nurture" 
+			/> <property name="username" value="nurture" /> <property name="password" 
+			value="nurtures" /> -->
+
+		<!-- -->
 		<property name="url" value="jdbc:mysql://localhost:3306/nurture" />
 		<property name="username" value="root" />
 		<property name="password" value="root" />
 
-    </bean>
+	</bean>
 
-    <bean id="hibernate4AnnotatedSessionFactory" class="org.springframework.orm.hibernate5.LocalSessionFactoryBean">
-        <property name="dataSource" ref="datasource"/>
-        <property name="hibernateProperties">
-            <props>
-                <prop key="hibernate.dialect">org.hibernate.dialect.MySQLDialect</prop>
-                <prop key="hibernate.hbm2ddl.auto">update</prop>
-                <prop key="hibernate.show.sql">true</prop>
-                <prop key="hibernate.format.sql">true</prop>
-            </props>
-        </property>
-        <property name="packagesToScan">
-            <list>
-                <value>org.nurture.estore</value>
-            </list>
-        </property>
-    </bean>
+	<bean id="hibernate4AnnotatedSessionFactory"
+		class="org.springframework.orm.hibernate5.LocalSessionFactoryBean">
+		<property name="dataSource" ref="datasource" />
+		<property name="hibernateProperties">
+			<props>
+				<prop key="hibernate.dialect">org.hibernate.dialect.MySQLDialect</prop>
+				<prop key="hibernate.hbm2ddl.auto">update</prop>
+				<prop key="hibernate.show.sql">true</prop>
+				<prop key="hibernate.format.sql">true</prop>
+			</props>
+		</property>
+		<property name="packagesToScan">
+			<list>
+				<value>org.nurture.estore</value>
+			</list>
+		</property>
+	</bean>
 
-<bean id="transactionManager"
-        class="org.springframework.orm.hibernate5.HibernateTransactionManager">
-    <property name="sessionFactory" ref="hibernate4AnnotatedSessionFactory"/>
-</bean>
-
-
-
-<bean class="org.springframework.web.multipart.commons.CommonsMultipartResolver" id="multipartResolver"/>
-
-<bean class="org.nurture.estore.util.FileUpload" id="fileUpload"/>
+	<bean id="transactionManager"
+		class="org.springframework.orm.hibernate5.HibernateTransactionManager">
+		<property name="sessionFactory" ref="hibernate4AnnotatedSessionFactory" />
+	</bean>
 
 
 
-<!--    <bean id="multipartResolver"
-          class="org.springframework.web.multipart.commons.CommonsMultipartResolver">
-        <property name="maxUploadSize" value="1024000"/>
-    </bean> 
-     -->
-    
-<!-- <bean id="concurrencyFilter"
-class="org.springframework.security.web.session.ConcurrentSessionFilter">
-    <constructor-arg ref="sessionRegistry" />
-    <constructor-arg value="/session-expired.htm" />
-</bean> -->
+	<bean
+		class="org.springframework.web.multipart.commons.CommonsMultipartResolver"
+		id="multipartResolver" />
 
-    <!-- <security:http auto-config="true">
-        <security:intercept-url pattern="/admin/**" access="ROLE_ADMIN"/>
-        <security:intercept-url pattern="/customer/**" access="ROLE_USER"/>
-        <security:form-login
-                login-page="/login"
-                default-target-url="/product/productList/"
-                authentication-failure-url="/login?error"
-                username-parameter="username"
-                password-parameter="password"/>
-        <security:logout
-                logout-success-url="/login?logout"/>
-    </security:http>
+	<bean class="org.nurture.estore.util.FileUpload" id="fileUpload" />
 
-    <security:authentication-manager>
-        <security:authentication-provider>
-            <security:jdbc-user-service data-source-ref="datasource"
-                                        authorities-by-username-query="SELECT username, authority From authorities WHERE username = ?"
-                                        users-by-username-query="SELECT username, password, enabled FROM users WHERE username= ?"/>
-        </security:authentication-provider>
-    </security:authentication-manager>
--->
- 
+
+
+	<!-- <bean id="multipartResolver" class="org.springframework.web.multipart.commons.CommonsMultipartResolver"> 
+		<property name="maxUploadSize" value="1024000"/> </bean> -->
+
+
 </beans>
