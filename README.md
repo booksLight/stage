@@ -1,2 +1,0 @@
-# stage
-Stables and incremental
