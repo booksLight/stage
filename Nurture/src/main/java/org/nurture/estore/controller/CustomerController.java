@@ -10,6 +10,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.nurture.estore.manager.AppManager;
 import org.nurture.estore.model.BillingAddress;
 import org.nurture.estore.model.Customer;
+import org.nurture.estore.model.CustomerOrder;
 import org.nurture.estore.model.ShippingAddress;
 import org.nurture.estore.service.CustomerService;
 import org.nurture.estore.service.UserService;
@@ -19,6 +20,8 @@ import org.slf4j.LoggerFactory;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.validation.Valid;
+
+import java.util.ArrayList;
 import java.util.List;
 
 @Controller
@@ -143,31 +146,41 @@ public class CustomerController {
     }
     
     
-    @RequestMapping("/profile")
-    public String viewCustomerProfile(Model model, HttpServletRequest paramRequest) {
-    	 
-    	String state = "customerProfile";
-    	ctrLog(this.getClass(), "viewCustomerProfile", "START");
-    	customerDet = new Customer();
-    	UserVO curentUser = (UserVO) paramRequest.getSession().getAttribute("suser");
-    	if(curentUser!=null){
-    		
-    		customerDet.setUserId(curentUser.getId());
-    		customerDet.setCustomerEmail(curentUser.getEmail());
-    		customerDet.setCustomerName(curentUser.getName());
-    		customerDet.setCustomerPhone(curentUser.getMobile() != null ? curentUser.getMobile() : null);
-    		
-    		
-    	}else{
-    		state = "redirect:/login";
-    	}
-    	
-        model.addAttribute("customer",  customerDet);
-        model.addAttribute("model", manager.getUserModel(paramRequest));
-
-    	ctrLog(this.getClass(), "viewCustomerProfile", "END-->"+state);
-        return state;
+    @RequestMapping({"/profile"})
+    public String viewCustomerProfile(Model model, HttpServletRequest paramRequest)
+    {
+      manager = new AppManager();
+      String state = "customerProfile";
+      ctrLog(getClass(), "viewCustomerProfile", "START");
+      
+      customerDet = new Customer();
+      UserVO curentUser = (UserVO)paramRequest.getSession().getAttribute("suser");
+      if (curentUser != null)
+      {
+        customerDet.setUserId(curentUser.getId());
+        customerDet.setCustomerEmail(curentUser.getEmail());
+        customerDet.setCustomerName(curentUser.getName());
+        customerDet.setCustomerPhone(curentUser.getMobile() != null ? curentUser.getMobile() : null);
+      }
+      else
+      {
+        state = "redirect:/login";
+      }
+      Customer temCustomer = customerService.getCustomerByUserID(curentUser.getId());
+      int cartId = temCustomer.getCart() != null ? temCustomer.getCart().getCartId() : 0;
+      
+      ctrLog(getClass(), "viewCustomerProfile", " ^^^^^ fetching orders detail for the cartId = " + cartId);
+      
+      //List<CustomerOrder> orders = customerOrderService.getCustomerOrdersByCartId(Integer.valueOf(cartId));
+      List<CustomerOrder> orders = new ArrayList<CustomerOrder>();
+      model.addAttribute("orders", orders);
+      model.addAttribute("customer", customerDet);
+      model.addAttribute("model", manager.getUserModel(paramRequest));
+      
+      ctrLog(getClass(), "viewCustomerProfile", "END-->" + state);
+      return state;
     }
+    
 
     
     //During Checkout veify Customer details

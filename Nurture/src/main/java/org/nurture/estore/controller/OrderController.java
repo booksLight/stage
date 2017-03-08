@@ -136,6 +136,31 @@ public class OrderController {
     	return "thankCustomer";
     }
     
+    @RequestMapping({"/order/book/{customerOrderId}"})
+    public String getOrderBook(@PathVariable("customerOrderId") Integer customerOrderId, Model model, HttpServletRequest paramRequest)
+    {
+      manager = new AppManager();
+      cosLog(getClass(), "getOrderBook", "START");
+      cosLog(getClass(), "getOrderBook", "Parameters = " + customerOrderId);
+      
+     // CustomerOrder orderBook = customerOrderService.getCustomerOrdersById(customerOrderId);
+      
+      CustomerOrder orderBook = new CustomerOrder();
+      
+      Integer cartId = Integer.valueOf(orderBook != null ? 0 : orderBook.getCart() != null ? orderBook.getCart().getCartId() : 0);
+      if (cartId.intValue() < 0) {
+        return "redirect:/customer/cart";
+      }
+      model.addAttribute("order", orderBook);
+      model.addAttribute("customer", getCustomerByCartId(cartId.intValue()));
+      model.addAttribute("model", manager.getUserModel(paramRequest));
+      model.addAttribute("cartId", cartId);
+      
+      cosLog(getClass(), "getOrderBook", "END");
+      return "orderReceipt";
+    }
+    
+    
     private CustomerOrder getCustomerByCartId(int cartId) {
     	CustomerOrder customerOrder = new CustomerOrder();
     	logger.debug("\n ***** CustomerOrderService -->getCartById() = "+cartId);
