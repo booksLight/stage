@@ -35,12 +35,12 @@ public class HomeController {
 	  @Autowired
 	  private CustomerService customerService;
 	  
-	 AppManager manager;
+	  @Autowired
+	  AppManager manager;
 	 
     @RequestMapping("/")
     public String getHome(Model model, HttpServletRequest paramRequest) {
     	ctrLog(this.getClass(), "getHome", "START");
-    	 manager = new AppManager();
     	 String state = "home";
     	 
     	 ModelVo tmpModel = manager.getUserModel(paramRequest);
@@ -54,7 +54,7 @@ public class HomeController {
     @RequestMapping("/about")
     public String getAbout(Model model, HttpServletRequest paramRequest) {
     	ctrLog(this.getClass(), "getAbout", "START");
-    	 manager = new AppManager();
+    	  
     	 String state = "about";
     	 
     	 ModelVo tmpModel = manager.getUserModel(paramRequest);
@@ -71,7 +71,7 @@ public class HomeController {
                         @RequestParam(value = "logout", required = false) String paramLogout, Model paramModel, HttpServletRequest paramRequest) {
 		
 		ctrLog(this.getClass(), "getLogin", "START");
-		manager = new AppManager();
+		 
     	String state = "login";
     	paramModel.addAttribute("isLogin",true);
     	paramModel.addAttribute("user",  new User());
@@ -94,7 +94,7 @@ public class HomeController {
     	
     	ctrLog(this.getClass(), "getSecurityCheck", "START with Active User ="+activeUser.toString());
     	String state = "redirect:/product/productList";
-    	manager = new AppManager();
+    	 
     	 Customer customer = null;
     	UserVO userVO;
     	
@@ -158,7 +158,7 @@ public class HomeController {
 		ctrLog(this.getClass(), "getLogOut", "START");
     	String state = "redirect:/";
     	
-		manager = new AppManager();
+		 
     	 model.addAttribute("model", manager.getModel(paramRequest));
     	 manager.letMeLogOut(paramRequest);
     	 ctrLog(this.getClass(), "getLogOut", "END ->"+state);
@@ -170,7 +170,7 @@ public class HomeController {
 	/* @RequestMapping("/social")
 	    public String getSoclialHome(Model model, HttpServletRequest paramRequest) {
 	    	ctrLog(this.getClass(), "getSoclialHome", "START");
-	    	 manager = new AppManager();
+	    	  
 	    	 String state = "social";
 	    	 
 	    	 ModelVo tmpModel = manager.getUserModel(paramRequest);

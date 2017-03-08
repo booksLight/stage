@@ -33,13 +33,14 @@ public class OrderController {
     @Autowired
     private CustomerOrderService customerOrderService;
     
-    AppManager manager;
+    @Autowired
+	AppManager manager;
     
     @RequestMapping("/order/{cartId}")
     public String createOrder(@PathVariable("cartId") int cartId,Model model, HttpServletRequest paramRequest) {
     	
     	logger.debug("\n ***** CustomerOrderService -->createOrder() = "+cartId);
-    	 manager = new AppManager();
+    	 
     	 String state = "checkout?cartId=";
     	 
     	if(!manager.isUserLoggedOn(paramRequest)){
@@ -63,7 +64,7 @@ public class OrderController {
 
 	@RequestMapping("/checkout/{cartId}")
     public String checkoutOrder(@PathVariable("cartId") int cartId, Model model, HttpServletRequest paramRequest) {
-		 manager = new AppManager();
+		 
     	 cosLog(this.getClass(), "checkoutOrder", "START");
     	 cosLog(this.getClass(), "checkoutOrder", "Parameters = "+cartId);
     	 cosLog(this.getClass(), "checkoutOrder", "END");
@@ -75,7 +76,7 @@ public class OrderController {
     	
     @RequestMapping("/order/shipping/{cartId}")
     public String shippingOrder(@PathVariable("cartId") int cartId, Model model, HttpServletRequest paramRequest) {
-    	 manager = new AppManager();
+    	 
     	 cosLog(this.getClass(), "shippingOrder", "START");
     	 cosLog(this.getClass(), "shippingOrder", "Parameters = "+cartId);
     	 cosLog(this.getClass(), "shippingOrder", "END");
@@ -87,7 +88,7 @@ public class OrderController {
     
     @RequestMapping("/order/confirmation/{cartId}")
     public String confirmationOrder(@PathVariable("cartId") int cartId, Model model, HttpServletRequest paramRequest) {
-    	 manager = new AppManager();
+    	 
     	cosLog(this.getClass(), "confirmationOrder", "START");
     	 cosLog(this.getClass(), "confirmationOrder", "Parameters = "+cartId);
     	 cosLog(this.getClass(), "confirmationOrder", "END");
@@ -101,7 +102,7 @@ public class OrderController {
     @RequestMapping("/order/receipt/{cartId}")
     public String receiptOrder(@PathVariable("cartId") int cartId, Model model, HttpServletRequest paramRequest) {
     	
-    	 manager = new AppManager();
+    	 
     	 cosLog(this.getClass(), "receiptOrder", "START");
     	 cosLog(this.getClass(), "receiptOrder", "Parameters = "+cartId);
     	 cosLog(this.getClass(), "receiptOrder", "END");
@@ -116,7 +117,7 @@ public class OrderController {
     	 System.out.println("   \n\t *********\n ORDER NO TO CUSTOMER ="+ orderNo );
     	 
     	  try{
-          	manager.mailOrderAcknowledgment(customerNewOrder.getCustomer().getCustomerEmail(), customerNewOrder.getCustomer().getCustomerName(), orderNo);
+          //	manager.mailOrderAcknowledgment(customerNewOrder.getCustomer().getCustomerEmail(), customerNewOrder.getCustomer().getCustomerName(), orderNo);
           }catch(Exception e){
         	  cosLog(this.getClass(), "receiptOrder", "ERROR -->"+e);
           	

@@ -45,6 +45,7 @@ public class CartResources {
     @Autowired
     private ProductService productService;
 
+    @Autowired
     AppManager manager;
     
     @RequestMapping("/{cartId}")
@@ -58,7 +59,7 @@ public class CartResources {
     public String addItem(@PathVariable(value = "productId") int productId, HttpServletRequest paramReq) throws IOException {
         
     	resLog(this.getClass(), "addItem", "START " + productId);
-    	manager = new AppManager();
+    	 
     
         ModelVo sessionUser = manager.getUserModel(paramReq);
         Integer lookupUserId = (sessionUser != null ? sessionUser.getUserVo() !=null ? sessionUser.getUserVo().getId():0:0);

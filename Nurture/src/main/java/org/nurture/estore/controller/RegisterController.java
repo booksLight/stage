@@ -27,14 +27,16 @@ import java.util.List;
 public class RegisterController {
 
 	private static final Logger logger = LoggerFactory.getLogger(RegisterController.class);
-	AppManager manager;
-	
+
     @Autowired
     private UserService userService;
+    
+    @Autowired
+	AppManager manager;
 
     @RequestMapping("/register")
     public String registerUser(Model model, HttpServletRequest paramRequest) {
-    	manager = new AppManager();
+    	 
     	String state = "login";
     	ctrLog(this.getClass(), "registerUser", "START");
       
@@ -50,7 +52,7 @@ public class RegisterController {
                                        BindingResult result, Model model, HttpServletRequest paramRequest) throws AddressException, MessagingException {
     	
     	ctrLog(this.getClass(), "registerUserPost", "START");
-    	manager = new AppManager();
+    	 
     	boolean error = false;
     	String state = "redirect:/login";
     	

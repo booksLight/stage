@@ -30,11 +30,12 @@ public class ProductController {
     @Autowired
 	private CustomerService customerService;
     
+    @Autowired
     AppManager manager;
     
     @RequestMapping("/productList")
     public String getProducts (Model model, HttpServletRequest paramRequest) {
-    	manager = new AppManager();
+    	 
     	String state = "productList";
     	ctrLog(this.getClass(), "getProducts", "START");
     	 model.addAttribute("model", manager.getUserModel(paramRequest));
@@ -47,7 +48,7 @@ public class ProductController {
 
     @RequestMapping("/viewProduct/{productId}")
     public String viewProduct(@PathVariable int productId, Model model, HttpServletRequest paramRequest) {
-    	manager = new AppManager();
+    	 
     	String state = "viewProduct";
     	ctrLog(this.getClass(), "viewProduct", "START");
     	Product product = productService.getProductById(productId);

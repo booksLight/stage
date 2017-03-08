@@ -37,14 +37,15 @@ public class CartController {
     
     @Autowired
     private CartService cartService;
-
+    
+    @Autowired
     AppManager manager;
     
     @RequestMapping(method = RequestMethod.GET)
     public String getCart(HttpServletRequest paramRequest ) {
     	
     	ctrLog(this.getClass(), "getCart", "START");
-    	manager = new AppManager();
+    	 
     	String state = "redirect:/customer/cart/";
     	 if(!manager.isUserLoggedOn(paramRequest)){
     		 state = "redirect:/login";
@@ -66,7 +67,7 @@ public class CartController {
     @RequestMapping(value ="/{cartId}", method = RequestMethod.GET)
     public String getCartRedirect(@PathVariable(value = "cartId") int cartId, Model model,HttpServletRequest paramRequest) {
     	ctrLog(this.getClass(), "getCartRedirect", "START");
-    	manager = new AppManager();
+    	 
     	String state = "cart";
     	CartItemsVO civ;
     	ProductVO pvo = null;

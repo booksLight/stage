@@ -26,7 +26,7 @@ import java.util.List;
 public class CustomerController {
 
 	private static final Logger logger = LoggerFactory.getLogger(CustomerController.class);
-	AppManager manager;
+	
 	Customer customerDet;
 	
     @Autowired
@@ -34,11 +34,13 @@ public class CustomerController {
     
     @Autowired
     UserService userService;
- 
-   
+    
+    @Autowired
+    AppManager manager;
+    
     @RequestMapping("/details")
     public String viewCustomer(Model model, HttpServletRequest paramRequest) {
-    	manager = new AppManager();
+    	 
     	String state = "customerDetails";
     	ctrLog(this.getClass(), "viewCustomer", "START");
     	customerDet = new Customer();
@@ -143,7 +145,7 @@ public class CustomerController {
     
     @RequestMapping("/profile")
     public String viewCustomerProfile(Model model, HttpServletRequest paramRequest) {
-    	manager = new AppManager();
+    	 
     	String state = "customerProfile";
     	ctrLog(this.getClass(), "viewCustomerProfile", "START");
     	customerDet = new Customer();
@@ -171,7 +173,7 @@ public class CustomerController {
     //During Checkout veify Customer details
     @RequestMapping("/details/verify")
     public String verifyCustomer(Model model, HttpServletRequest paramRequest) {
-    	manager = new AppManager();
+    	 
     	Customer temCustomer;
     	String state = "shippingDetails";
     	ctrLog(this.getClass(), "verifyCustomer", "START");
