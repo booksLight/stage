@@ -80,15 +80,13 @@
                             <li><a href="<c:url value="/security_logout"/>">Logout</a></li>
                           </c:if>
                           
-                           <c:if test="${model.isCartEnable() == true}}">
-                                <li><a href="<c:url value="/customer/cart"/>">Cart</a></li>
-                            </c:if>
-                            
                             <c:if test="${model.userVo.type == 'ADMIN'}">
+                              <li><a href="<c:url value="/customer/cart"/>">Cart</a></li>
                                 <li><a href="<c:url value="/admin"/>">Admin</a></li>
                             </c:if>
                             
                              <c:if test="${model.userVo.type == 'CUSTOMER'}">
+                               <li><a href="<c:url value="/customer/cart"/>">Cart</a></li>
                                 <li><a href="<c:url value="/customer/profile"/>">Profile</a></li>
                             </c:if>
                         </c:if>

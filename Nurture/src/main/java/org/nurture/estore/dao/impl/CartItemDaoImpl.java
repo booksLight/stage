@@ -40,11 +40,14 @@ public class CartItemDaoImpl implements CartItemDao{
     }
 
     public void removeAllCartItems(Cart cart) {
+    	if(cart.getCartItems() != null){
         List<CartItem> cartItems = cart.getCartItems();
 
         for (CartItem item : cartItems) {
             removeCartItem(item);
         }
+    	}
+    	logger.info("\t Cart has been empity successfully.. !");
     }
 
     public CartItem getCartItemByProductId(int productId) {

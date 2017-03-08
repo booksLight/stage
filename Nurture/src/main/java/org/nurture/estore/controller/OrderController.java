@@ -9,6 +9,7 @@ import org.springframework.web.servlet.support.RequestContext;
 
 import java.text.SimpleDateFormat;
 import java.util.Date;
+import java.util.List;
 
 import javax.servlet.http.HttpServletRequest;
 
@@ -17,6 +18,7 @@ import org.nurture.estore.manager.AppManager;
 import org.nurture.estore.model.Cart;
 import org.nurture.estore.model.Customer;
 import org.nurture.estore.model.CustomerOrder;
+import org.nurture.estore.model.OrderBook;
 import org.nurture.estore.service.CartService;
 import org.nurture.estore.service.CustomerOrderService;
 import org.slf4j.Logger;
@@ -110,7 +112,12 @@ public class OrderController {
     	 CustomerOrder customerNewOrder =  getCustomerByCartId(cartId);
     	 customerNewOrder.setConfirmed(Constants.TRUE);
     	 customerOrderService.addCustomerOrder(customerNewOrder);
-  
+    	 
+ //@ToDo 
+    	 List<OrderBook> orderedItems = manager.mapOrderBookOnCustomerOrder(customerNewOrder);
+    	 manager.saveOrUpdateOrderedItems(orderedItems);
+    	 manager.deleteOrderedItemsFromCart(customerNewOrder);
+    	 
     	 String ordDT= new SimpleDateFormat("yyMMdd").format(new Date());
     	 
     	 String  orderNo = "BL-"+ordDT+String.valueOf( customerNewOrder.getCustomerOrderId());

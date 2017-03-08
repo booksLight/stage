@@ -6,6 +6,7 @@ import org.nurture.estore.dao.CustomerOrderDao;
 import org.nurture.estore.model.Cart;
 import org.nurture.estore.model.CartItem;
 import org.nurture.estore.model.CustomerOrder;
+import org.nurture.estore.model.OrderBook;
 import org.nurture.estore.service.CartService;
 import org.nurture.estore.service.CustomerOrderService;
 
@@ -35,4 +36,8 @@ public class CustomerOrderServiceImpl implements CustomerOrderService {
 
         return grandTotal;
     }
+
+	public void saveOrUpdateOrderBook(OrderBook orderBookParam) {
+		customerOrderDao.saveOrUpdateOrderBook(orderBookParam);		
+	}
 }

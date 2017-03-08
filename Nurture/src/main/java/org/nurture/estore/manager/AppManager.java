@@ -1,12 +1,21 @@
 package org.nurture.estore.manager;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import javax.mail.MessagingException;
 import javax.mail.internet.AddressException;
 import javax.servlet.http.HttpServletRequest;
 import org.nurture.estore.Constants;
+import org.nurture.estore.model.CartItem;
 import org.nurture.estore.model.Customer;
+import org.nurture.estore.model.CustomerOrder;
+import org.nurture.estore.model.OrderBook;
 import org.nurture.estore.model.Privileged;
 import org.nurture.estore.model.User;
+import org.nurture.estore.service.CartItemService;
+import org.nurture.estore.service.CartService;
+import org.nurture.estore.service.CustomerOrderService;
 import org.nurture.estore.service.CustomerService;
 import org.nurture.estore.service.IMail;
 import org.nurture.estore.service.UserService;
@@ -16,11 +25,24 @@ import org.nurture.estore.vo.UserVO;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Component;
 
+@Component
 public class AppManager {
 
 	private static final Logger logger = LoggerFactory.getLogger(AppManager.class);
 
+	
+	   @Autowired
+	    private CartService cartService;
+	   
+	   @Autowired
+	   CartItemService cartItemService;
+	   
+	    @Autowired
+	    private CustomerOrderService customerOrderService;
+	    
+	
 		/*
 	 * Model Info 
 	 */
@@ -235,11 +257,69 @@ public class AppManager {
 			mgrLog(this.getClass(), "getCustomerByUser", "END ");
 		}
 
+	
+// Migration
 		
-		
-		
-		// Generic Logger
+
+				public List<OrderBook> mapOrderBookOnCustomerOrder(CustomerOrder customerNewOrder) {
+					mgrLog(this.getClass(), "mapOrderBookOnCustomerOrder", "START ");
+					if(customerNewOrder != null){
+						List<CartItem> cartItems = customerNewOrder.getCart() != null ? customerNewOrder.getCart().getCartItems() != null ? customerNewOrder.getCart().getCartItems() :null:null;
+						if(cartItems != null){
+							OrderBook orderBook = null;
+							List<OrderBook> orderBooks = new ArrayList<OrderBook>();
+							for(CartItem orderItem : cartItems){
+								 orderBook = new OrderBook();
+								 
+								 orderBook.setOrderId(customerNewOrder.getCustomerOrderId());
+								 orderBook.setCartId(orderItem.getCart().getCartId());
+								 orderBook.setCartItemId(orderItem.getCartItemId());
+								 orderBook.setProductId(orderItem.getProduct().getProductId());
+								 orderBook.setQuantity(orderItem.getQuantity());
+								 orderBook.setTotalPrice(orderItem.getTotalPrice());
+								 
+								 orderBooks.add(orderBook);
+							}
+							mgrLog(this.getClass(), "mapOrderBookOnCustomerOrder", "END with List of Orrdered Items");
+							return orderBooks;
+						}
+					}
+					mgrLog(this.getClass(), "mapOrderBookOnCustomerOrder", "END ");
+					return null;
+				}
+				
+			// Saved Cartitems to OrderBook	
+				public void saveOrUpdateOrderedItems(List<OrderBook> orderedItems) {
+					mgrLog(this.getClass(), "saveOrUpdateOrderedItems", "START ");
+					if(orderedItems != null ){
+						for(OrderBook orderBook : orderedItems){
+							customerOrderService.saveOrUpdateOrderBook(orderBook);
+						}
+					}
+					mgrLog(this.getClass(), "saveOrUpdateOrderedItems", "END ");
+				}
+				
+			// Removing cart items after successfully placed ordered
+				public void deleteOrderedItemsFromCart(CustomerOrder orderedRef) {
+					mgrLog(this.getClass(), "deleteOrderedItemsFromCart", "START");
+					if(orderedRef != null){
+						if(orderedRef.getCart() != null){
+							for(CartItem orderItem : orderedRef.getCart().getCartItems()){
+							cartItemService.removeCartItemById(orderItem.getCartItemId());
+						}
+					}
+					}
+					mgrLog(this.getClass(), "deleteOrderedItemsFromCart", "END ");
+				}
+				
+				
+				
+				// Generic Logger
 				public void mgrLog(Class<? extends AppManager> paramCclass, String paramMethod, String paramMsg) {
 					logger.info(paramCclass.getName() + " : " + paramMethod + "() : " + paramMsg);
 				}
+
+				
+
+				
 }
