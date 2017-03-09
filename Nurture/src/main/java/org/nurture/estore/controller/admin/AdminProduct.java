@@ -31,7 +31,7 @@ import java.nio.file.Paths;
 public class AdminProduct {
 
 	private static final Logger logger = LoggerFactory.getLogger(AdminProduct.class);
-	AppManager manager;
+	
     private Path path;
     
     @Autowired
@@ -40,10 +40,14 @@ public class AdminProduct {
     @Autowired
     private ProductService productService;
 
+	@Autowired
+	AppManager manager;
+	 
+	 
    @RequestMapping("/product/addProduct")
     public String addProduct(Model model, HttpServletRequest paramRequest) {
     	ctrLog(this.getClass(), "addProduct", "START");
-    	manager = new AppManager();
+    	
     	String state = "addProduct";
     	model.addAttribute("model", manager.getUserModel(paramRequest));
     	
@@ -71,7 +75,7 @@ public class AdminProduct {
         }
         
         ctrLog(this.getClass(), "addProductPost", "START");
-    	manager = new AppManager();
+    	
     	String state = "redirect:/admin/productInventory/";
     	
     	
@@ -115,7 +119,7 @@ public class AdminProduct {
     @RequestMapping("/product/editProduct/{id}")
     public String editProduct(@PathVariable("id") int id, Model model, HttpServletRequest paramRequest) {
     	 ctrLog(this.getClass(), "editProduct", "START");
-     	manager = new AppManager();
+     	
      	String state = "editProduct";
      	
      	model.addAttribute("model", manager.getUserModel(paramRequest));
@@ -136,7 +140,7 @@ public class AdminProduct {
         }
 
         ctrLog(this.getClass(), "editProductPost", "START");
-     	manager = new AppManager();
+     	
      	String state = "redirect:/admin/productInventory/";
      	
      	model.addAttribute("model", manager.getUserModel(request));
@@ -164,7 +168,7 @@ public class AdminProduct {
     public String deleteProduct(@PathVariable int id, Model model, HttpServletRequest request) {
     	
     	ctrLog(this.getClass(), "deleteProduct", "START");
-     	manager = new AppManager();
+     	
      	String state = "redirect:/admin/productInventory";
      	
      	model.addAttribute("model", manager.getUserModel(request));

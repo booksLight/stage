@@ -149,7 +149,7 @@ public class CustomerController {
     @RequestMapping({"/profile"})
     public String viewCustomerProfile(Model model, HttpServletRequest paramRequest)
     {
-      manager = new AppManager();
+     
       String state = "customerProfile";
       ctrLog(getClass(), "viewCustomerProfile", "START");
       
@@ -171,8 +171,8 @@ public class CustomerController {
       
       ctrLog(getClass(), "viewCustomerProfile", " ^^^^^ fetching orders detail for the cartId = " + cartId);
       
-      //List<CustomerOrder> orders = customerOrderService.getCustomerOrdersByCartId(Integer.valueOf(cartId));
-      List<CustomerOrder> orders = new ArrayList<CustomerOrder>();
+      List<CustomerOrder> orders = manager.getCustomerOrdersByCartId(cartId);
+     
       model.addAttribute("orders", orders);
       model.addAttribute("customer", customerDet);
       model.addAttribute("model", manager.getUserModel(paramRequest));

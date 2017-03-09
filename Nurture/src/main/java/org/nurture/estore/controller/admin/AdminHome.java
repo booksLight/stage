@@ -27,6 +27,9 @@ import javax.validation.Valid;
 public class AdminHome {
 
 	private static final Logger logger = LoggerFactory.getLogger(AdminHome.class);
+	
+
+	@Autowired
 	AppManager manager;
 	
     @Autowired
@@ -38,8 +41,7 @@ public class AdminHome {
     @RequestMapping
     public String adminPage(Model model, HttpServletRequest paramRequest) {
     	ctrLog(this.getClass(), "adminPage", "START");
-    	manager = new AppManager();
-    	String state = "admin";
+       	String state = "admin";
     	model.addAttribute("model", manager.getUserModel(paramRequest));
         
         ctrLog(this.getClass(), "adminPage", "END-->"+state);
@@ -50,8 +52,7 @@ public class AdminHome {
     @RequestMapping("/productInventory")
     public String productInventory(Model model, HttpServletRequest paramRequest) {
     	ctrLog(this.getClass(), "productInventory", "START");
-    	manager = new AppManager();
-    	String state = "productInventory";
+    	 String state = "productInventory";
     	
         List<Product> products = productService.getProductList();
         model.addAttribute("products", products);
@@ -65,7 +66,7 @@ public class AdminHome {
     public String customerManagement(Model model, HttpServletRequest paramRequest) {
     	
     	ctrLog(this.getClass(), "customerManagement", "START");
-    	manager = new AppManager();
+    	
     	String state = "customerManagement";
     	
         List<Customer> customerList = customerService.getAllCustomers();

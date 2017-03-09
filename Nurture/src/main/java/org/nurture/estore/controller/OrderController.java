@@ -16,11 +16,13 @@ import javax.servlet.http.HttpServletRequest;
 import org.nurture.estore.Constants;
 import org.nurture.estore.manager.AppManager;
 import org.nurture.estore.model.Cart;
+import org.nurture.estore.model.CartItem;
 import org.nurture.estore.model.Customer;
 import org.nurture.estore.model.CustomerOrder;
 import org.nurture.estore.model.OrderBook;
 import org.nurture.estore.service.CartService;
 import org.nurture.estore.service.CustomerOrderService;
+import org.nurture.estore.util.CallenderUtil;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -111,18 +113,21 @@ public class OrderController {
     	 
     	 CustomerOrder customerNewOrder =  getCustomerByCartId(cartId);
     	 customerNewOrder.setConfirmed(Constants.TRUE);
+    	 customerNewOrder.setStatus("Received");
+    	 customerNewOrder.setStamped(CallenderUtil.convertDateJavaToSqlTimestamp(new Date()));
     	 customerOrderService.addCustomerOrder(customerNewOrder);
     	 
- //@ToDo 
+    	 String ordDT = new SimpleDateFormat("yyMMdd").format(new Date());
+    	    
+    	    String orderNo = "BL-" + ordDT + String.valueOf(customerNewOrder.getCustomerOrderId());
+    	    System.out.println("   \n\t *********\n ORDER NO TO CUSTOMER =" + orderNo);
+    	    
+ //Saving CartItems to OrderBook
     	 List<OrderBook> orderedItems = manager.mapOrderBookOnCustomerOrder(customerNewOrder);
     	 manager.saveOrUpdateOrderedItems(orderedItems);
     	 manager.deleteOrderedItemsFromCart(customerNewOrder);
     	 
-    	 String ordDT= new SimpleDateFormat("yyMMdd").format(new Date());
-    	 
-    	 String  orderNo = "BL-"+ordDT+String.valueOf( customerNewOrder.getCustomerOrderId());
-    	 System.out.println("   \n\t *********\n ORDER NO TO CUSTOMER ="+ orderNo );
-    	 
+    	
     	  try{
           //	manager.mailOrderAcknowledgment(customerNewOrder.getCustomer().getCustomerEmail(), customerNewOrder.getCustomer().getCustomerName(), orderNo);
           }catch(Exception e){
@@ -139,16 +144,26 @@ public class OrderController {
     @RequestMapping({"/order/book/{customerOrderId}"})
     public String getOrderBook(@PathVariable("customerOrderId") Integer customerOrderId, Model model, HttpServletRequest paramRequest)
     {
-      manager = new AppManager();
+      
       cosLog(getClass(), "getOrderBook", "START");
       cosLog(getClass(), "getOrderBook", "Parameters = " + customerOrderId);
       
-     // CustomerOrder orderBook = customerOrderService.getCustomerOrdersById(customerOrderId);
+      CustomerOrder orderBook = manager.getCustomerOrderById(customerOrderId);
       
-      CustomerOrder orderBook = new CustomerOrder();
+      Integer cartId = Integer.valueOf(orderBook != null ?  orderBook.getCart() != null ? orderBook.getCart().getCartId() : 0:0);
       
-      Integer cartId = Integer.valueOf(orderBook != null ? 0 : orderBook.getCart() != null ? orderBook.getCart().getCartId() : 0);
-      if (cartId.intValue() < 0) {
+      System.out.println("\n\n **************** CartId for customer is ="+cartId);
+      
+      System.out.println("\n\n **************** orderBook.getCart().getCartId() for customer is ="+ orderBook.getCart().getCartId());
+      
+      for(CartItem ordItem : orderBook.getCart().getCartItems() ){
+    	  
+    	  System.out.println("\n Cart Item are ="+ordItem.toString());
+    	  System.out.println("\n");
+    	  
+      }
+      
+      if (cartId.intValue() < 1) {
         return "redirect:/customer/cart";
       }
       model.addAttribute("order", orderBook);

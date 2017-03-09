@@ -12,6 +12,7 @@ import org.nurture.estore.model.Customer;
 import org.nurture.estore.model.CustomerOrder;
 import org.nurture.estore.model.OrderBook;
 import org.nurture.estore.model.Privileged;
+import org.nurture.estore.model.Product;
 import org.nurture.estore.model.User;
 import org.nurture.estore.service.CartItemService;
 import org.nurture.estore.service.CartService;
@@ -312,12 +313,71 @@ public class AppManager {
 					mgrLog(this.getClass(), "deleteOrderedItemsFromCart", "END ");
 				}
 				
+			//Fetchs Customer Orders by cartId	
+				public List<CustomerOrder> getCustomerOrdersByCartId(Integer cartId) {
+					List<CustomerOrder> ordered = null;
+					if(cartId > 0){
+						logger.info("\n\t Fetching Customer Order by cartid="+cartId);
+						ordered = customerOrderService.getCustomerOrdersByCartId(cartId);
+					}
+					return ordered;
+				}
+				
+				
+			// Fetch Customer Order by customerOrderId	
+				public CustomerOrder getCustomerOrderById(Integer customerOrderId) {
+					mgrLog(this.getClass(), "getCustomerOrderById", "START ");
+					CustomerOrder customerOrder = null;
+					if(customerOrderId > 0)
+					{
+						 customerOrder = customerOrderService.getCustomerOrderById(customerOrderId);
+						List<OrderBook> orderedBooks =  customerOrderService.getOrderedBooksByOrderId(customerOrderId);
+						
+						if(customerOrder != null){
+							if(customerOrder.getCart() !=null){
+								double grandTotal=0.0;
+								List<CartItem> cartItems = null;
+								if(customerOrder.getCart().getCartItems()  != null ){
+									System.out.println( "\n\n ************* SIZE of the Customer CartItems = "+ customerOrder.getCart().getCartItems().size());
+									 cartItems = new ArrayList<CartItem>();
+									for(OrderBook orderBook : orderedBooks ){
+										CartItem cartItem = new CartItem();
+										cartItem.setCartItemId(orderBook.getCartItemId());
+										Product tempProduct = new Product();
+										tempProduct.setProductId(orderBook.getProductId());
+										cartItem.setProduct(tempProduct);
+										cartItem.setQuantity(orderBook.getQuantity());
+										cartItem.setTotalPrice(orderBook.getTotalPrice());
+										cartItems.add(cartItem);
+										grandTotal  = (grandTotal + orderBook.getTotalPrice());
+									}
+									
+								}
+								customerOrder.getCart().setCartItems(cartItems);
+								
+								customerOrder.getCart().setGrandTotal(grandTotal);
+							}
+						}
+					}
+					
+					mgrLog(this.getClass(), "getCustomerOrderById", "END with Order Details "+customerOrder.getCart().getCartItems().size());
+					
+					return customerOrder;
+				}
+				
+				
+				
+				
 				
 				
 				// Generic Logger
 				public void mgrLog(Class<? extends AppManager> paramCclass, String paramMethod, String paramMsg) {
 					logger.info(paramCclass.getName() + " : " + paramMethod + "() : " + paramMsg);
 				}
+
+				
+
+				
 
 				
 

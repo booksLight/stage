@@ -5,6 +5,7 @@ import org.springframework.stereotype.Service;
 import org.nurture.estore.dao.CartItemDao;
 import org.nurture.estore.model.Cart;
 import org.nurture.estore.model.CartItem;
+import org.nurture.estore.model.CustomerOrder;
 import org.nurture.estore.service.CartItemService;
 
 
@@ -32,5 +33,10 @@ public class CartItemServiceImpl implements CartItemService {
 
 	public void removeCartItemById(Integer cartItemId) {
 		 cartItemDao.removeCartItemById(cartItemId);
+	}
+
+	public CustomerOrder getCustomerOrderById(Integer customerOrderId) {
+		// TODO Auto-generated method stub
+		return null;
 	}
 }
