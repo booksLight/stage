@@ -413,3 +413,13 @@ input:checked + label {
 .error { 
 		color: red; font-weight: bold; 
 	} 
+
+ul.products li {
+    width: 100px;
+    display: inline-block;
+    vertical-align: top;
+     margin-bottom: 2%;
+     margin-right: 5%;
+      margin-left: 5%;
+    *zoom: 1;
+}
