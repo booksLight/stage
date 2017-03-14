@@ -120,7 +120,7 @@ public class OrderController {
     	 String ordDT = new SimpleDateFormat("yyMMdd").format(new Date());
     	    
     	    String orderNo = "BL-" + ordDT + String.valueOf(customerNewOrder.getCustomerOrderId());
-    	    System.out.println("   \n\t *********\n ORDER NO TO CUSTOMER =" + orderNo);
+    	    logger.debug("   \n\t *********\n ORDER NO TO CUSTOMER =" + orderNo);
     	    
  //Saving CartItems to OrderBook
     	 List<OrderBook> orderedItems = manager.mapOrderBookOnCustomerOrder(customerNewOrder);
@@ -129,7 +129,7 @@ public class OrderController {
     	 
     	
     	  try{
-          //	manager.mailOrderAcknowledgment(customerNewOrder.getCustomer().getCustomerEmail(), customerNewOrder.getCustomer().getCustomerName(), orderNo);
+         	manager.mailOrderAcknowledgment(customerNewOrder.getCustomer().getCustomerEmail(), customerNewOrder.getCustomer().getCustomerName(), orderNo);
           }catch(Exception e){
         	  cosLog(this.getClass(), "receiptOrder", "ERROR -->"+e);
           	
@@ -152,14 +152,14 @@ public class OrderController {
       
       Integer cartId = Integer.valueOf(orderBook != null ?  orderBook.getCart() != null ? orderBook.getCart().getCartId() : 0:0);
       
-      System.out.println("\n\n **************** CartId for customer is ="+cartId);
+      logger.debug("\n\n **************** CartId for customer is ="+cartId);
       
-      System.out.println("\n\n **************** orderBook.getCart().getCartId() for customer is ="+ orderBook.getCart().getCartId());
+      logger.debug("\n\n **************** orderBook.getCart().getCartId() for customer is ="+ orderBook.getCart().getCartId());
       
       for(CartItem ordItem : orderBook.getCart().getCartItems() ){
     	  
-    	  System.out.println("\n Cart Item are ="+ordItem.toString());
-    	  System.out.println("\n");
+    	  logger.debug("\n Cart Item are ="+ordItem.toString());
+    	  logger.debug("\n");
     	  
       }
       

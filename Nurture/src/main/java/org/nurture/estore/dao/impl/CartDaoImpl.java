@@ -61,7 +61,7 @@ public class CartDaoImpl implements CartDao {
 		daoLog(this.getClass(), "updateGrandTotal", "START");
 		 Session session = sessionFactory.getCurrentSession();
 		 
-		String hqlUpdateQuery= "update cart set grandTotal=:cartTotal where cartId=:newCartId";
+		String hqlUpdateQuery= "update Cart set grandTotal=:cartTotal where cartId=:newCartId";
 			 Query query1 = session.createSQLQuery(hqlUpdateQuery);
 			 		query1.setParameter("cartTotal", cartParam.getGrandTotal());
 			 		query1.setParameter("newCartId",cartParam.getCartId());

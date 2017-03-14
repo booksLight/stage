@@ -4,19 +4,18 @@
 <%@taglib prefix="spring" uri="http://www.springframework.org/tags" %>
 <jsp:include page="/WEB-INF/views/template/header.jsp" />
 
+
   <main>
   <p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; Fill the below information to add a product</p>
   <input id="tab1" type="radio" name="tabs" class="NoDisplay" checked>
   <label for="tab1">Product Detail</label>
     
-  <input id="tab2" type="radio" name="tabs" class="NoDisplay">
-  <label for="tab2">Image</label>
-    
      <section id="content1">
      
     <p>  
       <table width="80%">
-      <form:form class="go-right" action="${pageContext.request.contextPath}/admin/product/addProduct" method="post" commandName="product">
+ 
+        <form:form class="go-right"  id="product-form" action="${pageContext.request.contextPath}/admin/product/addProduct" method="post"  enctype="multipart/form-data" commandName="product"> 
         
         <tr>
         	<td width="50%"> Category & Type </td>
@@ -70,8 +69,24 @@
          	Inactive<form:radiobutton path="productStatus" id="status" value="inactive"/> </td>
          <tr>
         
+          <tr>
+         	<td width="50%"></td>
+         	<td colspan="2"> &nbsp;</td>
+         <tr>
+         
+         <tr>
+         	<td width="50%">Snap / Image</td>
+         <td colspan="2"> 
+         	<input type="file" name="file"></td>
+         <tr>
+         
+          <tr>
+         	<td width="50%"></td>
+         	<td colspan="2"> &nbsp;</td>
+         <tr>
+        
           <tr  align="right">
-         	<td colspan="3">	<input type="submit" value="Submit" class="btn btn-default"> 
+         	<td colspan="3">	<input type="submit" id="bth-addProduct" value="Submit" class="btn btn-default"> 
          	<a href="<c:url value="/admin/productInventory"/>" class="btn btn-default">Cancel</a> </td>
          </tr>
           </form:form>
@@ -80,32 +95,7 @@
  	
   </section>
     
-   <section id="content2">
- <p>
-  <center><h1>${ message }</h1></center>
-     
-     
-      <form method="POST" enctype="multipart/form-data" action="${pageContext.request.contextPath}/admin/product/addProductImg">
-            <p>File to upload: <input type="file" name="file"></p>
-            <p><input type="submit" value="Upload"> Press here to upload the file!</p>
-        </form>
-     
-   <%--    <form class="go-right" action="${pageContext.request.contextPath}/admin/product/addProductImg" method="POST" enctype="multipart/form-data">
-        
-         <div class="form-group">
-            <label class="control-label">Upload Picture</label>
-            <input id="productImage" name="productImage" type="file" class="form:input-large"/>
-        </div>
-
-        <div>
-        	<input type="submit" value="Upload" class="btn btn-default"> 
-         	<a href="<c:url value="/admin/productInventory"/>" class="btn btn-default">Cancel</a>
-        </div>
-        
-      </form> --%>
- </p>
- 
-  </section>
+  
     
 </main>
 

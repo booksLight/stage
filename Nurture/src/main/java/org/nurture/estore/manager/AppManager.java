@@ -338,7 +338,7 @@ public class AppManager {
 								double grandTotal=0.0;
 								List<CartItem> cartItems = null;
 								if(customerOrder.getCart().getCartItems()  != null ){
-									System.out.println( "\n\n ************* SIZE of the Customer CartItems = "+ customerOrder.getCart().getCartItems().size());
+									logger.debug( "\n\n ************* SIZE of the Customer CartItems = "+ customerOrder.getCart().getCartItems().size());
 									 cartItems = new ArrayList<CartItem>();
 									for(OrderBook orderBook : orderedBooks ){
 										CartItem cartItem = new CartItem();

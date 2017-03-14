@@ -22,10 +22,11 @@ public class ProductDaoImpl implements ProductDao {
     @Autowired
     private SessionFactory sessionFactory;
 
-    public void addProduct(Product product) {
+    public Integer addProduct(Product product) {
         Session session = sessionFactory.getCurrentSession();
-        session.saveOrUpdate(product);
+        Integer prodductId = (Integer) session.save(product);
         session.flush();
+        return prodductId;
     }
 
     public void editProduct(Product product) {

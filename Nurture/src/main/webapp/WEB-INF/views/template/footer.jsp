@@ -8,7 +8,7 @@
 		<footer class="footer-distributed">
 
 			<div class="footer-left">
-				<h3><img class="img-circle"  src="<c:url value="/resources/images/bottomLogo.png"/>"
+				<h3><img class="img-circle"  src="<c:url value="/images/bottomLogo.png"/>"
                              alt="image" style="width:20%" height="14%" > Books <span>Light</span></h3>
 
 				<p class="footer-links">

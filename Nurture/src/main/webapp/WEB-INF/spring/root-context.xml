@@ -12,15 +12,17 @@
 		class="org.springframework.jdbc.datasource.DriverManagerDataSource">
 		<property name="driverClassName" value="com.mysql.jdbc.Driver" />
 
-		<!-- <property name="url" value="jdbc:mysql://mysqlmumnurture.czr5lvaaqq4h.ap-south-1.rds.amazonaws.com:3306/nurture" 
+		<!--  -->
+		<property name="url" value="jdbc:mysql://mysqlmumnurture.czr5lvaaqq4h.ap-south-1.rds.amazonaws.com:3306/nurture" 
 			/> <property name="username" value="nurture" /> <property name="password" 
-			value="nurtures" /> -->
-
-		<!-- -->
+			value="nurtures" />
+		
+		
+		<!--   
 		<property name="url" value="jdbc:mysql://localhost:3306/nurture" />
 		<property name="username" value="root" />
 		<property name="password" value="root" />
-
+	 -->
 	</bean>
 
 	<bean id="hibernate4AnnotatedSessionFactory"

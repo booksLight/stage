@@ -3,8 +3,11 @@
 <%@taglib prefix="form" uri="http://www.springframework.org/tags/form" %>
 <%@taglib prefix="spring" uri="http://www.springframework.org/tags" %>
 <jsp:include page="/WEB-INF/views/template/header.jsp" />
-
-
+<!-- <script src="<c:url value="/resources/js/adminCtr.js"/>"></script>
+ <script src="adminCtr.js"></script> -->
+<script src="<c:url value="/resources/js/adminCtr.js"/>"></script>
+ 
+<div ng-app="demo">
     <div class="page-header">
       <h1>Admin page</h1>
 
@@ -29,7 +32,13 @@
     </h3>
 
     <p>Here you can view the customer information</p>
+<hr/>
+	<div>
+            <p class="greeting-id">The ID is </p>
+            <p class="greeting-content">The content is </p>
+        </div>
 
-
+	
+</div>		
 <!-- Footer  -->
 <jsp:include page="/WEB-INF/views/template/footer.jsp" />

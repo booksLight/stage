@@ -24,7 +24,7 @@
     <title>Books Light</title>
 
     <!-- Angular JS -->
-    <script src = "https://ajax.googleapis.com/ajax/libs/angularjs/1.3.3/angular.min.js"></script>
+    <script src = "https://ajax.googleapis.com/ajax/libs/angularjs/1.4.3/angular.min.js"></script>
    
     <!-- Bootstrap core CSS -->
     <link href="<c:url value="/resources/css/bootstrap.min.css"/>" rel="stylesheet">
@@ -40,7 +40,7 @@
 		<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.2/jquery.min.js"></script>
 		<script>window.jQuery || document.write('<script src="<c:url value="/resources/js/jquery-1.12.2.min.js"/>"><\/script>')</script>
 		<script src="<c:url value="/resources/js/bootstrap.min.js"/>"></script>
-
+		<script src="admin.js"></script>
 
 </head>
 <!-- NAVBAR ================================================== -->
@@ -82,6 +82,7 @@
                           
                             <c:if test="${model.userVo.type == 'ADMIN'}">
                               <li><a href="<c:url value="/customer/cart"/>">Cart</a></li>
+                               <li><a href="<c:url value="/customer/profile"/>">Profile</a></li>
                                 <li><a href="<c:url value="/admin"/>">Admin</a></li>
                             </c:if>
                             

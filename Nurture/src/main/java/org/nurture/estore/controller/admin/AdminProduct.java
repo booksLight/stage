@@ -66,7 +66,7 @@ public class AdminProduct {
 
    
     @RequestMapping(value = "/product/addProduct", method = RequestMethod.POST)
-    public String addProductPost(@Valid @ModelAttribute("product") Product product,  BindingResult result, Model model,  HttpServletRequest request) {
+    public String addProductPost(@Valid @ModelAttribute("product") Product product,  BindingResult result, Model model, @RequestParam("file") MultipartFile file,  HttpServletRequest request) {
    
     	
         if (result.hasErrors()) {
@@ -81,22 +81,17 @@ public class AdminProduct {
     	
     	model.addAttribute("model", manager.getUserModel(request));
     	
-       productService.addProduct(product);
+       Integer prodductId = productService.addProduct(product);
 
+       logger.debug("\n\t ************ Successfully product saved with "+prodductId);
        
-        MultipartFile productImage = product.getProductImage();
-        String rootDirectory = request.getSession().getServletContext().getRealPath("/");
-        path = Paths.get(rootDirectory + "\\WEB-INF\\resources\\images\\" + product.getProductId() + ".png");
-
-        if (productImage != null && !productImage.isEmpty()) {
-            try {
-                productImage.transferTo(new File(path.toString()));
-            } catch (IOException e) {
-                e.printStackTrace();
-                throw new RuntimeException("Product image saving failed", e);
-            }
-        }
-        
+       if(file != null){
+    	   String prodFileName =  String.valueOf(prodductId)+ ".png";
+    	  logger.debug("\n\t ************ Product Image = "+file.toString());
+           fileUpload.process(file,prodFileName);
+    	   
+       }
+      
         ctrLog(this.getClass(), "addProductPost", "END-->"+state);
         return state;
     }
@@ -109,7 +104,7 @@ public class AdminProduct {
     		String state = "redirect:/admin/productInventory/";
     		
     		   		
-    		model.addAttribute("message", fileUpload.process(file));
+    		model.addAttribute("message", fileUpload.process(file, null));
     
     	
     	 ctrLog(this.getClass(), "UploadProductImgPost", "END...");
