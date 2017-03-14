@@ -15,7 +15,7 @@ public class FileUpload {
 	private static final String[] ALLOWED_FILE_TYPES = {"image/png", "image/jpeg", "image/jpg", "image/gif"};
     private static final Long MAX_FILE_SIZE = 1048576L; //1MB
  //  private static final String UPLOAD_FILE_PATH = "C:/Program Files/Apache/Tomcat8/webapps/images/";
-   private static final String UPLOAD_FILE_PATH = "/var/lib/tomcat8/webapps/images/";
+   private static final String UPLOAD_FILE_PATH = "/var/lib/tomcat8/webapps/images";
     
    
 	

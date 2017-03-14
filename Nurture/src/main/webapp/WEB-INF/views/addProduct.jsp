@@ -3,7 +3,7 @@
 <%@taglib prefix="form" uri="http://www.springframework.org/tags/form" %>
 <%@taglib prefix="spring" uri="http://www.springframework.org/tags" %>
 <jsp:include page="/WEB-INF/views/template/header.jsp" />
-
+<div class="container">
 
   <main>
   <p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; Fill the below information to add a product</p>
@@ -15,7 +15,7 @@
     <p>  
       <table width="80%">
  
-        <form:form class="go-right"  id="product-form" action="${pageContext.request.contextPath}/admin/product/addProduct" method="post"  enctype="multipart/form-data" commandName="product"> 
+        <form:form class="go-right"  id="product-form" action="${pageContext.request.contextPath}/admin/product/addProduct" method="post" enctype="multipart/form-data" commandName="product"> 
         
         <tr>
         	<td width="50%"> Category & Type </td>
@@ -98,5 +98,5 @@
   
     
 </main>
-
+</div>
 <%@include file="/WEB-INF/views/template/footer.jsp"%>
