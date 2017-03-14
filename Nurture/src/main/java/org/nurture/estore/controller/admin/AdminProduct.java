@@ -96,20 +96,7 @@ public class AdminProduct {
         return state;
     }
 
-    @RequestMapping(value = "/product/addProductImg", method = RequestMethod.POST)
-    public String UploadProductImgPost(@RequestParam("file") MultipartFile file, Model model, HttpServletRequest request) {
-    	
-    	
-    	  ctrLog(this.getClass(), "UploadProductImgPost", "START...");
-    		String state = "redirect:/admin/productInventory/";
-    		
-    		   		
-    		model.addAttribute("message", fileUpload.process(file, null));
-    
-    	
-    	 ctrLog(this.getClass(), "UploadProductImgPost", "END...");
-    	return state;
-    }
+   
     
     @RequestMapping("/product/editProduct/{id}")
     public String editProduct(@PathVariable("id") int id, Model model, HttpServletRequest paramRequest) {
@@ -142,7 +129,7 @@ public class AdminProduct {
      	
         MultipartFile productImage = product.getProductImage();
         String rootDirectory = request.getSession().getServletContext().getRealPath("/");
-        path = Paths.get(rootDirectory + "\\WEB-INF\\resources\\images\\" + product.getProductId() + ".png");
+        path = Paths.get(rootDirectory + "/images/" + product.getProductId() + ".png");
 
         if (productImage != null && !productImage.isEmpty()) {
             try {
@@ -169,7 +156,7 @@ public class AdminProduct {
      	model.addAttribute("model", manager.getUserModel(request));
      	
         String rootDirectory = request.getSession().getServletContext().getRealPath("/");
-        path = Paths.get(rootDirectory + "\\WEB-INF\\resources\\images\\" + id + ".png");
+        path = Paths.get(rootDirectory + "/images/" + id + ".png");
 
         if (Files.exists(path)) {
             try {

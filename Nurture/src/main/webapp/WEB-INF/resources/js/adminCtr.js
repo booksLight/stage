@@ -1,7 +1,5 @@
 
 $(document).ready(function() {
-	alert("Jquery Started ");
-  
 	
 	$.ajax({
         url: "http://rest-service.guides.spring.io/greeting"
@@ -11,13 +9,7 @@ $(document).ready(function() {
     });
 	
 	
-	$("#product-form").submit(function(event) {
 
-		// Prevent the form from submitting via the browser.
-		event.preventDefault();
-		//addProductViaAjax();
-
-	});
     
 });
   

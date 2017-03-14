@@ -4,10 +4,7 @@
 <%@taglib prefix="spring" uri="http://www.springframework.org/tags" %>
 <jsp:include page="/WEB-INF/views/template/header.jsp" />
 
- <div class="page-header">
-           
-            <p class="lead">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; Products</p>
- </div>
+  <div class="container">
 
         <table class="table table-striped table-hover">
             <thead>
@@ -41,7 +38,7 @@
         </table>
 
         <a href="<spring:url value="/admin/product/addProduct"/>" class="btn btn-primary">Add product</a>
-
+</div>
    
 
 <jsp:include page="/WEB-INF/views/template/footer.jsp" />
