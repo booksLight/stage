@@ -6,8 +6,6 @@ import java.util.List;
 
 public interface ProductDao {
 
-    List<Product> getProductList();
-
     Product getProductById(int id);
 
     Integer addProduct(Product product);
@@ -17,6 +15,8 @@ public interface ProductDao {
     void deleteProduct(Product product);
 
 	List<Product> getProducts(Integer offset, Integer maxResults);
+	
+	List<Product> getProductsPage(Integer offset, Integer maxResults, String lookUp);
 
-	Long countProducts();
+	Long countProducts(String lookUp);
 }

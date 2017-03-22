@@ -33,15 +33,14 @@ public class ProductController {
     @Autowired
     AppManager manager;
     
-    @RequestMapping("/productList")
-    public String getProducts (Model model, HttpServletRequest paramRequest) {
+    @RequestMapping("/productList/{offSet}")
+    public String getProducts (@PathVariable(value = "offSet") int offSet, Model model, HttpServletRequest paramRequest) {
     	 
     	String state = "productList";
     	ctrLog(this.getClass(), "getProducts", "START");
-    	 model.addAttribute("model", manager.getUserModel(paramRequest));
-        List<Product> products = productService.getProductList();
-       logger.debug("\n\t PRODUCTS SIZE = "+ products.size());
-        model.addAttribute("products", products);
+    	 model.addAttribute("model", manager.getUserModel(paramRequest));  
+    	 model.addAttribute("products",manager.lookUptProducts("OTH", offSet, manager.initPaginition(offSet,"OTH")));
+    	 model.addAttribute("pages", manager.getTotalPages("OTH"));
         ctrLog(this.getClass(), "getProducts", "END-->"+state);
         return state;
     }

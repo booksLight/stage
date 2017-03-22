@@ -2,7 +2,7 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@taglib prefix="form" uri="http://www.springframework.org/tags/form" %>
 <%@taglib prefix="spring" uri="http://www.springframework.org/tags" %>
-<jsp:include page="/WEB-INF/views/template/header.jsp" />
+<jsp:include page="template/header.jsp" />
 
 <script>
 function popup(){
@@ -109,4 +109,4 @@ function popupClose(){
  </script>
 </c:if>
 <!-- Footer  -->
-<jsp:include page="/WEB-INF/views/template/footer.jsp" />
+<jsp:include page="template/footer.jsp" />

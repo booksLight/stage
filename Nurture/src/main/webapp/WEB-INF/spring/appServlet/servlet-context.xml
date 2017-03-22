@@ -15,7 +15,7 @@
 
 
 	<context:component-scan base-package="org.nurture.estore" />
-	<context:property-placeholder location="classpath:message.properties" />
+	<context:property-placeholder location="classpath:nurture.properties" />
 	<mvc:annotation-driven />
 	<tx:annotation-driven />
 
@@ -33,7 +33,7 @@
 
 	<beans:bean id="messageSource"
 		class="org.springframework.context.support.ReloadableResourceBundleMessageSource">
-		<beans:property name="basename" value="/WEB-INF/messages" />
+		<beans:property name="basename" value="/WEB-INF/conf/placeholder" />
 	</beans:bean>
 
 

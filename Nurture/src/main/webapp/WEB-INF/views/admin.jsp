@@ -2,37 +2,46 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@taglib prefix="form" uri="http://www.springframework.org/tags/form" %>
 <%@taglib prefix="spring" uri="http://www.springframework.org/tags" %>
-<jsp:include page="/WEB-INF/views/template/header.jsp" />
-
- 
-<div>
-    <div class="page-header">
-      <h1>Admin page</h1>
-
-      <p class="lead">Check all the awesome products available now!</p>
-    </div>
-
-    <c:if test="${pageContext.request.userPrincipal.name != null}">
-      <h2>Welcome ${pageContext.request.userPrincipal.name}
-        | <a href="<c:url value="/j_spring_security_logout"/>">Logout</a></h2>
-    </c:if>
-
-    <h3>
-      <a href="<c:url value="/admin/productInventory" />">Product Inventory</a>
-    </h3>
-  <p>Here you can modify everything</p>
-
-   <br>
-   <br>
-
-    <h3>
-      <a href="<c:url value="/admin/customers" />">Customer management</a>
-    </h3>
-
-    <p>Here you can view the customer information</p>
+<link href="<c:url value="/resources/css/admin.css"/>" rel="stylesheet">
+<link href="<c:url value="/resources/css/test.css"/>" rel="stylesheet">
+<meta name="viewport" content="width=device-width, initial-scale=1">
 
 
+<div id="maincontainer">
+
+<div id="topsection"><div class="innertube">
+<jsp:include page="template/header.jsp" />
+</div></div>
+
+<div id="contentwrapper">
+<div id="contentcolumn">
+<div class="innertube" id="mainDiv"><b>Content Column: <em>Fixed</em></b> ... default contents here...</div>
+</div>
+</div>
+
+<div id="leftcolumn">
+<div class="innertube">
+<input type="checkbox" id="sidemenucheckbox" />
+
+<label id="sidemenutoggler" for="sidemenucheckbox" onClick="legacybrowsertoggle()">Toggle Menu</label>
+<nav id="leftsidemenu">
+
+	<ul>
+	<li> <a href ="#" id="invCatalogue"> Catalogue</a></li>
+	<li> <a href ="#" id="invPortfolio">Portfolio</a></li>
+	<li> <a href ="#" id="invLedger">Ledgers </a></li>
 	
-</div>		
+	</ul>
+<label id="closex" for="sidemenucheckbox" onClick="legacybrowsertoggle()">Close</label>
+</nav>
+	<div class="overlay"><label for="sidemenucheckbox"></label></div>
+
+</div>
+</div>
+
+<div id="footer">
 <!-- Footer  -->
-<jsp:include page="/WEB-INF/views/template/footer.jsp" />
+<jsp:include page="template/footer.jsp" />
+</div>
+</div>
+

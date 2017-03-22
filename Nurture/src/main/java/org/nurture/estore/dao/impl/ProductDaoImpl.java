@@ -1,15 +1,20 @@
 package org.nurture.estore.dao.impl;
 
+import org.hibernate.Criteria;
 import org.hibernate.Query;
+import org.hibernate.ScrollMode;
+import org.hibernate.ScrollableResults;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 import org.hibernate.criterion.Projections;
+import org.hibernate.criterion.Restrictions;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 import org.springframework.transaction.annotation.Transactional;
 import org.nurture.estore.dao.ProductDao;
 import org.nurture.estore.model.Product;
 
+import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -41,15 +46,8 @@ public class ProductDaoImpl implements ProductDao {
         session.flush();
     }
 
-    public List<Product> getProductList() {
-        Session session = sessionFactory.getCurrentSession();
-        Query query = session.createQuery("from Product");
-        List<Product> productList = query.list();
-        session.flush();
-
-        return productList;
-    }
-
+  
+    
     public Product getProductById(int id) {
         Session session = sessionFactory.getCurrentSession();
         Product product = (Product) session.get(Product.class, id);
@@ -61,15 +59,40 @@ public class ProductDaoImpl implements ProductDao {
 	public List<Product> getProducts(Integer offset, Integer maxResults) {
 		return sessionFactory.openSession()
 				.createCriteria(Product.class)
-				.setFirstResult(offset!=null?offset:0)
-				.setMaxResults(maxResults!=null?maxResults:10)
+				.add(Restrictions.ne("productManufacture","BPS"))
+				.add(Restrictions.ne("productManufacture","DPS"))
+				.setFirstResult(offset)
+				.setMaxResults(maxResults)
 				.list();
 	}
 	
-	public Long countProducts(){
+	public List<Product> getProductsPage(Integer offset, Integer maxResults, String lookUp) {
+		if(lookUp.equalsIgnoreCase("OTH")){
+			return getProducts(offset,maxResults);
+		}else{
+		return sessionFactory.openSession()
+				.createCriteria(Product.class)
+				.add(Restrictions.eq("productManufacture",lookUp))
+				.setFirstResult(offset)
+				.setMaxResults(maxResults)
+				.list();
+		}
+	}
+	
+	public Long countProducts(String lookUp){
+		if(lookUp.equalsIgnoreCase("OTH")){
+			return (Long)sessionFactory.openSession()
+					.createCriteria(Product.class)
+					.add(Restrictions.ne("productManufacture","BPS"))
+					.add(Restrictions.ne("productManufacture","DPS"))
+					.setProjection(Projections.rowCount())
+					.uniqueResult();
+		}else{
 		return (Long)sessionFactory.openSession()
 				.createCriteria(Product.class)
+				.add(Restrictions.eq("productManufacture",lookUp))
 				.setProjection(Projections.rowCount())
 				.uniqueResult();
+	}
 	}
 }

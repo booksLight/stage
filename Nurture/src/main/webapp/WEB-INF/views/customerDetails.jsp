@@ -2,7 +2,7 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@taglib prefix="form" uri="http://www.springframework.org/tags/form" %>
 <%@taglib prefix="spring" uri="http://www.springframework.org/tags" %>
-<jsp:include page="/WEB-INF/views/template/header.jsp" />
+<jsp:include page="template/header.jsp" />
 	
 <main>
   <p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; Fill the below information to add a product</p>
@@ -190,4 +190,4 @@
 </main>
 
 
-<jsp:include page="/WEB-INF/views/template/footer.jsp" />
+<jsp:include page="template/footer.jsp" />

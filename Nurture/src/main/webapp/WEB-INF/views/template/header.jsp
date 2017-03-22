@@ -14,6 +14,11 @@
 	<link href="<c:url value="/resources/css/demo.css"/>" rel="stylesheet">
 	<link href="<c:url value="/resources/css/footer.css"/>" rel="stylesheet">
 	
+    <link rel="stylesheet" href="//code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
+
+	<link href="<c:url value="/resources/css/jquery-ui.css"/>" rel="stylesheet">
+
+   
     
     
     <!-- The above 3 meta tags *must* come first in the head; any other head content must come *after* these tags -->
@@ -40,11 +45,12 @@
 		<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.2/jquery.min.js"></script>
 		<script>window.jQuery || document.write('<script src="<c:url value="/resources/js/jquery-1.12.2.min.js"/>"><\/script>')</script>
 		<script src="<c:url value="/resources/js/bootstrap.min.js"/>"></script>
-		
-
+		<script src="<c:url value="/resources/js/jquery-ui.js.js"/>"></script>
+			 <script src="<c:url value="/resources/js/admin.js"/>"></script>
 </head>
 <!-- NAVBAR ================================================== -->
 <body>
+<div id="header">
 <div class="navbar-wrapper">
     <div class="container">
 
@@ -58,7 +64,7 @@
                         <span class="icon-bar"></span>
                         <span class="icon-bar"></span>
                     </button>
-                    <a class="navbar-brand" href="#">${model.title}</a> 
+                    <a class="navbar-brand" href="/">${model.title}</a> 
                 </div>
                 <div id="navbar" class="navbar-collapse collapse">
                 <!--  Modifiying -->
@@ -67,13 +73,14 @@
                 	<div style="page-break-inside: avoid">
                     <ul class="nav navbar-nav">
                         <li <%--class="active"--%>><a href="<c:url value="/"/>">${model.home}</a></li>
-                        <li><a href="<c:url value="/product/productList"/>">${model.product}</a></li>
+                        <li><a href="<c:url value="/product/productList/0"/>">${model.product}</a></li>
                         <li><a href="#contact">${model.contact}</a></li>
                     </ul>
                     </div>
                     <div  style="ppage-break-before: always">
-                    <ul class="nav navbar-nav pull-right" >
-                        <c:if test="${model.userVo != null}">
+                    <ul class="nav navbar-nav pull-right" > 
+                    
+                       <c:if test="${model.userVo != null}">
                          <c:if test="${model.userVo.name != null}">
                             
                             <li><a>Welcome: ${model.userVo.name}</a></li>
@@ -84,17 +91,19 @@
                               <li><a href="<c:url value="/customer/cart"/>">Cart</a></li>
                                <li><a href="<c:url value="/customer/profile"/>">Profile</a></li>
                                 <li><a href="<c:url value="/admin"/>">Admin</a></li>
-                            </c:if>
+                                
+                               </c:if>
                             
                              <c:if test="${model.userVo.type == 'CUSTOMER'}">
                                <li><a href="<c:url value="/customer/cart"/>">Cart</a></li>
                                 <li><a href="<c:url value="/customer/profile"/>">Profile</a></li>
                             </c:if>
-                        </c:if>
+                        </c:if> 
                         <c:if test="${model.userVo == null}">
                             <li><a href="<c:url value="/login"/>">Login</a></li>
                         </c:if>
                     </ul>
+                  
                     </div>
                     </div>
                 </div>
@@ -102,3 +111,4 @@
         </nav>
 </div>
 </div>
+ </div>

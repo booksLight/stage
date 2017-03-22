@@ -93,7 +93,7 @@ public class HomeController {
             BindingResult result, Model model, HttpServletRequest paramRequest) {
     	
     	ctrLog(this.getClass(), "getSecurityCheck", "START with Active User ="+activeUser.toString());
-    	String state = "redirect:/product/productList";
+    	String state = "redirect:/product/productList/0";
     	 
     	 Customer customer = null;
     	UserVO userVO;
@@ -180,6 +180,16 @@ public class HomeController {
 	    	return state;
 	    }*/
 
+	 @RequestMapping("/test")
+	    public String geTest(HttpServletRequest paramRequest) {
+	    	ctrLog(this.getClass(), "geTest", "START");
+	    	 String state = "test";
+	    	 
+	    	
+	    	 ctrLog(this.getClass(), "geTest", "END ->"+state);
+	    		
+	    	return state;
+	    }
 	
 	private void ctrLog(Class<? extends HomeController> paramCclass, String paramMethod, String paramMsg) {
 		logger.info(paramCclass.getName() + " : " + paramMethod + "() : " + paramMsg);

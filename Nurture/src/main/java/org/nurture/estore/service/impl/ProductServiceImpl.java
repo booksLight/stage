@@ -14,9 +14,6 @@ public class ProductServiceImpl implements ProductService {
     @Autowired
     private ProductDao productDao;
 
-    public List<Product> getProductList() {
-        return productDao.getProductList();
-    }
 
     public Product getProductById(int id) {
         return productDao.getProductById(id);
@@ -38,7 +35,11 @@ public class ProductServiceImpl implements ProductService {
 		return productDao.getProducts(offset, maxResults);
 	}
 
-	public Long countProducts() {
-		return productDao.countProducts();
+	public Long countProducts(String lookUp) {
+		return productDao.countProducts(lookUp);
+	}
+
+	public List<Product> getProductsPage(Integer offset, Integer maxResults, String lookUp) {
+		return productDao.getProductsPage(offset, maxResults, lookUp);
 	}
 }

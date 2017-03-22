@@ -2,16 +2,16 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@taglib prefix="form" uri="http://www.springframework.org/tags/form" %>
 <%@taglib prefix="spring" uri="http://www.springframework.org/tags" %>
-<jsp:include page="/WEB-INF/views/template/header.jsp" />
+<jsp:include page="template/header.jsp" />
 
-
+ 	<div class="container" ng-app="cartApp">
         <div class="page-header">
             <h1>Product Detail</h1>
 
             <p class="lead">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; Here is the detail information of the product</p>
         </div>
 
-        <div class="container" ng-app="cartApp">
+       
             <div class="row">
                 <div class="col-md-5">
                     <img src="<c:url value="/images/${product.productId}.png"/>"
@@ -35,9 +35,9 @@
                     <h4 class="fa fa-inr" style="font-size:22px;color:red">${product.productPrice}</h4>
                     <br>
                     <c:set var="role" scope="page" value="${param.role}"/>
-                    <c:set var="url" scope="page" value="/product/productList"/>
+                    <c:set var="url" scope="page" value="/product/productList/0"/>
                     <c:if test="${role='admin'}">
-                        <c:set var="url" scope="page" value="/admin/productInventory"/>
+                        <c:set var="url" scope="page" value="/admin/productInventory/0"/>
                     </c:if>
                       <c:set var="ourl" scope="page" value="/cart/rest/cart/add/${product.productId}"/>
                      <c:set var="curl" scope="page" value="/customer/cart"/>
@@ -55,4 +55,4 @@
 
 <script src="<c:url value="/resources/js/controller.js"/>"></script>
 <!-- Footer  -->
-<jsp:include page="/WEB-INF/views/template/footer.jsp" />
+<jsp:include page="template/footer.jsp" />

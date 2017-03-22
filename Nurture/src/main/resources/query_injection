@@ -1,0 +1,21 @@
+
+
+<!--  ****************** REPORT FOR TOTAL ORDERS : ORDER WISE : Admin ******************  -->
+
+SELECT  c.customerName,  p.productName, sum(ob.quantity) ITEMS, sum(ob.totalPrice) RS, co.stamped, co.customerOrderId, co.status, co.cartId, co.isConfirmed, co.isShipped
+FROM customer c
+JOIN customerorder co ON c.cartId = co.cartId AND c.customerId = co.customerId
+JOIN orderbook ob ON c.cartId = ob.cartId AND ob.cartId = c.cartId AND ob.orderId = co.customerOrderId
+JOIN product p ON p.productId = ob.productId 
+group by co.customerOrderId ASC;
+
+
+<!--  ****************** REPORT FOR TOTAL ORDERS : ITEM WISE : Admin ******************  -->
+
+SELECT  c.customerName,  p.productName, p.productPrice, ob.quantity, ob.totalPrice, co.stamped, co.customerOrderId, co.status, co.cartId, co.isConfirmed, co.isShipped
+FROM customer c
+JOIN customerorder co ON c.cartId = co.cartId AND c.customerId = co.customerId
+JOIN orderbook ob ON c.cartId = ob.cartId AND ob.cartId = c.cartId AND ob.orderId = co.customerOrderId
+JOIN product p ON p.productId = ob.productId ;
+
+

@@ -17,7 +17,7 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 /**
- * Created by Andrew on 07.05.2016.
+ * Created by Rakesh Sharma on 07.01.2017.
  */
 
 @Repository
@@ -52,9 +52,7 @@ public class CustomerOrderDaoImpl implements CustomerOrderDao {
 	}
 	
 	
-	 private void daoLog(Class<? extends CustomerOrderDaoImpl> paramCclass, String paramMethod, String paramMsg) {
-			logger.info(paramCclass.getName() + " : " + paramMethod + "() : " + paramMsg);
-		}
+	
 
 	public List<OrderBook> getOrderedBooksByOrderId(Integer customerOrderId) {
 		 daoLog(this.getClass(), "getOrderedBooksByOrderId", "START ");
@@ -98,5 +96,9 @@ public class CustomerOrderDaoImpl implements CustomerOrderDao {
 		return null;
 	}
 
+	
+	 private void daoLog(Class<? extends CustomerOrderDaoImpl> paramCclass, String paramMethod, String paramMsg) {
+			logger.info(paramCclass.getName() + " : " + paramMethod + "() : " + paramMsg);
+		}
 	
 }

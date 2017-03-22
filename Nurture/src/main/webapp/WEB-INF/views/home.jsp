@@ -2,7 +2,11 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@taglib prefix="form" uri="http://www.springframework.org/tags/form" %>
 <%@taglib prefix="spring" uri="http://www.springframework.org/tags" %>
-<jsp:include page="/WEB-INF/views/template/header.jsp" />
+  <!-- Main CSS -->
+    <link href="<c:url value="/resources/css/main.css"/>" rel="stylesheet">
+   
+   <jsp:include page="template/header.jsp" />
+   
 <!-- Carousel ================================================== -->
 <div id="myCarousel" class="carousel slide" data-ride="carousel">
     <!-- Indicators -->
@@ -14,27 +18,27 @@
     <div class="carousel-inner" role="listbox">
         <div class="item active">
             <img class="first-slide home-imageA1"
-                 src="<c:url value="images/back1.jpg"/>"
+                 src="<c:url value="/images/back1.jpg"/>"
                  alt="First slide">
  
  			<img class="first-slide home-imageB1"
-                 src="<c:url value="images/brilliant.jpeg"/>"
+                 src="<c:url value="/images/brilliant.jpeg"/>"
                  alt="First slide">
                  	
             <div class="container">
                 <div class="carousel-caption">
                     <h1>Brilliant Public School!</h1>
-                    <p><a class="btn btn-lg btn-primary" href="<c:url value="//login"/>" role="button">HangOn</a></p>
+                    <p><a class="btn btn-lg btn-primary" href="<c:url value="/vender/brillient/0"/>" role="button">HangOn</a></p>
                 </div>
             </div>
         </div>
         <div class="item">
             <img class="second-slide home-imageA1"
-                 src="<c:url value="images/back2.jpg"/>"
+                 src="<c:url value="/images/back2.jpg"/>"
                  alt="Second slide">
 
 			<img class="first-slide home-imageB1"
-                 src="<c:url value="images/pratibha.jpg"/>"
+                 src="<c:url value="/images/pratibha.jpg"/>"
                  alt="First slide">
                  
             <div class="container">
@@ -49,11 +53,11 @@
         </div>
         <div class="item">
             <img class="third-slide home-imageA1"
-                 src="<c:url value="images/back3.jpg"/>"
+                 src="<c:url value="/images/back3.jpg"/>"
                  alt="Third slide">
                  
 			<img class="first-slide home-imageB1"
-                 src="<c:url value="images/dav.jpg"/>"
+                 src="<c:url value="/images/dav.jpg"/>"
                  alt="First slide">
                  
 
@@ -135,4 +139,4 @@
 </div>>
 
 <!-- Footer  -->
-<jsp:include page="/WEB-INF/views/template/footer.jsp" />
+<jsp:include page="template/footer.jsp" />

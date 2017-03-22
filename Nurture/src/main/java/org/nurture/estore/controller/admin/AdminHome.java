@@ -54,8 +54,7 @@ public class AdminHome {
     	ctrLog(this.getClass(), "productInventory", "START");
     	 String state = "productInventory";
     	
-        List<Product> products = productService.getProductList();
-        model.addAttribute("products", products);
+        model.addAttribute("products", manager.getAllProduts(0, 15));
         model.addAttribute("model", manager.getUserModel(paramRequest));
         
         ctrLog(this.getClass(), "productInventory", "END-->"+state);

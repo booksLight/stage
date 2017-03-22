@@ -1,38 +1,27 @@
-angular.module('demo', [])
-.factory('timeoutHttpInterceptor', function () {
-    return {
-      'request': function(config) {
-        config.timeout = 98000;
-        return config;
-      }
-    };
- })
-.controller('svc', function($scope, $http) {
-	 console.log("Angular.admin controller");
-	var url ='http://postalpincode.in/api/pincode/804406';
-    $http({
-    	method:'JSONP',
-    	url:url
-    }).
-        success(function(response) {
-        	
-            $scope.pincode = response.data;
-            console.log("Output ="+response.data)
-        }).
-        error(function (error, status){
-            $scope.pincode = { message: error, status: status};
-            console.log($scope.pincode.status); 
-      });
+
+$(document).ready(function() {
+	
+		$("#invLedger").on("click", function() {
+			$("#mainDiv").load("/cart/admin/orders");
+		});
+	
+		$("#invCatalogue").on("click", function() {
+	        $("#mainDiv").load("/cart/admin/productInventory");
+	    });
+		
+		$("#invPortfolio").on("click", function() {
+	        $("#mainDiv").load("/cart/admin/customers");
+	    });
+    
 });
 
-/*mysvc.value('http_defaults', {
-    timeout: 1500
-  });
+
+  /*
+function getProductInventory() {
+    document.getElementById("mainDiv").innerHTML='<object type="text/html" data="<c:url value="/admin/productInventory" />" ></object>';
+}
 */
 /*
- * 
- * http://postalpincode.in/api/pincode/804406
- 
 {
 	"Message": "Number of Post office(s) found: 4",
 	"Status": "Success",

@@ -1,20 +1,19 @@
 <%@ page contentType="text/html; charset=UTF-8" pageEncoding="UTF-8" language="java" %>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
-</div>
-</div>
+
 <!-- NAVBAR ================================================== -->
 		<!-- The content of your page would go here. -->
-
+<div id="footer">
 		<footer class="footer-distributed">
 
 			<div class="footer-left">
 				<h3><img class="img-circle"  src="<c:url value="/images/bottomLogo.png"/>"
-                             alt="image" style="width:20%" height="14%" > Books <span>Light</span></h3>
+                             alt="image" style="width:20%" height="10%" > Books <span>Light</span></h3>
 
 				<p class="footer-links">
-					<a href="/cart">Home</a>
+					<a href="/">Home</a>
 					&nbsp;|&nbsp;
-					<a href="/cart/product/productList"> Products</a>
+					<a href="/product/productList/0"> Products</a>
 					&nbsp;|&nbsp;	
 					<a href="#">Services</a>
 					&nbsp;|&nbsp;
@@ -46,7 +45,7 @@
 			<div class="footer-right">
 
 				<p class="footer-company-about">
-					<span>About <a href="/cart/about">...</a></span>
+					<span>About <a href="/about">...</a></span>
 					We are passionate about helping our customers to get the best experience here.
 				</p>
 
@@ -64,6 +63,6 @@
 		</footer>
 <!-- /.container -->
 
-
+</div>
 </body>
 </html>

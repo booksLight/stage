@@ -7,6 +7,7 @@ import javax.mail.MessagingException;
 import javax.mail.internet.AddressException;
 import javax.servlet.http.HttpServletRequest;
 import org.nurture.estore.Constants;
+import org.nurture.estore.controller.ProductController;
 import org.nurture.estore.model.CartItem;
 import org.nurture.estore.model.Customer;
 import org.nurture.estore.model.CustomerOrder;
@@ -16,16 +17,22 @@ import org.nurture.estore.model.Product;
 import org.nurture.estore.model.User;
 import org.nurture.estore.service.CartItemService;
 import org.nurture.estore.service.CartService;
+import org.nurture.estore.service.ClientService;
 import org.nurture.estore.service.CustomerOrderService;
 import org.nurture.estore.service.CustomerService;
 import org.nurture.estore.service.IMail;
+import org.nurture.estore.service.ProductService;
 import org.nurture.estore.service.UserService;
 import org.nurture.estore.service.impl.MailImpl;
+import org.nurture.estore.vo.CustomePage;
 import org.nurture.estore.vo.ModelVo;
 import org.nurture.estore.vo.UserVO;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
+import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Component;
 
 @Component
@@ -43,6 +50,12 @@ public class AppManager {
 	    @Autowired
 	    private CustomerOrderService customerOrderService;
 	    
+	    @Autowired
+		private ProductService productService;
+	    
+	    @Autowired
+		private ClientService clientService;
+		 
 	
 		/*
 	 * Model Info 
@@ -366,20 +379,82 @@ public class AppManager {
 				}
 				
 				
+				public List<Product> lookUptProducts(String lookUp, Integer offset, Integer maxResults) {
+					mgrLog(this.getClass(), "lookUptProducts", "START with (offset,maxResults) :: "+(offset*5)+","+maxResults);
+					mgrLog(this.getClass(), "lookUptProducts", "END");
+					return productService.getProductsPage((offset * 5), (maxResults), lookUp);
+				}
+				
+				public Long getCountProducts(String lookUp) {
+					mgrLog(this.getClass(), "getCountProducts", "START");
+					
+					 Long total = productService.countProducts(lookUp);
+					
+						mgrLog(this.getClass(), "getCountProducts", "END");
+					return total;
+				}
 				
 				
 				
 				
-				// Generic Logger
-				public void mgrLog(Class<? extends AppManager> paramCclass, String paramMethod, String paramMsg) {
-					logger.info(paramCclass.getName() + " : " + paramMethod + "() : " + paramMsg);
+				//Fetching All Products
+				public List<Product> getAllProduts(Integer offset, Integer maxResults) {
+					List<Product> products = productService.getProducts(offset,maxResults);
+					if(products !=  null){
+						return products;
+					}else{
+						logger.info("\n Products is empity or null");
+					}
+					return new ArrayList<Product>();
+				}
+
+
+			//Calculating MaxPages based of offset for pagination
+				public Integer initPaginition(int offSet, String lookup) {
+					mgrLog(this.getClass(), "initPaginition", "START");
+					 Long pLength = getCountProducts(lookup);
+				    	Integer fixedPageSize = 5;
+				       	Integer maxResults = 0;
+				    	 int offSetVal = offSet * fixedPageSize;
+				    	 if((offSetVal + fixedPageSize) < pLength ){
+				    		 maxResults = offSetVal + fixedPageSize;
+				    	 }else{
+				    		 maxResults = pLength.intValue();
+				    	 }
+				    	 mgrLog(this.getClass(), "initPaginition", "END with maxResults ="+maxResults);
+					return maxResults;
 				}
 
 				
-
+				//Calculating Total Pages for pagination
+				public List<Integer> getTotalPages(String lookUp) {
+					 mgrLog(this.getClass(), "getTotalPages", "START  to lookup  pages for  ="+lookUp);
+					 Long pLength = getCountProducts(lookUp);
+				    	Integer fixedPageSize = 5;
+				    	Integer count = 0;
+				    					    	
+				    	List<Integer> pages = new ArrayList<Integer>();
+				    	
+				    	for(int i=0; i < pLength; i=(i+=fixedPageSize)){
+				    		count++;
+				    		pages.add(count);
+				    	}
+				    	
+				     mgrLog(this.getClass(), "getTotalPages", "END with pages ="+pages.size());
+				    	
+					return pages;
+				}
 				
 
 				
+
+				
+
+
+				// Generic Logger
+				public void mgrLog(Class<? extends AppManager> paramCclass, String paramMethod, String paramMsg) {
+					logger.info(paramCclass.getName() + " : " + paramMethod + "() : " + paramMsg);
+				}	
 
 				
 }

@@ -6,8 +6,6 @@ import java.util.List;
 
 public interface ProductService {
 
-    List<Product> getProductList();
-
     Product getProductById(int id);
 
     Integer addProduct(Product product);
@@ -17,6 +15,9 @@ public interface ProductService {
     void deleteProduct(Product product);
 
 	List<Product> getProducts(Integer offset, Integer maxResults);
-	public Long countProducts();
+	
+	List<Product> getProductsPage(Integer offset, Integer maxResults, String lookUp);
+	
+	public Long countProducts(String lookUp);
 
 }

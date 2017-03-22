@@ -3,7 +3,7 @@
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 <%@taglib prefix="form" uri="http://www.springframework.org/tags/form" %>
 <%@taglib prefix="spring" uri="http://www.springframework.org/tags" %>
-<jsp:include page="/WEB-INF/views/template/header.jsp" />
+<jsp:include page="template/header.jsp" />
   <div class="container">
 	 <main>
   <p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; Snapshoots</p>
@@ -63,7 +63,7 @@
         	  	<c:forEach items="${orders}" var="order">
         	  	<c:set var="stamp" value="${order.getStamped()}" />
         	  	<tr> <td align="center" width="25%">
-        	  		<a href="/cart/order/book/${order.customerOrderId}">
+        	  		<a href="/order/book/${order.customerOrderId}">
         	  			BT-<fmt:formatDate pattern="yyMMdd" value="${stamp}" />${order.customerOrderId}
         	  		</a>
         	  		</td>
@@ -85,4 +85,4 @@
     </section>
   </main>
  </div>         
-<jsp:include page="/WEB-INF/views/template/footer.jsp" />
+<jsp:include page="template/footer.jsp" />

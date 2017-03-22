@@ -2,7 +2,7 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@taglib prefix="form" uri="http://www.springframework.org/tags/form" %>
 <%@taglib prefix="spring" uri="http://www.springframework.org/tags" %>
-<jsp:include page="/WEB-INF/views/template/header.jsp" />
+<jsp:include page="template/header.jsp" />
 
 <jsp:useBean id="now" class="java.util.Date" />
     <div class="page-header">
@@ -106,4 +106,4 @@
 
 <script src="<c:url value="/resources/js/controller.js"/>"></script>
 <!-- Footer  -->
-<jsp:include page="/WEB-INF/views/template/footer.jsp" />
+<jsp:include page="template/footer.jsp" />

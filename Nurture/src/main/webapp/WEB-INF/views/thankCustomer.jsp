@@ -7,7 +7,7 @@
 <jsp:useBean id="now" class="java.util.Date" />
 <fmt:formatDate var="year" value="${now}" pattern="yyMMdd" />
 
-<jsp:include page="/WEB-INF/views/template/header.jsp" />
+<jsp:include page="template/header.jsp" />
 
         <br/>  <br/>  <br/>
             <div class="jumbotron">
@@ -26,5 +26,5 @@
   <br/>  <br/>  <br/>  <br/>
 
 <!-- Footer  -->
-<jsp:include page="/WEB-INF/views/template/footer.jsp" />
+<jsp:include page="template/footer.jsp" />
 

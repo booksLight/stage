@@ -2,10 +2,6 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@taglib prefix="form" uri="http://www.springframework.org/tags/form" %>
 <%@taglib prefix="spring" uri="http://www.springframework.org/tags" %>
-<jsp:include page="/WEB-INF/views/template/header.jsp" />
-
-  <div class="container">
-
         <table class="table table-striped table-hover">
             <thead>
             <tr class="bg-success">
@@ -38,8 +34,6 @@
         </table>
 
         <a href="<spring:url value="/admin/product/addProduct"/>" class="btn btn-primary">Add product</a>
-</div>
-   
 
-<jsp:include page="/WEB-INF/views/template/footer.jsp" />
+   
 
