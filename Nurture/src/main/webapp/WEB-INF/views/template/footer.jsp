@@ -8,12 +8,12 @@
 
 			<div class="footer-left">
 				<h3><img class="img-circle"  src="<c:url value="/images/bottomLogo.png"/>"
-                             alt="image" style="width:20%" height="10%" > Books <span>Light</span></h3>
+                             alt="image" style="width:15%" height="10%" > Books <span>Light</span></h3>
 
 				<p class="footer-links">
 					<a href="/">Home</a>
 					&nbsp;|&nbsp;
-					<a href="/product/productList/0"> Products</a>
+					<a href="${pageContext.request.contextPath}/product/productList/0"> Products</a>
 					&nbsp;|&nbsp;	
 					<a href="#">Services</a>
 					&nbsp;|&nbsp;
@@ -45,7 +45,7 @@
 			<div class="footer-right">
 
 				<p class="footer-company-about">
-					<span>About <a href="/about">...</a></span>
+					<span>About <a href="${pageContext.request.contextPath}/about">...</a></span>
 					We are passionate about helping our customers to get the best experience here.
 				</p>
 

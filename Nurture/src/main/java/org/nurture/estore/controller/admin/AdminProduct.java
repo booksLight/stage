@@ -4,8 +4,10 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
+import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -44,10 +46,11 @@ public class AdminProduct {
 	AppManager manager;
 	 
 	 
-   @RequestMapping("/product/addProduct")
+   @GetMapping(path="/product/addProduct")
     public String addProduct(Model model, HttpServletRequest paramRequest) {
     	ctrLog(this.getClass(), "addProduct", "START");
-    	
+    	 String rootDirectory = manager.getContextPath(paramRequest);
+    	 System.out.println("\n ****************** the Root Context Path = "+rootDirectory);
     	String state = "addProduct";
     	model.addAttribute("model", manager.getUserModel(paramRequest));
     	
@@ -65,10 +68,11 @@ public class AdminProduct {
     }
 
    
-    @RequestMapping(value = "/product/addProduct", method = RequestMethod.POST)
+    @PostMapping(value = "/product/addProduct")
     public String addProductPost(@Valid @ModelAttribute("product") Product product,  BindingResult result, Model model, @RequestParam("file") MultipartFile file,  HttpServletRequest request) {
    
-    	
+    	 String rootDirectory = manager.getContextPath(request);
+    	 System.out.println("\n ****************** the Root Context Path = "+rootDirectory);
         if (result.hasErrors()) {
         	 ctrLog(this.getClass(), "addProductPost", "ERROR ="+result.toString());
             return "addProduct";
@@ -128,7 +132,7 @@ public class AdminProduct {
      	model.addAttribute("model", manager.getUserModel(request));
      	
         MultipartFile productImage = product.getProductImage();
-        String rootDirectory = request.getSession().getServletContext().getRealPath("/");
+        String rootDirectory = manager.getContextPath(request);
         path = Paths.get(rootDirectory + "/images/" + product.getProductId() + ".png");
 
         if (productImage != null && !productImage.isEmpty()) {

@@ -41,7 +41,7 @@ function popupClose(){
 				<h2>Sign In</h2>
 				<a class="close" href="javascript:popupClose()">Register</a>
 				<div class="content">
-					<form class="go-right" name="loginForm" action="<c:url value="/security_check"/>" method="post">
+					<form class="go-right" name="loginForm" action="<c:url value="${pageContext.request.contextPath}/security_check"/>" method="post">
 						
 							<div>
 								<input id="username" name="username" type="text"

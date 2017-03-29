@@ -4,7 +4,9 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
+import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
+import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.nurture.estore.controller.CartController;
@@ -41,6 +43,8 @@ public class AdminHome {
     @RequestMapping
     public String adminPage(Model model, HttpServletRequest paramRequest) {
     	ctrLog(this.getClass(), "adminPage", "START");
+    	 String rootDirectory = manager.getContextPath(paramRequest);
+    	 System.out.println("\n ****************** the Root Context Path = "+rootDirectory);
        	String state = "admin";
     	model.addAttribute("model", manager.getUserModel(paramRequest));
         
@@ -49,7 +53,7 @@ public class AdminHome {
     }
     
 
-    @RequestMapping("/productInventory")
+    @GetMapping(path="/productInventory")
     public String productInventory(Model model, HttpServletRequest paramRequest) {
     	ctrLog(this.getClass(), "productInventory", "START");
     	 String state = "productInventory";
@@ -61,7 +65,7 @@ public class AdminHome {
         return state;
     }
 
-    @RequestMapping("/customers")
+    @GetMapping(path="/customers")
     public String customerManagement(Model model, HttpServletRequest paramRequest) {
     	
     	ctrLog(this.getClass(), "customerManagement", "START");
@@ -76,7 +80,15 @@ public class AdminHome {
 
     }
     
-    
+    @GetMapping(path="/order")
+	 public String getOrderReport (Model model, HttpServletRequest paramRequest) {
+    	ctrLog(this.getClass(), "getOrderReport", "START");
+    	   model.addAttribute("model", manager.getUserModel(paramRequest));  	
+    	   model.addAttribute("model", manager.getModel(paramRequest));
+    	ctrLog(this.getClass(), "getOrderReport", "End");
+	    return "/admin/ordersReport";
+	} 
+	
     
     //Generic Logger for this class
     private void ctrLog(Class<? extends AdminHome> paramCclass, String paramMethod, String paramMsg) {

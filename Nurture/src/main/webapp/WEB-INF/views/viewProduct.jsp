@@ -35,12 +35,12 @@
                     <h4 class="fa fa-inr" style="font-size:22px;color:red">${product.productPrice}</h4>
                     <br>
                     <c:set var="role" scope="page" value="${param.role}"/>
-                    <c:set var="url" scope="page" value="/product/productList/0"/>
+                    <c:set var="url" scope="page" value="${pageContext.request.contextPath}/product/productList/0"/>
                     <c:if test="${role='admin'}">
-                        <c:set var="url" scope="page" value="/admin/productInventory/0"/>
+                        <c:set var="url" scope="page" value="${pageContext.request.contextPath}/admin/productInventory/0"/>
                     </c:if>
-                      <c:set var="ourl" scope="page" value="/cart/rest/cart/add/${product.productId}"/>
-                     <c:set var="curl" scope="page" value="/customer/cart"/>
+                      <c:set var="ourl" scope="page" value="${pageContext.request.contextPath}/rest/cart/add/${product.productId}"/>
+                     <c:set var="curl" scope="page" value="${pageContext.request.contextPath}/customer/cart"/>
 					
 					  <p ng-controller="cartCtrl">
                         <a href="<c:url value = "${url}" />" class="btn btn-default">Back</a>
@@ -53,6 +53,6 @@
         </div>
 
 
-<script src="<c:url value="/resources/js/controller.js"/>"></script>
+<script src="<c:url value="${pageContext.request.contextPath}/resources/js/controller.js"/>"></script>
 <!-- Footer  -->
 <jsp:include page="template/footer.jsp" />

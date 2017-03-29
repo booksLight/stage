@@ -14,7 +14,7 @@
          
             <p>${product.productName}</p>
             <p class="fa fa-inr" style="font-size:18px;color:red">${product.productPrice}</p>
-       		 <p><a href="<spring:url value='/product/viewProduct/${product.productId}'/>"><img src="<c:url value='/images/more.png'/>" style="width:30%; height:5%"><span class="glyphicon glyphicon-info-sign"></span></a></p>
+       		 <p><a href="<spring:url value='${pageContext.request.contextPath}/product/viewProduct/${product.productId}'/>"><img src="<c:url value='/images/more.png'/>" style="width:30%; height:5%"><span class="glyphicon glyphicon-info-sign"></span></a></p>
     </li><!-- more list items -->
      </c:forEach>
 </ul>

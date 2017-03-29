@@ -83,7 +83,7 @@
 
     <br><br>
     <input type="submit" value="Submit" class="btn btn-default">
-    <a href="<c:url value="/admin/productInventory"/>" class="btn btn-default">Cancel</a>
+    <a href="<c:url value="${pageContext.request.contextPath}/admin/productInventory"/>" class="btn btn-default">Cancel</a>
 
     </form:form>
-<%@include file="template/footer.jsp" %>
+<jsp:include page="template/footer.jsp" />

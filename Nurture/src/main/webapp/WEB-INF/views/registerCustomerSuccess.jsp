@@ -15,13 +15,13 @@
 
         <section class="container">
             <p>
-                <a href="<spring:url value="product/productList"/>" class="btn btn-default">Products</a>
+                <a href="<spring:url value="${pageContext.request.contextPath}/product/productList"/>" class="btn btn-default">Products</a>
             </p>
         </section>
 
 
 
-<script src="<c:url value="/resources/js/controller.js"/>"></script>
+<script src="<c:url value="${pageContext.request.contextPath}/resources/js/controller.js"/>"></script>
 
 
 <!-- Footer  -->

@@ -15,9 +15,9 @@
  <div class="pagination">
  <c:if test="${not empty pages}">
 	
-		<a href="/product/productList/0"  >&laquo; </a>
+		<a href="${pageContext.request.contextPath}/product/productList/0"  >&laquo; </a>
  		<c:forEach var="pp" items="${pages}">
-  			<a href="/product/productList/${pp}"> <c:out value="${pp}" /> </a>
+  			<a href="${pageContext.request.contextPath}/product/productList/${pp}"> <c:out value="${pp}" /> </a>
 		</c:forEach>
   <a href="#">&raquo;</a>
   </c:if>

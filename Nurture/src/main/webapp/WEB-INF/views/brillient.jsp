@@ -5,7 +5,7 @@
 <%@taglib prefix="form" uri="http://www.springframework.org/tags/form" %>
 <%@taglib prefix="spring" uri="http://www.springframework.org/tags" %>
  <link href="<c:url value="/resources/css/main.css"/>" rel="stylesheet"> <br/>  
- <jsp:include page="template/header.jsp" />
+<div class="header"> <jsp:include page="template/header.jsp" /></div>
   <div class="container"><br/>
  <center>
 	<div class="page-header">
@@ -16,9 +16,9 @@
 
 <div class="pagination">
  <c:if test="${fn:length(pages) > 0}">
-	<a href="/vender/brillient/0"  >&laquo; </a>
+	<a href="${pageContext.request.contextPath}/vender/brillient/0"  >&laquo; </a>
  <c:forEach var="p" items="${pages}">
-  <a href="/vender/brillient/${p}"> <c:out value="${p}" /> </a>
+  <a href="${pageContext.request.contextPath}/vender/brillient/${p}"> <c:out value="${p}" /> </a>
 </c:forEach>
   <a href="#">&raquo;</a>
  </c:if>
@@ -27,4 +27,5 @@
 </center>
 </div>
 <!-- Footer  -->
-<jsp:include page="template/footer.jsp" />
+<div class="footer">
+<jsp:include page="template/footer.jsp" /> </div>

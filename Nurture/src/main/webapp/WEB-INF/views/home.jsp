@@ -28,7 +28,7 @@
             <div class="container">
                 <div class="carousel-caption">
                     <h1>Brilliant Public School!</h1>
-                    <p><a class="btn btn-lg btn-primary" href="<c:url value="/vender/brillient/0"/>" role="button">HangOn</a></p>
+                    <p><a class="btn btn-lg btn-primary" href="<c:url value="${pageContext.request.contextPath}/vender/brillient/0"/>" role="button">HangOn</a></p>
                 </div>
             </div>
         </div>
@@ -47,7 +47,7 @@
 
                     <p>Co-Educational Senior Secondary institution affiliated to the CBSE!</p>
 
-                    <p><a class="btn btn-lg btn-primary" href="<c:url value="//login"/>" role="button">Let the Lighten</a></p>
+                    <p><a class="btn btn-lg btn-primary" href="<c:url value="${pageContext.request.contextPath}/login"/>" role="button">Let the Lighten</a></p>
                 </div>
             </div>
         </div>
@@ -67,7 +67,7 @@
 
                     <p>Buckets are easier for nurture & accomplishments!</p>
 
-                    <p><a class="btn btn-lg btn-primary" href="<c:url value="/login"/>" role="button">PTO</a></p>
+                    <p><a class="btn btn-lg btn-primary" href="<c:url value="${pageContext.request.contextPath}/login"/>" role="button">PTO</a></p>
                 </div>
             </div>
         </div>

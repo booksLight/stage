@@ -56,6 +56,10 @@ public class AppManager {
 	    @Autowired
 		private ClientService clientService;
 		 
+	   // Return Root Directory as a String
+	    public String getContextPath(HttpServletRequest paramReq){
+	    	return paramReq.getSession().getServletContext().getRealPath("/");
+	    }
 	
 		/*
 	 * Model Info 

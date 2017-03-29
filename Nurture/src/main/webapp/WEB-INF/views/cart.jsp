@@ -3,7 +3,7 @@
 <%@taglib prefix="form" uri="http://www.springframework.org/tags/form" %>
 <%@taglib prefix="spring" uri="http://www.springframework.org/tags" %>
 <jsp:include page="template/header.jsp" />
-<script src="<c:url value="/resources/js/controller.js"/>"></script>
+<script src="<c:url value="${pageContext.request.contextPath}/resources/js/controller.js"/>"></script>
 
 <div class="container-wrapper">
     <div class="container">
@@ -16,7 +16,7 @@
 
                 <div>
                     <a class="btn btn-danger pull-left" ng-click = "clearCart()"><span class="glyphicon glyphicon-remove-sign"></span> Clear Cart</a>
-                    <a href="<spring:url value="/order/${cartId}" />" class="btn btn-success pull-right"><span class="glyphicon glyphicon-shopping-cart"></span> Check out</a>
+                    <a href="<spring:url value="${pageContext.request.contextPath}/order/${cartId}" />" class="btn btn-success pull-right"><span class="glyphicon glyphicon-shopping-cart"></span> Check out</a>
                 </div>
 
                 <br/><br/><br/>
@@ -35,7 +35,7 @@
                         <td>${item.productVo.productPrice}</td>
                         <td>${item.quantity}</td>
                         <td>${item.totalPrice}</td>
-                        <td><a href="/cart/rest/cart/remove/${item.cartItemId}" class="label label-danger"><span class="glyphicon glyphicon-remove"></span>remove</a></td>
+                        <td><a href="${pageContext.request.contextPath}/rest/cart/remove/${item.cartItemId}" class="label label-danger"><span class="glyphicon glyphicon-remove"></span>remove</a></td>
                     </tr>
                     </c:forEach>
                     <tr>
@@ -47,7 +47,7 @@
                     </tr>
                 </table>
 
-                <a href="<spring:url value="/product/productList" />" class="btn btn-default">Continue Shopping</a>
+                <a href="<spring:url value="${pageContext.request.contextPath}/product/productList/0" />" class="btn btn-default">Continue Shopping</a>
             </div>
         
  </div></div>

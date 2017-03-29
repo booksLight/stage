@@ -87,7 +87,7 @@
         
           <tr  align="right">
          	<td colspan="3">	<input type="submit" id="bth-addProduct" value="Submit" class="btn btn-default"> 
-         	<a href="<c:url value="/admin/productInventory"/>" class="btn btn-default">Cancel</a> </td>
+         	<a href="<c:url value="${pageContext.request.contextPath}/admin/productInventory"/>" class="btn btn-default">Cancel</a> </td>
          </tr>
           </form:form>
           </table>

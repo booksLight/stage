@@ -2,7 +2,7 @@
 @import url('http://netdna.bootstrapcdn.com/font-awesome/4.1.0/css/font-awesome.css');
 /*  Tbas Reference : https://codepen.io/oknoblich/pen/tfjFl */
 .container-wrapper {
-    height: 80%;
+    height: 800%;
     margin: auto;
     margin-top: 5%;
     margin-bottom: 5%;
@@ -10,6 +10,7 @@
 .page-header{
 	margin-top: 5%;
     margin-bottom: 0%;
+    height: 10%;
 }
 .home-image {
     display: block;

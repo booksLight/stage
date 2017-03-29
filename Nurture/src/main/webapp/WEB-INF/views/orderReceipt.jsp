@@ -90,7 +90,7 @@
 
                         <br/><br/>
 
- <center>	<a class="btn btn-default" href="/cart/customer/cart">Okay</a> </center>
+ <center>	<a class="btn btn-default" href="${pageContext.request.contextPath}/customer/cart">Okay</a> </center>
 		
 		
 
@@ -101,6 +101,6 @@
         </div>
 
 
-<script src="<c:url value="/resources/js/controller.js"/>"></script>
+<script src="<c:url value="${pageContext.request.contextPath}/resources/js/controller.js"/>"></script>
 <!-- Footer  -->
 <jsp:include page="template/footer.jsp" />

@@ -45,9 +45,10 @@ private static final Logger logger = LoggerFactory.getLogger(AdminDaoImpl.class)
         
         List<Object[]> list = query.list();
         oms = new ArrayList<OrderMapper>();
-       
+       int counter=1;
         for(Object[] arr : list){
         	om = new OrderMapper();
+        	om.setId(counter);
         	om.setCustomerName(arr[0].toString());
         	om.setProductName(arr[1].toString());
         	om.setOrderedQty(((BigDecimal)arr[2]).intValue());
@@ -59,6 +60,7 @@ private static final Logger logger = LoggerFactory.getLogger(AdminDaoImpl.class)
 			om.setShipped((arr[9].toString() != null ? (arr[9].toString() == "true" ? true : false) : false));
 			oms.add(om);
 			 System.out.println("\n\t Result =  :"+om.toString());
+			 counter++;
 		}
         
        }catch(Exception e){

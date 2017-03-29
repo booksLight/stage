@@ -186,7 +186,7 @@
  
 </main>
 <div>
- <a href="<spring:url value="/order/confirmation/${cartId}" />" class="btn btn-success pull-right"><span class="glyphicon glyphicon-shopping-cart"></span> Check out</a>
+ <a href="<spring:url value="${pageContext.request.contextPath}/order/confirmation/${cartId}" />" class="btn btn-success pull-right"><span class="glyphicon glyphicon-shopping-cart"></span> Check out</a>
 </div>
 
 <jsp:include page="template/footer.jsp" />

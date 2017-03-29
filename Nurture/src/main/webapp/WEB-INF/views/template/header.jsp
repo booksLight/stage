@@ -11,16 +11,7 @@
     <link rel="stylesheet" href="http://maxcdn.bootstrapcdn.com/font-awesome/4.2.0/css/font-awesome.min.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
 	<link href="http://fonts.googleapis.com/css?family=Cookie" rel="stylesheet" type="text/css">
-	<link href="<c:url value="/resources/css/demo.css"/>" rel="stylesheet">
-	<link href="<c:url value="/resources/css/footer.css"/>" rel="stylesheet">
 	
-    <link rel="stylesheet" href="//code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
-
-	<link href="<c:url value="/resources/css/jquery-ui.css"/>" rel="stylesheet">
-
-   
-    
-    
     <!-- The above 3 meta tags *must* come first in the head; any other head content must come *after* these tags -->
     <meta name="description" content="">
     <meta name="author" content="">
@@ -28,25 +19,27 @@
 
     <title>Books Light</title>
 
-    <!-- Angular JS -->
-    <script src = "https://ajax.googleapis.com/ajax/libs/angularjs/1.4.3/angular.min.js"></script>
-   
     <!-- Bootstrap core CSS -->
     <link href="<c:url value="/resources/css/bootstrap.min.css"/>" rel="stylesheet">
-
-    <!-- Carousel CSS -->
     <link href="<c:url value="/resources/css/carousel.css"/>" rel="stylesheet">
-
-    <!-- Main CSS -->
-    <link href="<c:url value="/resources/css/main.css"/>" rel="stylesheet">
+    <link href="<c:url value="/resources/css/main.css"/>" rel="stylesheet">    
+    <link href="<c:url value="/resources/css/jquery-ui.css"/>" rel="stylesheet">
+    <link href="<c:url value="/resources/css/demo.css"/>" rel="stylesheet">
+	<link href="<c:url value="/resources/css/footer.css"/>" rel="stylesheet">	
+   <link href="<c:url value="/resources/media/css/jquery.dataTables.min.css"/>" rel="stylesheet">  
+   
 
   <!-- Common JS -->
-       <script src="<c:url value="/resources/js/controller.js"/>"></script>
-		<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.2/jquery.min.js"></script>
-		<script>window.jQuery || document.write('<script src="<c:url value="/resources/js/jquery-1.12.2.min.js"/>"><\/script>')</script>
+   	<script src = "https://ajax.googleapis.com/ajax/libs/angularjs/1.4.3/angular.min.js"></script>
+        <script src="<c:url value="/resources/js/jquery-1.12.2.min.js"/>"></script>
+        <script src="<c:url value="/resources/media/js/jquery.js"/>"></script>
+        <script src="<c:url value="/resources/media/js/jquery.dataTables.min.js"/>"></script>
+        <script src="<c:url value="/resources/js/controller.js"/>"></script>
 		<script src="<c:url value="/resources/js/bootstrap.min.js"/>"></script>
-		<script src="<c:url value="/resources/js/jquery-ui.js.js"/>"></script>
-			 <script src="<c:url value="/resources/js/admin.js"/>"></script>
+		<script src="<c:url value="/resources/js/jquery-ui.js"/>"></script>
+		
+		
+
 </head>
 <!-- NAVBAR ================================================== -->
 <body>
@@ -72,8 +65,8 @@
                 	<div id="hDiv" class="hgdiv" style="display:block">
                 	<div style="page-break-inside: avoid">
                     <ul class="nav navbar-nav">
-                        <li <%--class="active"--%>><a href="<c:url value="/"/>">${model.home}</a></li>
-                        <li><a href="<c:url value="/product/productList/0"/>">${model.product}</a></li>
+                        <li <%--class="active"--%>><a href="<c:url value="${pageContext.request.contextPath}/"/>">${model.home}</a></li>
+                        <li><a href="<c:url value="${pageContext.request.contextPath}/product/productList/0"/>">${model.product}</a></li>
                         <li><a href="#contact">${model.contact}</a></li>
                     </ul>
                     </div>
@@ -84,23 +77,23 @@
                          <c:if test="${model.userVo.name != null}">
                             
                             <li><a>Welcome: ${model.userVo.name}</a></li>
-                            <li><a href="<c:url value="/security_logout"/>">Logout</a></li>
+                            <li><a href="<c:url value="${pageContext.request.contextPath}/security_logout"/>">Logout</a></li>
                           </c:if>
                           
                             <c:if test="${model.userVo.type == 'ADMIN'}">
-                              <li><a href="<c:url value="/customer/cart"/>">Cart</a></li>
-                               <li><a href="<c:url value="/customer/profile"/>">Profile</a></li>
-                                <li><a href="<c:url value="/admin"/>">Admin</a></li>
+                              <li><a href="<c:url value="${pageContext.request.contextPath}/customer/cart"/>">Cart</a></li>
+                               <li><a href="<c:url value="${pageContext.request.contextPath}/customer/profile"/>">Profile</a></li>
+                                <li><a href="<c:url value="${pageContext.request.contextPath}/admin"/>">Admin</a></li>
                                 
                                </c:if>
                             
                              <c:if test="${model.userVo.type == 'CUSTOMER'}">
-                               <li><a href="<c:url value="/customer/cart"/>">Cart</a></li>
-                                <li><a href="<c:url value="/customer/profile"/>">Profile</a></li>
+                               <li><a href="<c:url value="${pageContext.request.contextPath}/customer/cart"/>">Cart</a></li>
+                                <li><a href="<c:url value="${pageContext.request.contextPath}/customer/profile"/>">Profile</a></li>
                             </c:if>
                         </c:if> 
                         <c:if test="${model.userVo == null}">
-                            <li><a href="<c:url value="/login"/>">Login</a></li>
+                            <li><a href="<c:url value="${pageContext.request.contextPath}/login"/>">Login</a></li>
                         </c:if>
                     </ul>
                   

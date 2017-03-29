@@ -63,7 +63,7 @@
         	  	<c:forEach items="${orders}" var="order">
         	  	<c:set var="stamp" value="${order.getStamped()}" />
         	  	<tr> <td align="center" width="25%">
-        	  		<a href="/order/book/${order.customerOrderId}">
+        	  		<a href="${pageContext.request.contextPath}/order/book/${order.customerOrderId}">
         	  			BT-<fmt:formatDate pattern="yyMMdd" value="${stamp}" />${order.customerOrderId}
         	  		</a>
         	  		</td>
